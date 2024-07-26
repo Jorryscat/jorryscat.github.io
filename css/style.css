@@ -185,6 +185,11 @@
     --selection-bg: #cedeff;
   }
 }
+
+
+
+
+
 body {
   width: 100%;
 }
@@ -308,6 +313,7 @@ body,
   height: 100%;
 }
 body {
+  cursor: url("../images/cursor.svg") 16 16, auto;
   font: 16px "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-text-size-adjust: 100%;
   background: var(--page-background);
@@ -427,6 +433,16 @@ body {
 }
 ::selection {
   background-color: var(--selection-bg);
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: rgba(255,255,255,0.5); /* 半透明的滚动条 */
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a9bbe2;
 }
 .article-date,
 .article-category-link,
@@ -810,12 +826,7 @@ navbar {
   background: var(--btn-text-active);
 }
 #title-nav a #vivia-logo {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
+  display: none;
   -webkit-box-lines: multiple;
   -moz-box-lines: multiple;
   -webkit-flex-wrap: wrap;
@@ -824,15 +835,16 @@ navbar {
   gap: 4px;
   width: 20px;
   height: 20px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: rotate(105deg);
+  -moz-transform: rotate(105deg);
+  -ms-transform: rotate(105deg);
+  transform: rotate(105deg);
   margin-right: 20px;
 }
 #title-nav a #vivia-logo .dot {
-  height: 8px;
-  width: 8px;
+  display: none;
+  height: 0px;
+  width: 0px;
   border-radius: 50%;
   background: var(--btn-text-content);
 }
@@ -2999,4 +3011,31 @@ input[type="range"] {
   text-wrap: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+/* 加了泡泡事件 */
+body{
+  overflow: hidden;
+}
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background-color: purple; /* 泡泡颜色 */
+  opacity: 0.7; /* 设置透明度 */
+  pointer-events: none; /* 防止泡泡干扰鼠标事件 */
+  animation: bubble-animation 0.6s forwards; /* 使用动画 */
+}
+
+@keyframes bubble-animation {
+  0% {
+      transform: scale(0); /* 从完全透明的小尺寸开始 */
+      opacity: 0.7;       /* 初始透明度 */
+  }
+  50% {
+      transform: scale(1.5); /* 扩大泡泡 */
+      opacity: 0.7;          /* 在动画中间保持透明度 */
+  }
+  100% {
+      transform: scale(0); /* 最后缩小到消失 */
+      opacity: 0;          /* 最后逐渐消失 */
+  }
 }
