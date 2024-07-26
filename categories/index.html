@@ -303,13 +303,57 @@
     <div id="footer-wrapper">
       <footer id="footer">
   
-  <div id="footer-info" class="inner">
-    
-    &copy; 2024 Jorry<br>
-    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
-  </div>
-</footer>
+        <div id="footer-info" class="inner">
+          
+                &copy; 2024
+                  Jorry<br>
+                    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a
+                        target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
 
+                      <!-- 网站运行时间 -->
+                      <br />
+                      <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+                      <script>
+                        var now = new Date();
+
+                        function createtime() {
+                          var grt = new Date("07/27/2024 04:00:00"); // 设置为你的实际建站时间
+                          now.setTime(now.getTime() + 250);
+
+                          // 计算相隔的天数
+                          var days = (now - grt) / 1000 / 60 / 60 / 24;
+                          var dnum = Math.floor(days);
+
+                          // 计算相隔的小时数
+                          var hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+                          var hnum = Math.floor(hours);
+                          if (String(hnum).length == 1) {
+                            hnum = "0" + hnum;
+                          }
+
+                          // 计算相隔的分钟数
+                          var minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+                          var mnum = Math.floor(minutes);
+                          if (String(mnum).length == 1) {
+                            mnum = "0" + mnum;
+                          }
+
+                          // 计算相隔的秒数
+                          var seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+                          var snum = Math.round(seconds);
+                          if (String(snum).length == 1) {
+                            snum = "0" + snum;
+                          }
+
+                          // 更新页面显示
+                          document.getElementById("timeDate").innerHTML = " | 本站已安全运行 " + dnum + " 天 ";
+                          document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+                        }
+
+                        setInterval(createtime, 250); // 定时调用 createtime 函数
+                      </script>
+        </div>
+</footer>
     </div>
     <div class="back-to-top-wrapper">
     <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
