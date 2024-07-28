@@ -665,7 +665,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     border-radius: 50% 0 0 50%;
   }
   #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-menu:hover{
-    background-color: #000000a1
+    background-color: #000000a1;
     padding: 14px;
     
   }
