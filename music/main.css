@@ -656,17 +656,17 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     position: fixed;
     right: 0%;
     z-index: 999999;
-    top: 88px;
+    top: 90px;
     width: 24px;
     height: 24px;
     opacity: 1;
     margin-top: -0px;
-    background-color: #000000be; 
+    background-color: #000000da; 
     padding: 12px;
     border-radius: 50% 0 0 50%;
   }
   #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-menu:hover{
-    background-color: #000000a1;
+    background-color: #000000e0;
     padding: 14px;
     
   }
