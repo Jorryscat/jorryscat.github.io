@@ -693,7 +693,6 @@ navbar,
 }
 @media screen and (max-width: 767px) {
   :root #nav {
-    opacity: 1;
     height: auto;
     min-height: 72px;
   }
@@ -899,7 +898,7 @@ navbar {
   display: box;
   display: flex;
   position: relative;
-  cursor: pointer;
+  cursor: url("../images/cursor_pointer.svg") 16 16, pointer;
   -webkit-box-pack: center;
   -moz-box-pack: center;
   -ms-flex-pack: center;
