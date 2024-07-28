@@ -660,12 +660,12 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     height: 24px;
     opacity: 1;
     margin-top: -0px;
-    background-color: #000000a1; 
+    background-color: #000000be; 
     padding: 12px;
     border-radius: 50% 0 0 50%;
   }
   #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-menu:hover{
-    background-color: #00000027;
+    background-color: #000000a1
     padding: 14px;
     
   }
