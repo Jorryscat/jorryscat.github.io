@@ -576,6 +576,21 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     padding-top: 20px;
     height: calc(var(--vh) - 164px);
   }
+
+  #heoMusic-page .aplayer-body::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    /* 调整伪元素的位置 */
+    left: 0;
+    right: 0;
+    height: 20px;
+    /* 伪元素的高度 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    z-index: -1;
+    /* 确保伪元素位于 div 背后 */
+  }
+
   #heoMusic-page .aplayer-pic {
     margin-top: -90px;
     margin-bottom: 270px;
@@ -666,15 +681,17 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     height: 24px;
     opacity: 1;
     margin-top: -0px;
-    background-color: #000000da; 
+    background-color: #000000da;
     padding: 12px;
     border-radius: 50% 0 0 50%;
   }
-  #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-menu:hover{
+
+  #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-menu:hover {
     background-color: #000000e0;
     padding: 14px;
-    
+
   }
+
   #heoMusic-page .aplayer-volume-bar-wrap {
     bottom: 0px;
     right: 7px;
@@ -760,5 +777,5 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
 
 
 
-  
+
 }
