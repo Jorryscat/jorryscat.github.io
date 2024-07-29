@@ -30,7 +30,7 @@ let fairyDustCursor = function () {
     // Bind events that are needed
     function bindEvents() {
         document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('touched', onTouched);
+        document.addEventListener('touchend', onTouchend);
         document.addEventListener('click', onMouseClick); // 添加点击事件的监听
         window.addEventListener('resize', onWindowResize);
     }
@@ -44,7 +44,7 @@ let fairyDustCursor = function () {
         // 在点击时调用 addParticle 方法
         addParticle(e.clientX, e.clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
     }
-    function onTouched(e) {
+    function onTouchend(e) {
         // 在点击时调用 addParticle 方法
         addParticle(e.clientX, e.clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
     }
