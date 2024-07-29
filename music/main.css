@@ -562,9 +562,6 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
   #heoMusic-page ol>li.aplayer-list-light span.aplayer-list-author {
     right: 15px;
   }
-  #heoMusic-page{
-    padding-top: 10px;
-  }
 
   /* 歌词信息 */
   #heoMusic-page .aplayer-body {
@@ -572,11 +569,16 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     overflow: hidden;
     position: fixed;
     margin: auto;
+    margin-top: -20px;
     left: 0;
     right: 0;
     top: 0px;
     padding-top: 20px;
     height: calc(var(--vh) - 200px);
+  }
+  #heoMusic-page .aplayer-pic {
+    margin-top: -120px;
+    margin-bottom: 160px;
   }
 
   #heoMusic-page .aplayer-info .aplayer-lrc {
