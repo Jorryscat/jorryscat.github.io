@@ -577,7 +577,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     height: calc(var(--vh) - 164px);
   }
 
-  #heoMusic-page .aplayer-body::before {
+  /* #heoMusic-page .aplayer-body::before {
     content: '';
     position: absolute;
     top: -20px;
@@ -589,7 +589,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
     z-index: -1;
     /* 确保伪元素位于 div 背后 */
-  }
+  } */
 
   #heoMusic-page .aplayer-pic {
     margin-top: -90px;
