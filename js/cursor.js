@@ -1,5 +1,5 @@
 // 星星代码
-(function fairyDustCursor() {
+function fairyDustCursor() {
     var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"]
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -122,4 +122,7 @@
     }
 
     if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) init();
-})();    
+};
+
+
+fairyDustCursor();
