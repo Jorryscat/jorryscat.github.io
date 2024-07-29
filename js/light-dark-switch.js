@@ -14,9 +14,9 @@ let themeFunc = async function () {
 themeFunc();
 
 
-// 星星代码
 let fairyDustCursor = function () {
-    var possibleColors = ["#95a8d4", "#936ff4", "#dad9f1", "#ffffff", "#5d74c0", "#d1d7ec"]
+    var possibleColors = ["#95a8d4", "#936ff4", "#dad9f1", "#ffffff", "#5d74c0", "#d1d7ec"];
+    const characters = ["."]; // 字符数组
     var width = window.innerWidth;
     var height = window.innerHeight;
     var cursor = { x: width / 2, y: width / 2 };
@@ -27,12 +27,10 @@ let fairyDustCursor = function () {
         loop();
     }
 
-    // Bind events that are needed
     function bindEvents() {
-        // document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('touchend', onTouchend);
         document.addEventListener('touchstart', onTouchend);
-        document.addEventListener('click', onMouseClick); // 添加点击事件的监听
+        document.addEventListener('click', onMouseClick);
         window.addEventListener('resize', onWindowResize);
     }
 
@@ -42,42 +40,36 @@ let fairyDustCursor = function () {
     }
 
     function onMouseClick(e) {
-        // 在点击时调用 addParticle 方法
-        addParticle(e.clientX, e.clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        for (let i = 0; i < 3; i++) {
+            addParticle(e.clientX, e.clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        }
+
     }
     function onTouchend(e) {
-        // 在点击时调用 addParticle 方法
-        addParticle(e.clientX, e.clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
-    }
-
-    function onMouseMove(e) {
-        cursor.x = e.clientX;
-        cursor.y = e.clientY;
-
-        addParticle(cursor.x, cursor.y, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        for (let i = 0; i < 3; i++) {
+            const touch = e.changedTouches[0];
+            addParticle(touch.clientX, touch.clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        }
     }
 
     function addParticle(x, y, color) {
+        const character = characters[Math.floor(Math.random() * characters.length)]; // 随机选择字符
         var particle = new Particle();
-        particle.init(x, y, color);
+        particle.init(x, y, color, character); // 传递字符
         particles.push(particle);
     }
 
     function updateParticles() {
-
-        // Updated
         for (var i = 0; i < particles.length; i++) {
             particles[i].update();
         }
 
-        // Remove dead particles
         for (var i = particles.length - 1; i >= 0; i--) {
             if (particles[i].lifeSpan < 0) {
                 particles[i].die();
                 particles.splice(i, 1);
             }
         }
-
     }
 
     function loop() {
@@ -85,14 +77,8 @@ let fairyDustCursor = function () {
         updateParticles();
     }
 
-    /**
-     * Particles
-     */
-
     function Particle() {
-
-        this.character = "。";
-        this.lifeSpan = 120; //ms
+        this.lifeSpan = 400; //ms
         this.initialStyles = {
             "position": "fixed",
             "display": "inline-block",
@@ -105,22 +91,18 @@ let fairyDustCursor = function () {
             "will-change": "transform"
         };
 
-        // Init, and set properties
-        this.init = function (x, y, color) {
-
+        this.init = function (x, y, color, character) {
             this.velocity = {
                 x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
                 y: 1
             };
-
             this.position = { x: x + 10, y: y + 10 };
             this.initialStyles.color = color;
 
             this.element = document.createElement('span');
-            this.element.innerHTML = this.character;
+            this.element.innerHTML = character; // 设置字符内容
             applyProperties(this.element, this.initialStyles);
             this.update();
-
             document.querySelector('html').appendChild(this.element);
         };
 
@@ -135,14 +117,8 @@ let fairyDustCursor = function () {
         this.die = function () {
             this.element.parentNode.removeChild(this.element);
         }
-
     }
 
-    /**
-     * Utils
-     */
-
-    // Applies css `properties` to an element.
     function applyProperties(target, properties) {
         for (var key in properties) {
             target.style[key] = properties[key];
@@ -151,6 +127,5 @@ let fairyDustCursor = function () {
 
     if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) init();
 };
-
 
 fairyDustCursor();
