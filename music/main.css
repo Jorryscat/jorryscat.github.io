@@ -126,17 +126,12 @@ body #nav-music {
 }
 
 #heoMusic-page .aplayer-body {
-  /* 仅在顶部创建阴影 */
-  /* padding-top: 30px; */
-  /* position: absolute; */
   position: relative;
   bottom: 0;
   width: 50vw;
   height: 75vh;
-  /* background: #000; */
   overflow: hidden;
   padding-top: 20px;
-  /* background-color: #000; */
 }
 
 
@@ -164,8 +159,6 @@ body #nav-music {
     /* 第六圈光圈 */
     inset 0 0 20px rgba(255, 255, 255, 0.2);
   /* 室内光泽 */
-
-
   border-radius: 50%;
   overflow: hidden;
   margin: auto;
