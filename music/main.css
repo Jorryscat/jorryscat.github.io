@@ -582,7 +582,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
   }
 
   #heoMusic-page .aplayer-info .aplayer-lrc {
-    margin-top: -30px;
+    margin-top: -10px;
     height: auto;
     min-height: 100%;
     mask-image: linear-gradient(to bottom, #000, #000, #000, #000, #0000, #0000);
