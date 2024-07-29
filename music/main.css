@@ -571,7 +571,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     margin: auto;
     left: 0;
     right: 0;
-    top: 0;
+    top: -20px;
     padding-top: 0px;
     height: calc(var(--vh) - 200px);
   }
