@@ -569,11 +569,11 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     overflow: hidden;
     position: fixed;
     margin: auto;
-    transform: translateY(-20px);
+    /* transform: translateY(-20px); */
     left: 0;
     right: 0;
     top: 0px;
-    padding-top: 20px;
+    padding-top: 0px;
     height: calc(var(--vh) - 200px);
   }
   #heoMusic-page .aplayer-pic {
