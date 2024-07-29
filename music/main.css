@@ -572,7 +572,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     left: 0;
     right: 0;
     top: 0;
-    padding-top: 20px;
+    padding-top: 0px;
     height: calc(var(--vh) - 200px);
   }
 
@@ -656,7 +656,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     position: fixed;
     right: 0%;
     z-index: 999999;
-    top: 90px;
+    top: 70px;
     width: 24px;
     height: 24px;
     opacity: 1;
