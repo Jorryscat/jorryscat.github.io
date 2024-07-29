@@ -577,8 +577,8 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     height: calc(var(--vh) - 164px);
   }
   #heoMusic-page .aplayer-pic {
-    margin-top: -84px;
-    margin-bottom: 196px;
+    margin-top: -90px;
+    margin-bottom: 170px;
   }
 
   #heoMusic-page .aplayer-info .aplayer-lrc {
