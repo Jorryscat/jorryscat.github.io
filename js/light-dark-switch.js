@@ -29,8 +29,9 @@ let fairyDustCursor = function () {
 
     // Bind events that are needed
     function bindEvents() {
-        document.addEventListener('mousemove', onMouseMove);
+        // document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('touchend', onTouchend);
+        document.addEventListener('touchstart', onTouchend);
         document.addEventListener('click', onMouseClick); // 添加点击事件的监听
         window.addEventListener('resize', onWindowResize);
     }
