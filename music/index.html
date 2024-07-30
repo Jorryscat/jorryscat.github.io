@@ -87,7 +87,7 @@
 
           <a class="navLink" href="/archives">Archives</a>
 
-          <a class="navLink" href="/music">Music</a>
+          <!-- <a class="navLink" href="/music">Music</a> -->
 
           <a class="navLink" href="/lab">Lab</a>
 
@@ -179,15 +179,16 @@
 
 
   </script>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <!-- 局部刷新，保证跨页播放器还能播放 -->
+  <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 
   <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
 
-  <script>
+  <script> -->
 
-    // 对所有链接跳转事件绑定pjax容器container
+  // 对所有链接跳转事件绑定pjax容器container
 
-    $(document).pjax('a[target!=_blank]', '#container', { fragment: '#container', timeout: 8000 })
+  <!-- $(document).pjax('a[target!=_blank]', '#container', { fragment: '#container', timeout: 8000 }) -->
 
   </script>
 
