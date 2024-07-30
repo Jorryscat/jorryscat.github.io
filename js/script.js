@@ -103,10 +103,17 @@
     });
   });
 
+  // 确保初始化 Fancybox，有关闭按钮
   if ($.fancybox) {
-    $('.fancybox').fancybox();
+    $('.fancybox').fancybox({
+      buttons: [
+        'close' // 确保出现关闭按钮
+      ],
+    });
   }
-
+  // if ($.fancybox) {
+  //   $('.fancybox').fancybox();
+  // }
   // Mobile nav
   var $container = $('#container'),
     isMobileNavAnim = false,

@@ -11,17 +11,27 @@
 <head>
   <meta charset="utf-8">
   
-  
-  
+    
+      
 
-  
-  <title>记录一次播放器魔改 | Jorry&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+        
 
-  <meta name="description" content="部署完博客后在思考整体的框架，以及如何添加一些合理的功能。Vivia这个主题深得我心，就是相比butterfly或者anzhiyu主题，可供选择的功能相对较少，不过确实给了我一些发挥的空间，比如一款可以在我的博客访问的音乐列表。  刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 Aplayer 以及 MetingJS 的二次开发。Aplayer 是一款效果">
+          <title>
+            
+              记录一次播放器魔改 |
+                
+                  Jorry&#39;s Blog
+          </title>
+
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+          <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf"
+            crossorigin="anonymous">
+          <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf"
+            crossorigin="anonymous">
+
+          <meta name="description" content="部署完博客后在思考整体的框架，以及如何添加一些合理的功能。Vivia这个主题深得我心，就是相比butterfly或者anzhiyu主题，可供选择的功能相对较少，不过确实给了我一些发挥的空间，比如一款可以在我的博客访问的音乐列表。  刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 Aplayer 以及 MetingJS 的二次开发。Aplayer 是一款效果">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录一次播放器魔改">
 <meta property="og:url" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/index.html">
@@ -30,24 +40,31 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/result.png">
 <meta property="article:published_time" content="2024-07-29T08:55:46.000Z">
-<meta property="article:modified_time" content="2024-07-30T11:18:34.830Z">
+<meta property="article:modified_time" content="2024-07-30T14:31:31.624Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="MetingJS">
 <meta property="article:tag" content="魔改">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/result.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Jorry's Blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.svg">
-  
-  
+
+            
+                  <link rel="alternate" href="/atom.xml" title="Jorry's Blog" type="application/atom+xml">
+                    
+
+                      
+                        <link rel="shortcut icon" href="/images/favicon.svg">
+                          
+
+                              <!-- 引入 Fancybox 的 CSS -->
+                              <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+                              <!-- 引入 Fancybox 的 JS -->
+                              <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+                              
 <link rel="stylesheet" href="/css/style.css">
 
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 <body>
   
    
@@ -278,36 +295,30 @@
           <blockquote>
 <p>部署完博客后在思考整体的框架，以及如何添加一些合理的功能。<strong>Vivia</strong>这个主题深得我心，就是相比butterfly或者anzhiyu主题，可供选择的功能相对较少，不过确实给了我一些发挥的空间，比如一款可以在我的博客访问的音乐列表。</p>
 </blockquote>
-<p>刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 <strong>Aplayer</strong> 以及 <strong>MetingJS</strong> 的二次开发。Aplayer 是一款效果不错的播放器插件，感兴趣的话可以到文档查阅。目前在文章中插入使用的是对hexo框架更为友好的 <strong>hexo-tag-aplayer</strong> ，非常好上手，链接：<a target="_blank" rel="noopener" href="https://easyhexo.com/3-Plugins-use-and-config/3-1-hexo-tag-aplayer/">hexo-tag-aplayer | Easy Hexo 👨‍💻</a> </p>
+<p>刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 <strong>Aplayer</strong> 以及 <strong>MetingJS</strong> 的二次开发。Aplayer 是一款效果不错的播放器插件，感兴趣的话可以到文档查阅。目前在文章中插入使用的是对hexo框架更为友好的 <strong>hexo-tag-aplayer</strong> ，非常好上手，链接：<a target="_blank" rel="noopener" href="https://easyhexo.com/3-Plugins-use-and-config/3-1-hexo-tag-aplayer/">hexo-tag-aplayer | Easy Hexo 👨‍💻</a></p>
 <hr>
-
 <p>对于网页播放器，我是在这位 <a target="_blank" rel="noopener" href="https://blog.zhheo.com/">张洪Heo - 分享设计与科技生活 (zhheo.com)</a> 大佬的项目上小改的。</p>
-<p>GitHub：<a target="_blank" rel="noopener" href="https://github.com/zhheo/HeoMusic/">zhheo&#x2F;HeoMusic: 一个基于Aplayer和MetingJS的静态音乐播放器 (github.com)</a>。</p>
+<p>GitHub：<a target="_blank" rel="noopener" href="https://github.com/zhheo/HeoMusic/">zhheo/HeoMusic: 一个基于Aplayer和MetingJS的静态音乐播放器 (github.com)</a>。</p>
 <p>修改后的版本长这样：</p>
-<p><img src="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/result.png" alt="修改后的样式"></p>
+<p><a data-fancybox href="./result.png" title="修改后的播放器样式"> <img src="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/result.png" alt="缩略图"> </a></p>
 <p>vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可行的，可以在hexo中新增一个自定义网页，以满足开发需求。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> page <span class="string">&quot;music&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>这样在 <code>/source</code> 下会生成 <code>/music</code>文件夹，默认状态下该文件夹下有一个 index.html 以及一个用于存放静态资源的文件夹。</p>
 <p>同时为了避免hexo对新建的文件进行渲染，还需要在博客根目录的 <code>_config.yml</code> 文件中修改一下项目配置，找到 <code>skip_render</code> 选项并设置需要跳过渲染的文件或文件夹。方便起见，我设置了music文件夹下的所有文件都跳过渲染。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">skip_render:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">./music/**</span></span><br></pre></td></tr></table></figure>
-
 <p>这样，就能通过博客根站点 + 相对source的路径访问到你的新网页了，比如 <code>https://jorryscat.cn/music</code> 。如果你想把该网页添加到导航栏的话，还需要在对应主题下的配置文件中进行配置。对于vivia主题，我的配置为：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># Links in the navigation bar</span></span><br><span class="line">  <span class="attr">Home:</span> <span class="string">/</span></span><br><span class="line">  <span class="attr">Archives:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="attr">Music:</span> <span class="string">/music</span></span><br><span class="line">  <span class="attr">About:</span> <span class="string">/about</span></span><br><span class="line"><span class="attr">rss:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
-
-<p>建好之后，就可以开心魔改你的 player 了🤌。</p>
+<p>建好之后，就可以开心魔改你的 player 了🤌​。</p>
 <p>首先拉取一下大佬贡献的初始代码，并且把它们整到我的music文件夹中，观察之后发现魔改可以从两个方面入手，一个是给出的样本网页 <code>index.html</code> ，一个是大大提供的 <code>main.css</code> ，粗略阅读一下代码后基本可以确定代码的结构：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 处理播放器背景</span><br><span class="line">- 处理歌单列表</span><br><span class="line">- 处理播放器</span><br><span class="line">- 处理控制器</span><br></pre></td></tr></table></figure>
-
-<p>按照需要进行修改就可以了，项目本身做得很好看，无奈我是小号字体爱好者，所以改的部分主要是歌词展示以及播放器效果，同时为了适配我的网站，增加了一个顶部导航栏并且做了同样的样式。因为这个index刚开始就是从生成的 <code>/public/music/index.html</code> 中拿过来用的，所以发生了一些比较 <del>抓马</del> 的事情，生成的网页在本地访问一切正常，但是上传并通过vercel部署的时候所有样式都丢了。后面解决方法是把原来对 aplayer 的相关引用都改到 source 的相对路径下，部署后能成功访问。（ 后面我思考可能是我一开始拿 index 的时候里面本身引入了 vivia的样式和逻辑😐）</p>
-<p>修改的时候可以开一下本地访问，在博客根目录右键 <code>git bash here</code> 分别输入 </p>
+<p>按照需要进行修改就可以了，项目本身做得很好看，无奈我是小号字体爱好者，所以改的部分主要是歌词展示以及播放器效果，同时为了适配我的网站，增加了一个顶部导航栏并且做了同样的样式。因为这个index刚开始就是从生成的 <code>/public/music/index.html</code> 中拿过来用的，所以发生了一些比较 <s>抓马</s> 的事情，生成的网页在本地访问一切正常，但是上传并通过vercel部署的时候所有样式都丢了。后面解决方法是把原来对 aplayer 的相关引用都改到 source 的相对路径下，部署后能成功访问。（ 后面我思考可能是我一开始拿 index 的时候里面本身引入了 vivia的样式和逻辑😐）</p>
+<p>修改的时候可以开一下本地访问，在博客根目录右键 <code>git bash here</code> 分别输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
 <p>本地服务器查看修改的效果，运行 <code>hexo g</code> 以及<code>hexo d</code> 上传到 github并且部署就🆗了。</p>
 <p>播放器改完后还是有一些bug，比如自转动画的问题（主要出在对 aplayer 的监听，可能是当时搞的时候急着睡觉所以抓耳挠腮有点浮躁，先放着吧，到时候再来解决）。</p>
 <p>先这样😪，我又该睡觉了。</p>
 <p>感谢各位大佬开源项目的无私贡献 ~</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/anzhiyu-c">@anzhiyu</a> , <a target="_blank" rel="noopener" href="https://github.com/zhheo">@张洪Heo</a> , <a target="_blank" rel="noopener" href="https://github.com/Glowed">@Glowed</a> </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/anzhiyu-c">@anzhiyu</a> , <a target="_blank" rel="noopener" href="https://github.com/zhheo">@张洪Heo</a> , <a target="_blank" rel="noopener" href="https://github.com/Glowed">@Glowed</a></p>
 
         
 
