@@ -62,7 +62,8 @@
       padding: 12px 16px;
       border-radius: 8px;
     }
-    .navLink:hover{
+
+    .navLink:hover {
       background-color: #ffffff44;
       color: white;
     }
@@ -73,7 +74,7 @@
 
 
   <div id="main-grid" class="">
-    <div id="nav" class="" >
+    <div id="nav" class="">
       <navbar id="navbar" style="background:transparent;">
         <nav id="title-nav">
           <!-- <a href="/" >
@@ -175,6 +176,19 @@
     window.onscroll = function () {
       scrollFunction();
     }
+
+
+  </script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+  <script>
+
+    // 对所有链接跳转事件绑定pjax容器container
+
+    $(document).pjax('a[target!=_blank]', '#container', { fragment: '#container', timeout: 8000 })
+
   </script>
 
   </div>
