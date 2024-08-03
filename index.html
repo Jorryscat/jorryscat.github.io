@@ -50,7 +50,7 @@
                                 <div id="loading-spinner">
                                   <!-- Pseudo-elements will be created automatically, so no need for additional markup -->
                                 </div>
-                                <!-- <p id="loading-tip">loading ... </p> -->
+                                <p id="loading-tip">Loading...</p>
                               </div>
 
 
@@ -78,6 +78,7 @@
 
                                 window.onload = function () {
                                   var loadingOverlay = document.getElementById("loading-overlay");
+                                  
 
                                   loadingOverlay.style.display = "none"; // 所有资源加载完成后隐藏 loading 效果
                                 };
