@@ -55,6 +55,17 @@
                         <link rel="shortcut icon" href="/images/favicon.svg">
                           
 
+                              <!-- Loading effect -->
+                              <div id="loading-overlay" class="loading-overlay">
+                                <div id="loading-spinner">
+                                  <!-- Pseudo-elements will be created automatically, so no need for additional markup -->
+                                </div>
+                                <!-- <p id="loading-tip">loading ... </p> -->
+                              </div>
+
+
+
+
                               <!-- 引入 Fancybox 的 CSS -->
                               <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
 
@@ -64,6 +75,25 @@
                               <script
                                 src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/config.js"
                                 defer prism></script>
+
+
+
+                              <script>
+                                // document.addEventListener("DOMContentLoaded", function () {
+                                //   var loadingOverlay = document.getElementById("loading-overlay");
+                                //   loadingOverlay.style.display = "none"; // 网页加载完成后隐藏 loading 效果
+                                // });
+
+
+
+                                window.onload = function () {
+                                  var loadingOverlay = document.getElementById("loading-overlay");
+
+                                  loadingOverlay.style.display = "none"; // 所有资源加载完成后隐藏 loading 效果
+                                };
+
+
+                              </script>
                               
 <link rel="stylesheet" href="/css/style.css">
 

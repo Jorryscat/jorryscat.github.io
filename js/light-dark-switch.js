@@ -13,7 +13,7 @@ let themeFunc = async function () {
 };
 themeFunc();
 
-
+// 点击屏幕效果（鼠标特效）
 let fairyDustCursor = function () {
     var possibleColors = ["#95a8d4", "#936ff4", "#dad9f1", "#ffffff", "#5d74c0", "#d1d7ec"];
     const characters = ["."]; // 字符数组
