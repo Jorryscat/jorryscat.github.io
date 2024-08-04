@@ -479,10 +479,10 @@ body {
   margin-left: 1em;
   margin-top: 2em;
   letter-spacing: 0.5px;
-  -webkit-animation: pulse 1.5s infinite;
-  -moz-animation: pulse 1.5s infinite;
-  -ms-animation: pulse 1.5s infinite;
-  animation: pulse 1.5s infinite; /* 脉动效果 */
+  -webkit-animation: pulse 0.7s infinite;
+  -moz-animation: pulse 0.7s infinite;
+  -ms-animation: pulse 0.7s infinite;
+  animation: pulse 0.7s infinite; /* 脉动效果 */
 }
 #loading-spinner {
   position: relative;
