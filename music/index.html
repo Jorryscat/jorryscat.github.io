@@ -151,6 +151,16 @@
     <div id="music_bg"></div>
     <div id="heoMusic-page">
     </div>
+
+
+
+    <!-- Loading effect -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div id="loading-spinner">
+        <!-- Pseudo-elements will be created automatically, so no need for additional markup -->
+      </div>
+      <p id="loading-tip">Loading...</p>
+    </div>
     <script>
       var userId = "12364890712";
       var userServer = "netease";
@@ -161,6 +171,16 @@
 
   </div>
 
+
+  <script>
+    window.onload = function () {
+      var loadingOverlay = document.getElementById("loading-overlay");
+
+      loadingOverlay.style.display = "none"; // 所有资源加载完成后隐藏 loading 效果
+    };
+  </script>
+
+  <!-- back to top -->
   <script>
     function topFunction() {
       window.scroll({ top: 0, behavior: 'smooth' });
