@@ -1,0 +1,411 @@
+:root {
+    --btn-text-content: #000;
+    /* 示例颜色 */
+    --btn-text-hover: #f0f0f0;
+    /* 示例颜色 */
+    --btn-text-active: #d0d0d0;
+    /* 示例颜色 */
+    --btn-text-neutral-text: #666;
+    /* 示例颜色 */
+    --btn-text-light-text: #fff;
+    /* 示例颜色 */
+    --banner-dim: oklch(0.2 0.02 265);
+    /* 示例颜色 */
+    --nav-dropdown-bg: rgb(0, 0, 0, 0.8);
+    /* 示例颜色 */
+    --neut-L75: #a5a5a5;
+    /* 示例颜色 */
+    --primary: #0b62c0be;
+    /* 示例颜色 */
+    /* --display-light-icon: 1;
+    --display-dark-icon: 1; */
+    --font-icon: "FontIcon";
+    /* 示例字体 */
+    --trans-style: 0.3s;
+    /* 过渡时间 */
+}
+
+body {
+    /* background-color: rgb(0, 0, 0,0.9); */
+    background-color: oklch(0.16 0.014 265);
+    margin: 0;
+    padding: 0 10px;
+}
+
+/* #nav */
+#nav {
+    height: 72px;
+    width: 100%;
+    /* background-color: white; */
+}
+
+@media mq-mobile {
+    #nav {
+        height: auto;
+        min-height: 72px;
+    }
+}
+
+@media mq-tablet {
+    #nav {
+        height: auto;
+        min-height: 72px;
+    }
+}
+
+/* navbar */
+navbar {
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    margin: 0 auto;
+    border-radius: 0;
+    top: 0;
+}
+
+/* #title-nav */
+#title-nav {
+    margin-left: 16px;
+}
+
+#title-nav a {
+    color: var(--btn-text-content);
+    height: 40px;
+    border-radius: 10px;
+    align-items: center;
+    padding: 0 10px;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background var(--trans-style);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.199);
+    }
+
+    &:active {
+        background: var(--btn-text-active);
+    }
+}
+
+
+/* #main-nav */
+#main-nav {
+    float: left;
+    display: flex;
+    gap: 8px;
+}
+
+@media mq-mobile {
+    #main-nav {
+        display: none;
+    }
+}
+
+@media mq-tablet {
+    #main-nav {
+        display: none;
+    }
+}
+
+/* $nav-link */
+.nav-link {
+    float: left;
+    color: var(--btn-text-neutral-text);
+    fill: var(--btn-text-neutral-text);
+    /* for svg icons */
+    text-decoration: none;
+    display: block;
+    border-radius: var(--inner-radius);
+    transition: background var(--trans-style), color var(--trans-style);
+
+
+
+}
+
+/* .nav-icon */
+.nav-icon {
+    font-family: var(--font-icon);
+    text-align: center;
+    font-size: var(--font-size);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    position: relative;
+    cursor: url('../images/cursor_pointer.svg') 16 16, pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-icon.mobile-hide {
+    @media mq-mobile {
+        display: none;
+    }
+
+    @media mq-tablet {
+        display: none;
+    }
+}
+
+.nav-icon .rss {
+    font-weight: 300;
+}
+
+.nav-icon .light-mode-icon,
+.nav-icon .dark-mode-icon {
+    position: absolute;
+    height: 20px;
+    transition: opacity var(--trans-style);
+}
+
+/* #nav-menu-btn */
+#nav-menu-btn {
+
+    /* background-color: white; */
+    @media mq-normal {
+        display: none;
+    }
+
+}
+
+/* #nav-dropdown */
+#nav-dropdown {
+    margin-top: - var(--card-radius);
+    background: var(--nav-dropdown-bg);
+    transition: background var(--trans-style), height var(--trans-style);
+    border-radius: 0 0 var(--card-radius) var(--card-radius);
+    overflow: hidden;
+    height: fit-content;
+}
+
+@media mq-normal {
+    #nav-dropdown {
+        display: none;
+    }
+}
+
+#nav-dropdown.hidden {
+    height: 0;
+}
+
+/* #dropdown-link-list */
+#dropdown-link-list {
+    /* padding: 0 10px; */
+    box-sizing: border-box;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+}
+
+.nav-dropdown-link {
+    display: flex;
+    /* border-radius: 8px; */
+    align-items: center;
+    padding-left: 32px;
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    color: var(--neut-L75);
+    font-weight: normal;
+    text-decoration: none;
+    transition: color var(--trans-style);
+}
+
+.nav-dropdown-link:hover,
+.nav-dropdown-link:active {
+    color: var(--primary);
+}
+
+/* .main-nav-link */
+.main-nav-link {
+    font-weight: normal;
+    height: 44px;
+    padding: 0px 16px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    /* color: var(--neut-L75); */
+    color: white;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* #main-nav-toggle */
+#main-nav-toggle {
+    display: none;
+}
+
+#main-nav-toggle:before {
+    content: "\f0c9";
+    /* FontAwesome 图标 */
+}
+
+@media mq-mobile {
+    #main-nav-toggle {
+        display: block;
+    }
+}
+
+/* #sub-nav */
+#sub-nav {
+    /* margin-right: 16px; */
+    display: flex;
+    gap: 4px;
+}
+
+
+.grid-container {
+    background-color: oklch(0.16 0.014 265);
+    display: grid;
+    /* border-radius: 8px; */
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 10px;
+    /* padding: 0 20px; */
+    padding-bottom: 20px;
+
+}
+
+.item {
+    background: var(--card-background);
+    /* padding: 20px; */
+    /* border: 1px solid #ccc; */
+    /* border-radius: 16px; */
+    height: 300px;
+    display: flex;
+    /* border-radius:8px; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 按比例覆盖容器，图像超过容器时裁剪 */
+    object-position: center;
+    /* 图片在容器内居中 */
+
+    &:hover {
+        transform: scale(1.05);
+        transition: 0.5s linear;
+    }
+}
+
+
+/* Loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    z-index: 99999;
+}
+
+/* Pulsating spinner */
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #3498db;
+    /* 主色调 */
+    animation: pulse 1.5s infinite;
+    /* 脉动效果 */
+}
+
+/* Pulsating animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+}
+
+#loading-tip {
+    position: relative;
+    /* 使用相对定位 */
+    font-size: 14px;
+    color: #7ca4f4;
+    margin-left: 1em;
+    margin-top: 2em;
+    letter-spacing: 0.5px;
+    animation: pulse 2s infinite;
+    /* 脉动效果 */
+}
+
+#loading-spinner {
+    position: relative;
+    left: 1.5em;
+    top: 1.5em;
+    width: 3em;
+    height: 3em;
+    transform-origin: 50% 50%;
+    background-color: #a2c3ff;
+    /* light color */
+    animation: loading-spinner 1s infinite;
+}
+
+/* This follows what was used in SASS/LESS for nesting */
+#loading-spinner,
+#loading-spinner::after,
+#loading-spinner::before {
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+#loading-spinner::after,
+#loading-spinner::before {
+    display: block;
+    width: 3em;
+    height: 3em;
+    content: '';
+    background: #BED4FC;
+    /* lighter color */
+    position: absolute;
+}
+
+#loading-spinner::before {
+    top: 3em;
+    left: 0;
+    transform-origin: 0 0;
+    transform: rotateX(-90deg);
+}
+
+#loading-spinner::after {
+    top: 0;
+    left: 3em;
+    transform-origin: 0 0;
+    transform: rotateY(90deg);
+}
+
+@keyframes loading-spinner {
+    0% {
+        transform: translateX(-50%) translateY(-100%) rotateX(45deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-100%) rotateX(45deg) rotateZ(90deg);
+    }
+}

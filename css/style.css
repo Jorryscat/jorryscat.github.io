@@ -546,6 +546,31 @@ body {
   -ms-transform: rotateY(90deg);
   transform: rotateY(90deg);
 }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 可根据需要调整 */
+  gap: 10px; /* 图片之间的间距 */
+}
+.gallery figure {
+  margin: 0;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  -ms-transition: -ms-transform 0.3s;
+  transition: transform 0.3s; /* 增加图片的过渡效果 */
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  display: block; /* 确保图片以块级元素显示 */
+  border-radius: 5px; /* 可选的圆角样式 */
+}
+.lazy {
+  opacity: 0; /* 初始时隐藏图片 */
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  transition: opacity 0.3s; /* 渐变过渡效果 */
+}
 .article-date,
 .article-category-link,
 .archive-year {
