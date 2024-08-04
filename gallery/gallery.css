@@ -11,11 +11,10 @@
     /* 示例颜色 */
     --banner-dim: oklch(0.2 0.02 265);
     /* 示例颜色 */
-    --nav-dropdown-bg: rgb(0, 0, 0, 0.8);
+    --nav-dropdown-bg: oklch(0.25 0.02 265);
+    --neut-L75: #fffbfbc2;
     /* 示例颜色 */
-    --neut-L75: #a5a5a5;
-    /* 示例颜色 */
-    --primary: #0b62c0be;
+    --primary: #1d7ee6be;
     /* 示例颜色 */
     /* --display-light-icon: 1;
     --display-dark-icon: 1; */
@@ -27,9 +26,9 @@
 
 body {
     /* background-color: rgb(0, 0, 0,0.9); */
-    background-color: oklch(0.16 0.014 265);
+    background-color: oklch(0.2 0.02 265);
     margin: 0;
-    padding: 0 10px;
+    /* padding: 0 20px; */
 }
 
 /* #nav */
@@ -210,6 +209,8 @@ navbar {
     color: var(--neut-L75);
     font-weight: normal;
     text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
     transition: color var(--trans-style);
 }
 
@@ -229,7 +230,7 @@ navbar {
     /* color: var(--neut-L75); */
     color: white;
     font-size: 13px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 /* #main-nav-toggle */
@@ -257,29 +258,51 @@ navbar {
 
 
 .grid-container {
-    background-color: oklch(0.16 0.014 265);
-    display: grid;
-    /* border-radius: 8px; */
-    overflow: hidden;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 10px;
-    /* padding: 0 20px; */
-    padding-bottom: 20px;
-
+    /* background-color: oklch(0.25 0.02 265); */
+    display: flex;
+    flex-direction: column;
+    /* padding: 0 10px; */
+    /* padding-bottom: 20px; */
+    transform: translateY(72px);
 }
+
+.img-container {
+    /* background-color: oklch(0.25 0.02 265); */
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    /* gap: 5px; */
+    /* padding: 0 10px; */
+    padding-bottom: 76px;
+}
+
 
 .item {
     background: var(--card-background);
-    /* padding: 20px; */
-    /* border: 1px solid #ccc; */
-    /* border-radius: 16px; */
     height: 300px;
     display: flex;
-    /* border-radius:8px; */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: end;
+    align-items: start;
+    /* text-align: center; */
     overflow: hidden;
+    flex-direction: column;
+    /* border-radius: 8px; */
+}
+
+.item_desc {
+    position: absolute;
+    /* z-index: 888; */
+    color: white;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    /* 初始隐藏图像，以便懒加载时显示 */
+    transition: opacity 3s ease;
+    /* 添加过渡效果 */
+    /* opacity: 0; */
+    /* 初始透明度为0 */
 
 }
 
@@ -290,12 +313,35 @@ navbar {
     /* 按比例覆盖容器，图像超过容器时裁剪 */
     object-position: center;
     /* 图片在容器内居中 */
+    /* display: none; */
+    /* 初始隐藏图像，以便懒加载时显示 */
+    transition: opacity 3s ease;
+    /* 添加过渡效果 */
+    opacity: 0;
+    /* 初始透明度为0 */
 
-    &:hover {
+    /* &:hover {
         transform: scale(1.05);
         transition: 0.5s linear;
-    }
+    } */
 }
+
+.lozad {
+    display: block;
+    /* 在懒加载时显示 */
+    opacity: 1;
+    /* 加载后设置透明度为1 */
+}
+
+/* 标签 */
+/* .tag {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    /* background-color: #48496d10; */
+    /* padding: 30px 0;
+} */ 
 
 
 /* Loading overlay */
@@ -305,7 +351,7 @@ navbar {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(0, 0, 0, 0.8);
+    background-color: oklch(0.25 0.02 265);
     display: flex;
     justify-content: center;
     flex-direction: column;

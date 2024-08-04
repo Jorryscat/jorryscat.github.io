@@ -7,6 +7,7 @@
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
 <script src="/js/color.global.min.js"></script>
 <script src="/js/load-settings.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 
 <head>
   <meta charset="utf-8">
@@ -53,9 +54,11 @@
     <p id="loading-tip">Loading...</p>
   </div>
 
-  <div id="main-grid" class="  ">
+
+  <div id="main-grid" class=""
+    style="position: fixed;z-index: 999; background-color: oklch(0.2 0.02 265);;width: 100vw;height: 72px;">
     <div id="nav" class="">
-      <navbar id="navbar" style="z-index: 9999;background:transparent;border-radius: 0px;">
+      <navbar id="navbar" style="z-index: 9999;background:transparent;border-radius: 0px;padding-right: 20px;">
         <nav id="title-nav">
           <a href="/">
             <svg t="1722778909447" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +70,7 @@
           </a>
         </nav>
         <nav id="main-nav">
-          <a class="main-nav-link" href="/gallery">Latest Updates</a>
+          <a class="main-nav-link" href="/gallery"># travel</a>
 
         </nav>
         <nav id="sub-nav">
@@ -102,15 +105,15 @@
       <div id="nav-dropdown" class="hidden">
         <div id="dropdown-link-list">
 
-          <a class="nav-dropdown-link" href="/">Home</a>
+          <a class="nav-dropdown-link" href="#travel">Travel</a>
 
-          <a class="nav-dropdown-link" href="/archives">Archives</a>
+          <a class="nav-dropdown-link" href="#daily">Daily</a>
 
-          <a class="nav-dropdown-link" href="/music">Music</a>
+          <a class="nav-dropdown-link" href="#ai">AI generate</a>
 
-          <a class="nav-dropdown-link" href="/lab">Lab</a>
+          <a class="nav-dropdown-link" href="#games">Games</a>
 
-          <a class="nav-dropdown-link" href="/about">About</a>
+          <a class="nav-dropdown-link" href="#others">Others 💭</a>
 
 
           <!-- <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a> -->
@@ -129,60 +132,169 @@
           dropdownEle.classList.toggle("hidden");
         }
       </script>
-
-      <div id="content-body" class="grid-container">
-        <div class="item">
-          <img src="https://jorryscat.cn/gallery/gallery/pic1.jpg" class="lazyload" alt="内容2" />
-        </div>
-        <div class="item">
-          <img data-src="https://jorryscat.cn/gallery/gallery/pic2.jpg" class="lazyload" alt="内容3" />
-        </div>
-        <div class="item">
-          <img data-src="https://jorryscat.cn/gallery/gallery/pic3.jpg" class="lazyload" alt="内容4" />
-        </div>
-      </div>
-
-
-
-
-      <!-- 
-        <div class="archive-main-card">
-          <div class="item">1
-            <div class="article-tag-list-link">词典</div>
-          </div>
-          <div class="item">2
-            <div class="article-nav-btn"></div>
-          </div>
-          <div class="item">
-            <img src="https://via.placeholder.com/200" alt="Product Image">
-            <div class="card-content">
-              <h2 class="truncate-text">产品标题</h2>
-              <p class="description">简要介绍，能抓住用户的注意力并增加信息量。</p>
-              <div class="button-group">
-                <a href="#" class="button">GitHub 地址</a>
-                <a href="#" class="button">在线预览</a>
-              </div>
-            </div>
-          </div>
-          <div class="item">4
-            <div class="caption">11111</div>
-            <div class="article-title">jhsdba </div>
-          </div>
-          <div class="item">5
-            <div class="article-tag-list-item">我是</div>
-            <div  class="h-entry article article-type-post">时间可能是</div>
-          </div>
-          <div class="item">
-
-            <div class="article-inner">四年级男生的</div>
-          </div>
-
-        </div> -->
-
-
-
     </div>
   </div>
+
+
+  <div id="content-body" class="grid-container">
+
+
+
+    <div class="img-container" id="travel"></div>
+    <div class="img-container" id="ai"></div>
+
+  </div>
+
+  <script>
+
+    // JSON 数据
+    const data = {
+      travel: [
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic1.jpg",
+        //   desc: "哥们酷毙了"
+        // },
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic2.jpg",
+        //   desc: "内容描述 2"
+        // },
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
+        //   desc: "内容描述 3"
+        // },
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
+        //   desc: "内容描述 3"
+        // },
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
+        //   desc: "内容描述 3"
+        // },
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
+        //   desc: "内容描述 3"
+        // }, {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
+        //   desc: "内容描述 3"
+        // }
+        // ,
+        // {
+        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
+        //   desc: "内容描述 3"
+        // }
+        // 可以继续添加更多数据...
+      ],
+      ai: [
+        {
+          src: "/gallery/gallery/ai/banner1.png",
+          desc: "NIJI generates"
+        },
+        {
+          src: "/gallery/gallery/ai/freecompress-banner10.png",
+          desc: "NIJI generates"
+        },
+        {
+          src: "/gallery/gallery/ai/freecompress-bot.png",
+          desc: "NIJI generates"
+        },
+        {
+          src: "/gallery/gallery/ai/freecompress-banner0.png",
+          desc: "NIJI generates"
+        },
+        {
+          src: "/gallery/gallery/ai/freecompress-banner6.png",
+          desc: "NIJI generates"
+        },
+        {
+          src: "/gallery/gallery/ai/freecompress-banner8.png",
+          desc: "NIJI generates"
+        },
+       
+      
+        {
+          src: "/gallery/gallery/ai/freecompress-MJ1.png",
+          desc: "MJ generates"
+        },
+        
+        // 可以继续添加更多数据...
+      ]
+    };
+
+    // 函数用于加载图片和描述
+    const loadImages = (containerId) => {
+      const container = document.getElementById(containerId);
+      const items = data[containerId];
+
+      items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item';
+
+        const img = document.createElement('img');
+        img.setAttribute('data-src', item.src);
+        img.className = 'lozad'; // 用于懒加载
+        img.alt = item.desc;
+
+        const descDiv = document.createElement('div');
+        descDiv.className = 'item_desc';
+        descDiv.innerText = item.desc;
+
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(descDiv);
+        container.appendChild(itemDiv);
+      });
+    };
+
+    // 加载所有数据
+    loadImages('travel');
+    loadImages('ai');
+
+
+
+
+    const sections = document.querySelectorAll('.img-container');
+    const currentTag = document.querySelector('.main-nav-link');
+
+    // 获取每个section的顶部位置
+    const getSectionOffset = () => {
+      return Array.from(sections).map(section => {
+        return {
+          id: section.id,
+          offsetTop: section.offsetTop,
+          height: section.offsetHeight
+        }
+      });
+    };
+
+    let sectionOffsets = getSectionOffset();
+
+    window.addEventListener('scroll', () => {
+      // 获取当前滚动高度
+      const scrollPosition = window.scrollY;
+
+      // 遍历每个section，检查当前滚动位置
+      sectionOffsets.forEach(({ id, offsetTop, height }) => {
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
+          currentTag.textContent = "# " + id; // 更新当前显示的标签
+        }
+      });
+    });
+
+    // 在窗口大小调整时重新获取sections的顶部位置
+    window.addEventListener('resize', () => {
+      sectionOffsets = getSectionOffset();
+    });
+
+    const observer = lozad('.lozad', {
+      loaded: function (el) {
+        el.classList.add('lozad-loaded'); // 添加类以便进行样式调整
+        el.style.display = 'block'; // 设置为显示
+        el.style.opacity = '1'; // 设置透明度为1
+      }
+    });
+    observer.observe();
+
+
+  </script>
 
   <!-- <div class="back-to-top-wrapper">
     <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
@@ -190,15 +302,11 @@
     </button>
   </div> -->
 
-  <script>
-    const lazyLoad = new LazyLoad({
-      elements_selector: ".grid-container" // 选择器，指明哪个元素需要懒加载
-    });
-  </script>
+
 
   </div>
   <script src="/js/light-dark-switch.js"></script>
-  <script src="https://unpkg.com/vanilla-lazyload@17.0.3/dist/vanilla-lazyload.min.js"></script>
+
 </body>
 
 </html>
