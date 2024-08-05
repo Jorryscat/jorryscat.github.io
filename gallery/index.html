@@ -70,7 +70,7 @@
           </a>
         </nav>
         <nav id="main-nav">
-          <a class="main-nav-link" href="/gallery"># travel</a>
+          <a class="main-nav-link" href="/gallery"># daily</a>
 
         </nav>
         <nav id="sub-nav">
@@ -104,12 +104,13 @@
       </navbar>
       <div id="nav-dropdown" class="hidden">
         <div id="dropdown-link-list">
+          <a class="nav-dropdown-link" href="#daily">Daily</a>
 
           <a class="nav-dropdown-link" href="#travel">Travel</a>
 
-          <a class="nav-dropdown-link" href="#daily">Daily</a>
-
           <a class="nav-dropdown-link" href="#ai">AI generate</a>
+
+          <a class="nav-dropdown-link" href="#movies">Movies</a>
 
           <a class="nav-dropdown-link" href="#games">Games</a>
 
@@ -139,9 +140,12 @@
   <div id="content-body" class="grid-container">
 
 
-
+    <div class="img-container" id="daily"></div>
     <div class="img-container" id="travel"></div>
     <div class="img-container" id="ai"></div>
+    <div class="img-container" id="movies"></div>
+    <div class="img-container" id="games"></div>
+    <div class="img-container" id="others"></div>
 
   </div>
 
@@ -149,40 +153,107 @@
 
     // JSON 数据
     const data = {
+      daily: [
+        {
+          src: "/gallery/gallery/daily/freecompress-daily.jpg",
+          desc: "夕阳下图书馆"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-book.jpg",
+          desc: "当下的力量"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-chagee.jpg",
+          desc: "CHAGEE"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-adddd.jpg",
+          desc: "清吧"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-adddd1.jpg",
+          desc: "清吧"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-147.jpg",
+          desc: "有趣的147"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-wine.jpg",
+          desc: "日式"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-stairs.jpg",
+          desc: "楼道"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-tree1.jpg",
+          desc: "抬头"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-tree.jpg",
+          desc: "开心的树"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-tree2.jpg",
+          desc: "孤独的树"
+        },
+        {
+          src: "/gallery/gallery/daily/freecompress-三下乡.jpg",
+          desc: "三下乡"
+        },
+      ],
+
       travel: [
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic1.jpg",
-        //   desc: "哥们酷毙了"
-        // },
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic2.jpg",
-        //   desc: "内容描述 2"
-        // },
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
-        //   desc: "内容描述 3"
-        // },
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
-        //   desc: "内容描述 3"
-        // },
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
-        //   desc: "内容描述 3"
-        // },
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
-        //   desc: "内容描述 3"
-        // }, {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
-        //   desc: "内容描述 3"
-        // }
-        // ,
-        // {
-        //   src: "https://jorryscat.cn/gallery/gallery/pic3.jpg",
-        //   desc: "内容描述 3"
-        // }
-        // 可以继续添加更多数据...
+        {
+          src: "/gallery/gallery/travel/freecompress-nayan.jpg",
+          desc: "那晏湾"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-nayan1.jpg",
+          desc: "那晏湾"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-2.jpg",
+          desc: "冬季清晨的海"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-tree.jpg",
+          desc: "湖光岩"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-tree1.jpg",
+          desc: "湖光岩:树荫"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-mount.jpg",
+          desc: "三官顶(锐哥拍摄)"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-3.png",
+          desc: "厦门的海"
+        }
+        ,
+        {
+          src: "/gallery/gallery/travel/freecompress-xiamen1.jpg",
+          desc: "陈嘉庚先生故居"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-xiamen2.jpg",
+          desc: "陈嘉庚先生故居"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-4.jpg",
+          desc: "凌晨"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-3.jpg",
+          desc: "风车的灯"
+        },
+        {
+          src: "/gallery/gallery/travel/freecompress-4.png",
+          desc: "南三岛|捡星星"
+        }
       ],
       ai: [
         {
@@ -202,21 +273,73 @@
           desc: "NIJI generates"
         },
         {
-          src: "/gallery/gallery/ai/freecompress-banner6.png",
-          desc: "NIJI generates"
-        },
-        {
-          src: "/gallery/gallery/ai/freecompress-banner8.png",
-          desc: "NIJI generates"
-        },
-       
-      
-        {
           src: "/gallery/gallery/ai/freecompress-MJ1.png",
           desc: "MJ generates"
         },
-        
+
         // 可以继续添加更多数据...
+      ],
+       movies: [
+        {
+          src: "/gallery/gallery/movies/cmbyn.jpg",
+          desc: "CMBYN"
+        },
+        {
+          src: "/gallery/gallery/movies/flipped.jpg",
+          desc: "怦然心动"
+        },
+        {
+          src: "/gallery/gallery/movies/flipped.jpeg",
+          desc: "怦然心动"
+        },
+        {
+          src: "/gallery/gallery/movies/lalaland.jpg",
+          desc: "La La Land"
+        },
+        {
+          src: "/gallery/gallery/movies/lalaland1.jpg",
+          desc: "La La Land"
+        },
+        {
+          src: "/gallery/gallery/movies/bigfish.jpg",
+          desc: "大鱼"
+        },
+      
+      
+        {
+          src: "/gallery/gallery/movies/sandali.png",
+          desc: "欢迎回到三达里"
+        },
+        {
+          src: "/gallery/gallery/movies/和声.jpg",
+          desc: "和声"
+        },
+        {
+          src: "/gallery/gallery/movies/mist.jpg",
+          desc: "迷雾"
+        },
+        {
+          src: "/gallery/gallery/movies/shenghua.jpg",
+          desc: "生化危机"
+        },
+      ],
+      others: [
+        {
+          src: "/gallery/gallery/others/freecompress-earphone.jpg",
+          desc: "胜在颜值的耳机"
+        },
+        {
+          src: "/gallery/gallery/others/freecompress-yizhong.jpg",
+          desc: "想念一中"
+        },
+        {
+          src: "/gallery/gallery/others/freecompress-yizhong1.jpg",
+          desc: "想念一中"
+        },
+        {
+          src: "/gallery/gallery/others/freecompress-yizhong3.jpg",
+          desc: "想念一中"
+        },
       ]
     };
 
@@ -245,8 +368,12 @@
     };
 
     // 加载所有数据
+    loadImages('daily');
     loadImages('travel');
     loadImages('ai');
+    loadImages('movies');
+    // loadImages('games');
+    loadImages('others');
 
 
 

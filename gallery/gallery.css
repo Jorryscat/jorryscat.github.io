@@ -292,14 +292,14 @@ navbar {
 .item_desc {
     position: absolute;
     /* z-index: 888; */
-    color: white;
+    color: rgba(255, 255, 255, 0.89);
     box-sizing: border-box;
     padding-left: 20px;
     padding-bottom: 20px;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 2px;
     /* 初始隐藏图像，以便懒加载时显示 */
-    transition: opacity 3s ease;
+    transition: opacity 5s ease;
     /* 添加过渡效果 */
     /* opacity: 0; */
     /* 初始透明度为0 */
@@ -320,10 +320,9 @@ navbar {
     opacity: 0;
     /* 初始透明度为0 */
 
-    /* &:hover {
-        transform: scale(1.05);
-        transition: 0.5s linear;
-    } */
+    &:hover {
+        filter: brightness(0.7);
+    }
 }
 
 .lozad {
@@ -340,8 +339,8 @@ navbar {
     justify-content: center;
     align-content: center;
     /* background-color: #48496d10; */
-    /* padding: 30px 0;
-} */ 
+/* padding: 30px 0;
+} */
 
 
 /* Loading overlay */
