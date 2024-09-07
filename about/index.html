@@ -198,7 +198,7 @@
   </div>
 </div>
 
-<!-- <script>
+<script>
   document.addEventListener("DOMContentLoaded", function() {
     const username = 'Jorryscat'; // 替换为你的 GitHub 用户名
     const apiUrl = `https://api.github.com/users/${username}/events`;
@@ -235,17 +235,12 @@
       })
       .catch(error => console.error('Error fetching data:', error));
   });
-</script> -->
+</script>
 
 
-<script type="module">
-  // import { github_token } from '/config.js';
-  // const ACCESS_TOKEN = github_token
-  // console.log(111)
-  // console.log('token',ACCESS_TOKEN);
-  // require('dotenv').config();
-  // const ACCESS_TOKEN = process.env.GITHUB_TOKEN;
-  const ACCESS_TOKEN = '';
+<!-- <script type="module">
+  require('dotenv').config();
+  const ACCESS_TOKEN = process.env.GITHUB_TOKEN;
   const username = 'jorryscat';
   const BASE_URL = `https://api.github.com/users/${username}/events`;
 
@@ -344,7 +339,7 @@
   renderContributionGraph().catch(error => console.error('Error:', error));
 
 
-</script>
+</script> -->
   
     
   <div class="widget-wrap">
