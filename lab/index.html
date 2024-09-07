@@ -188,6 +188,10 @@
 
 <body>
 
+  <div id="loading-overlay" class="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+
 
   <div id="main-grid" class="  ">
     <div id="nav" class="">
@@ -264,6 +268,7 @@
         </div>
       </div>
       <script>
+
         let dropdownBtn = document.getElementById("nav-menu-btn");
         let dropdownEle = document.getElementById("nav-dropdown");
         dropdownBtn.onclick = function () {
@@ -276,7 +281,7 @@
           <div class="card-header">
             <span class="card-left">
               <a href="/music">
-                <img src="lab/iconPics/dictionary.png" alt="">
+                <img src="/lab/iconPics/player.png" alt="">
               </a>
             </span>
             <div class="card-right">
@@ -284,7 +289,7 @@
               <div class="card-desc">aPlayer魔改的在线音乐播放器</div>
 
             </div>
-          </div>                                                     
+          </div>
           <!-- .e-content article-entry p -->
           <div class="card-footer">
             <div class="article-tag-list-link">娱乐</div>
@@ -349,6 +354,10 @@
   </div>
 
   <script>
+    window.onload = function () {
+      var loadingOverlay = document.getElementById("loading-overlay");
+      loadingOverlay.style.display = "none"; // 所有资源加载完成后隐藏 loading 效果
+    };
     function topFunction() {
       window.scroll({ top: 0, behavior: 'smooth' });
     }
