@@ -64,9 +64,7 @@
                               <!-- 引入 Fancybox 的 JS -->
                               <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
                               <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-                              <script
-                                src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/config.js"
-                                defer prism></script>
+
 
 
 
@@ -167,9 +165,9 @@
   <div class="info-card">
     <div class="avatar">
       
-        <image src=/images/ava.gif></image>
-      
-      <div class="img-dim"></div>
+        <img src=/images/ava.gif></img>
+        
+          <div class="img-dim"></div>
     </div>
     <div class="info">
       <div class="username">Jorry </div>
@@ -178,22 +176,175 @@
       <div class="link-list">
         
           <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/599513180?spm_id_from=333.1007.0.0" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a>
-        
+          
           <a class="link-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCThZx43VikzXeqwR9EQYuiw" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
-        
+          
           <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Jorryscat?tab=repositories" title="GitHub"><i class="fa-brands fa-github"></i></a>
-         
-      </div>  
+          
+      </div>
     </div>
+  </div>
+
+  <!-- 新增贡献图的容器 -->
+  <div class="contribution-graph">
+    <h3 class="widget-title">Latest Works</h3>
+    <div id="graph-container"></div> <!-- 图表容器 -->
   </div>
 </div>
 
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const username = 'Jorryscat'; // 替换为你的 GitHub 用户名
+    const apiUrl = `https://api.github.com/users/${username}/events`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        const contributionCounts = {};
+        
+        // 统计提交次数
+        data.forEach(event => {
+          if (event.type === "PushEvent") {
+            const date = new Date(event.created_at).toISOString().split('T')[0]; // 日期
+            contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+          }
+        });
+
+        // 渲染贡献图
+        const graphContainer = document.getElementById('graph-container');
+        
+        for (let i = 0; i < 90; i++) { // 假设显示过去90天
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          const formattedDate = date.toISOString().split('T')[0];
+          const count = contributionCounts[formattedDate] || 0;
+
+          // 创建格子
+          const box = document.createElement('div');
+          box.className = 'graph-box';
+          box.setAttribute('data-count', count);
+          graphContainer.appendChild(box);
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  });
+</script> -->
+<!-- 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 -->
+
+<script>
+  const ACCESS_TOKEN = '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'; // 替换为你的 OAuth 访问令牌
+  const username = 'jorryscat';
+  const BASE_URL = `https://api.github.com/users/${username}/events`;
+
+  async function fetchWithRateLimit(url) {
+    let response;
+
+    try {
+      response = await fetch(url, {
+        headers: {
+          'Authorization': `token ${ACCESS_TOKEN}`
+        }
+      });
+
+      const rateLimit = response.headers.get('X-RateLimit-Remaining');
+      const resetTime = response.headers.get('X-RateLimit-Reset');
+
+      if (rateLimit < 1) {
+        const waitTime = (resetTime * 1000) - Date.now(); // 计算等待时间（毫秒）
+        console.log(`Rate limit exceeded. Waiting for ${waitTime / 1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime)); // 等待直到重置时间
+        return await fetchWithRateLimit(url); // 重试请求
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  async function fetchUserEvents(username) {
+    const now = new Date();
+    const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
+    const since = ninetyDaysAgo.toISOString();
+    let page = 1;
+    const events = [];
+
+    while (true) {
+      const response = await fetchWithRateLimit(`${BASE_URL}?per_page=100&page=${page}`);
+      if (!response.ok) {
+        console.error('Error fetching events:', response.statusText);
+        break;
+      }
+
+      const data = await response.json();
+      if (data.length === 0) break; // 无更多事件时停止循环
+
+      events.push(...data);
+      page++;
+    }
+
+    return events.filter(event => new Date(event.created_at) >= ninetyDaysAgo);
+  }
+
+  async function renderContributionGraph() {
+    const events = await fetchUserEvents(username);
+    const contributionCounts = {};
+
+    // 统计提交次数
+    events.forEach(event => {
+      if (event.type === 'PushEvent') { // 过滤出 Push 事件
+        const date = event.created_at.split('T')[0]; // 只取日期部分
+        contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+      }
+    });
+    console.log("贡献", contributionCounts)
+    const graphContainer = document.getElementById('graph-container');
+
+    // 生成最近 90 天的热力图
+    for (let i = 0; i < 90; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const formattedDate = date.toISOString().split('T')[0];
+      const count = contributionCounts[formattedDate] || 0;
+
+      // 创建格子
+      const box = document.createElement('div');
+      box.className = 'graph-box';
+      box.setAttribute('title', `${count} commits on ${formattedDate}`);
+      if (count === 0) {
+        box.classList.add('no-contribute');
+      } else if (count >= 1 && count < 4) {
+        box.classList.add('low-contribute');
+      } else if (count >= 4 && count < 6) {
+        box.classList.add('medium-contribute');
+      } else if (count >= 6 && count < 10) {
+        box.classList.add('high-contribute');
+      } else if (count >= 10) {
+        box.classList.add('very-high-contribute');
+      }
+
+      graphContainer.appendChild(box);
+    }
+  }
+
+  // 执行函数渲染热力图
+  renderContributionGraph().catch(error => console.error('Error:', error));
+
+
+</script>
   
     
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
+        
+          <a class="recent-link" href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/" title="测试文章1" >
+            <div class="recent-link-text">
+              测试文章1
+            </div>
+          </a>
         
           <a class="recent-link" href="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/" title="记录一次播放器魔改" >
             <div class="recent-link-text">
@@ -262,6 +413,11 @@
       <h3 class="widget-title">Archives</h3>
       
       
+        <a class="archive-link" href="/archives/2024/09 ">
+          September 2024 
+          <div class="archive-count">1 </div>
+        </a>
+      
         <a class="archive-link" href="/archives/2024/07 ">
           July 2024 
           <div class="archive-count">2 </div>
@@ -280,9 +436,119 @@
    
 
 
+<article id="post-测试文章1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+
+
+
+  <div class="article-inner">
+
+
+
+     
+      <a class="right-panel  non-pic  "
+        
+        href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/" 
+      >
+         
+        <i class="fa-solid fa-angle-right non-pic"></i>
+         
+      </a>
+       
+
+
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/">测试文章1</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-07T10:15:24.000Z" itemprop="datePublished">2024-09-07</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            0 words 
+          </div>
+        </div>
+        
+      </header>
+      
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+            
+           
+          </div>
+        
+      </div>
+
+      
+
+         
+    </div>
+    
+
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+   
+
+
 <article id="post-记录一次播放器魔改" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
+
+
+
   <div class="article-inner">
+
+
+
+     
+      <a class="right-panel  with-pic  "
+         style="background-image: url(/covers/7-29.png)" 
+        href="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/" 
+      >
+         
+        <div class="overlay">
+          <i class="fa-solid fa-angle-right with-pic"></i>
+        </div>
+         
+      </a>
+       
+
+
     <div class="article-main">
       <header class="article-header">
         
@@ -317,6 +583,7 @@
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MetingJS/" rel="tag">MetingJS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AD%94%E6%94%B9/" rel="tag">魔改</a></li></ul>
 
       </header>
+      
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
@@ -332,10 +599,8 @@ GitHub：zhheo/HeoMusic: 一个基于Aplayer和MetingJS的静态音乐播放器 
 
 vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可行的，可以在hexo中新增一个自定义网页，...
             
+           
           </div>
-        
-
-
         
       </div>
 
@@ -344,18 +609,7 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
          
     </div>
     
-     
-    <a class="right-panel  with-pic  "
-       style="background-image: url(/./result.png)" 
-      href="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/" 
-    >
-       
-      <div class="overlay">
-        <i class="fa-solid fa-angle-right with-pic"></i>
-      </div>
-       
-    </a>
-     
+
   </div>
   
 </article>
@@ -377,7 +631,27 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 
 <article id="post-我的循环歌单" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
+
+
+
   <div class="article-inner">
+
+
+
+     
+      <a class="right-panel  with-pic  "
+         style="background-image: url(/covers/7-26.png)" 
+        href="/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/" 
+      >
+         
+        <div class="overlay">
+          <i class="fa-solid fa-angle-right with-pic"></i>
+        </div>
+         
+      </a>
+       
+
+
     <div class="article-main">
       <header class="article-header">
         
@@ -405,20 +679,20 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            596 words 
+            546 words 
           </div>
         </div>
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%B4%E9%9D%92%E5%B3%B0/" rel="tag">吴青峰</a></li></ul>
 
       </header>
+      
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
               
 微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。
-
 
 
     
@@ -441,12 +715,10 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 
     
 
-再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾...
+再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾经...
             
+           
           </div>
-        
-
-
         
       </div>
 
@@ -455,16 +727,7 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
          
     </div>
     
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
+
   </div>
   
 </article>
@@ -561,29 +824,38 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 </footer>
     </div>
     <div class="back-to-top-wrapper">
-    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+    <button id="back-to-top-btn" class="side-btn hide" onclick="topFunction()">
         <i class="fa-solid fa-angle-up"></i>
     </button>
-</div>
 
+    <button id="bot-call-btn" class="side-btn hide" onclick="botpress.open()">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+</div>
+<script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/v2.1/config.js"></script>
 
 <script>
     function topFunction() {
         window.scroll({ top: 0, behavior: 'smooth' });
     }
-    let btn = document.getElementById('back-to-top-btn');
+
+    let btnTop = document.getElementById('back-to-top-btn');
+    let btnBot = document.getElementById('bot-call-btn');
     function scrollFunction() {
         if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
-            btn.classList.remove('hide')
+            btnTop.classList.remove('hide')
+            btnBot.classList.remove('hide')
         } else {
-            btn.classList.add('hide')
+            btnTop.classList.add('hide')
+            btnBot.classList.add('hide')
         }
     }
-    window.onscroll = function() {
+
+    window.onscroll = function () {
         scrollFunction();
     }
 </script>
-
   </div>
   <script src="/js/light-dark-switch.js"></script>
 </body>

@@ -39,7 +39,7 @@
 <meta property="og:description" content="Hey there 👋, welcome here for visiting my website . 🥳 我是 Jorry，软件工程专业在读，巨蟹 INFJ ，一定程度上会在 INTJ 和 INFP 之间来回切换。 比较喜欢前端，持有保留意见，希望有空都可以上手学学，并且希望有一天可以干独立开发 ，做一些有意思或者有意义的应用。  &#39;Cause what pasts remains in p">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-24T16:40:35.000Z">
-<meta property="article:modified_time" content="2024-09-07T06:26:32.658Z">
+<meta property="article:modified_time" content="2024-09-07T08:38:52.354Z">
 <meta property="article:author" content="Jorry">
 <meta name="twitter:card" content="summary">
 
@@ -70,9 +70,7 @@
                               <!-- 引入 Fancybox 的 JS -->
                               <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
                               <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-                              <script
-                                src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/config.js"
-                                defer prism></script>
+
 
 
 
@@ -173,9 +171,9 @@
   <div class="info-card">
     <div class="avatar">
       
-        <image src=/images/ava.gif></image>
-      
-      <div class="img-dim"></div>
+        <img src=/images/ava.gif></img>
+        
+          <div class="img-dim"></div>
     </div>
     <div class="info">
       <div class="username">Jorry </div>
@@ -184,22 +182,175 @@
       <div class="link-list">
         
           <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/599513180?spm_id_from=333.1007.0.0" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a>
-        
+          
           <a class="link-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCThZx43VikzXeqwR9EQYuiw" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
-        
+          
           <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Jorryscat?tab=repositories" title="GitHub"><i class="fa-brands fa-github"></i></a>
-         
-      </div>  
+          
+      </div>
     </div>
+  </div>
+
+  <!-- 新增贡献图的容器 -->
+  <div class="contribution-graph">
+    <h3 class="widget-title">Latest Works</h3>
+    <div id="graph-container"></div> <!-- 图表容器 -->
   </div>
 </div>
 
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const username = 'Jorryscat'; // 替换为你的 GitHub 用户名
+    const apiUrl = `https://api.github.com/users/${username}/events`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        const contributionCounts = {};
+        
+        // 统计提交次数
+        data.forEach(event => {
+          if (event.type === "PushEvent") {
+            const date = new Date(event.created_at).toISOString().split('T')[0]; // 日期
+            contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+          }
+        });
+
+        // 渲染贡献图
+        const graphContainer = document.getElementById('graph-container');
+        
+        for (let i = 0; i < 90; i++) { // 假设显示过去90天
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          const formattedDate = date.toISOString().split('T')[0];
+          const count = contributionCounts[formattedDate] || 0;
+
+          // 创建格子
+          const box = document.createElement('div');
+          box.className = 'graph-box';
+          box.setAttribute('data-count', count);
+          graphContainer.appendChild(box);
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  });
+</script> -->
+<!-- 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 -->
+
+<script>
+  const ACCESS_TOKEN = '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'; // 替换为你的 OAuth 访问令牌
+  const username = 'jorryscat';
+  const BASE_URL = `https://api.github.com/users/${username}/events`;
+
+  async function fetchWithRateLimit(url) {
+    let response;
+
+    try {
+      response = await fetch(url, {
+        headers: {
+          'Authorization': `token ${ACCESS_TOKEN}`
+        }
+      });
+
+      const rateLimit = response.headers.get('X-RateLimit-Remaining');
+      const resetTime = response.headers.get('X-RateLimit-Reset');
+
+      if (rateLimit < 1) {
+        const waitTime = (resetTime * 1000) - Date.now(); // 计算等待时间（毫秒）
+        console.log(`Rate limit exceeded. Waiting for ${waitTime / 1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime)); // 等待直到重置时间
+        return await fetchWithRateLimit(url); // 重试请求
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  async function fetchUserEvents(username) {
+    const now = new Date();
+    const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
+    const since = ninetyDaysAgo.toISOString();
+    let page = 1;
+    const events = [];
+
+    while (true) {
+      const response = await fetchWithRateLimit(`${BASE_URL}?per_page=100&page=${page}`);
+      if (!response.ok) {
+        console.error('Error fetching events:', response.statusText);
+        break;
+      }
+
+      const data = await response.json();
+      if (data.length === 0) break; // 无更多事件时停止循环
+
+      events.push(...data);
+      page++;
+    }
+
+    return events.filter(event => new Date(event.created_at) >= ninetyDaysAgo);
+  }
+
+  async function renderContributionGraph() {
+    const events = await fetchUserEvents(username);
+    const contributionCounts = {};
+
+    // 统计提交次数
+    events.forEach(event => {
+      if (event.type === 'PushEvent') { // 过滤出 Push 事件
+        const date = event.created_at.split('T')[0]; // 只取日期部分
+        contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+      }
+    });
+    console.log("贡献", contributionCounts)
+    const graphContainer = document.getElementById('graph-container');
+
+    // 生成最近 90 天的热力图
+    for (let i = 0; i < 90; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const formattedDate = date.toISOString().split('T')[0];
+      const count = contributionCounts[formattedDate] || 0;
+
+      // 创建格子
+      const box = document.createElement('div');
+      box.className = 'graph-box';
+      box.setAttribute('title', `${count} commits on ${formattedDate}`);
+      if (count === 0) {
+        box.classList.add('no-contribute');
+      } else if (count >= 1 && count < 4) {
+        box.classList.add('low-contribute');
+      } else if (count >= 4 && count < 6) {
+        box.classList.add('medium-contribute');
+      } else if (count >= 6 && count < 10) {
+        box.classList.add('high-contribute');
+      } else if (count >= 10) {
+        box.classList.add('very-high-contribute');
+      }
+
+      graphContainer.appendChild(box);
+    }
+  }
+
+  // 执行函数渲染热力图
+  renderContributionGraph().catch(error => console.error('Error:', error));
+
+
+</script>
   
     
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
+        
+          <a class="recent-link" href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/" title="测试文章1" >
+            <div class="recent-link-text">
+              测试文章1
+            </div>
+          </a>
         
           <a class="recent-link" href="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/" title="记录一次播放器魔改" >
             <div class="recent-link-text">
@@ -268,6 +419,11 @@
       <h3 class="widget-title">Archives</h3>
       
       
+        <a class="archive-link" href="/archives/2024/09 ">
+          September 2024 
+          <div class="archive-count">1 </div>
+        </a>
+      
         <a class="archive-link" href="/archives/2024/07 ">
           July 2024 
           <div class="archive-count">2 </div>
@@ -287,7 +443,16 @@
 
 <article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
+
+
+
   <div class="article-inner">
+
+
+
+     
+
+
     <div class="article-main">
       <header class="article-header">
         
@@ -315,11 +480,12 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            788 words 
+            801 words 
           </div>
         </div>
         
       </header>
+      
       <div class="e-content article-entry" itemprop="articleBody">
         
           <h4 id="Hey-there-👋-welcome-here-for-visiting-my-website-🥳">Hey there 👋, welcome here for visiting my website . 🥳</h4>
@@ -343,9 +509,7 @@
 <hr>
 继续加油🤞🏻fingers crossing。
 <p>注：本站所有图片均由MJ或NIJI生成，引用图片将在此处标明引用位置。</p>
-
-        
-
+<p>avatar：网络  <a target="_blank" rel="noopener" href="https://www.bing.com/images/search?view=detailV2&amp;ccid=39LV3s2c&amp;id=EF883BB0BF1B297B9849DD263FC77EFFDE9CCF49&amp;thid=OIP.39LV3s2c91RCBpWOANQ1CgAAAA&amp;mediaurl=https%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202208%2F01%2F20220801142341_d5d35.thumb.400_0.gif&amp;cdnurl=https%3A%2F%2Fth.bing.com%2Fth%2Fid%2FR.dfd2d5decd9cf7544206958e00d4350a%3Frik%3DSc%2bc3v9%2bxz8m3Q%26pid%3DImgRaw%26r%3D0&amp;exph=400&amp;expw=400&amp;q=%E6%B2%BB%E6%84%88%E5%8A%A8%E7%94%BBgif&amp;simid=608018695368616973&amp;FORM=IRPRST&amp;ck=8BDC39C339DBA1D2226DEA7E54616E15&amp;selectedIndex=81&amp;itb=0&amp;qft=+filterui%3Acolor2-FGcls_BLUE&amp;cw=1172&amp;ch=605&amp;ajaxhist=0&amp;ajaxserp=0">此处访问</a></p>
 
         
       </div>
@@ -355,7 +519,7 @@
          
     </div>
     
-     
+
   </div>
   
     
@@ -465,29 +629,38 @@
 </footer>
     </div>
     <div class="back-to-top-wrapper">
-    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+    <button id="back-to-top-btn" class="side-btn hide" onclick="topFunction()">
         <i class="fa-solid fa-angle-up"></i>
     </button>
-</div>
 
+    <button id="bot-call-btn" class="side-btn hide" onclick="botpress.open()">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+</div>
+<script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/v2.1/config.js"></script>
 
 <script>
     function topFunction() {
         window.scroll({ top: 0, behavior: 'smooth' });
     }
-    let btn = document.getElementById('back-to-top-btn');
+
+    let btnTop = document.getElementById('back-to-top-btn');
+    let btnBot = document.getElementById('bot-call-btn');
     function scrollFunction() {
         if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
-            btn.classList.remove('hide')
+            btnTop.classList.remove('hide')
+            btnBot.classList.remove('hide')
         } else {
-            btn.classList.add('hide')
+            btnTop.classList.add('hide')
+            btnBot.classList.add('hide')
         }
     }
-    window.onscroll = function() {
+
+    window.onscroll = function () {
         scrollFunction();
     }
 </script>
-
   </div>
   <script src="/js/light-dark-switch.js"></script>
 </body>
