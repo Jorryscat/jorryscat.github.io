@@ -517,6 +517,9 @@ body {
 .graph-box.very-high-contribute {
   background-color: #154d97; /* 高贡献的颜色 */
 }
+.bpFab {
+  right: 9999rem;
+}
 /* Pulsating spinner */
 /* HTML: <div class="loader"></div> */
 #loading-spinner {
@@ -1057,6 +1060,11 @@ navbar {
   -moz-transition: opacity 0.15s ease-out;
   -ms-transition: opacity 0.15s ease-out;
   transition: opacity 0.15s ease-out;
+}
+@media screen and (min-width: 1024px) {
+  #nav-bot-btn {
+    display: none;
+  }
 }
 @media screen and (min-width: 1024px) {
   #nav-menu-btn {
@@ -2645,16 +2653,6 @@ pre .javascript .function {
   position: absolute;
   right: 0;
   top: 0;
-}
-@media screen and (max-width: 767px) {
-  .back-to-top-wrapper {
-    display: block;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  .back-to-top-wrapper {
-    display: block;
-  }
 }
 .side-btn {
   width: 60px;

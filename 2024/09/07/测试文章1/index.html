@@ -57,7 +57,7 @@
                                 <!-- <p id="loading-tip">Loading...</p> -->
                               </div>
 
-                              
+
 
 
 
@@ -69,12 +69,17 @@
                               <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
                               <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
 
+                              <!-- 引入botpress -->
+                              <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+                              <script
+                                src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/v2.1/config.js"></script>
+
 
 
 
                               <script>
-                                  // const loadingTip = document.getElementById('loading-tip');
-                                  // loadingTip.textContent = "Loading..."
+                                // const loadingTip = document.getElementById('loading-tip');
+                                // loadingTip.textContent = "Loading..."
                                 // document.addEventListener("DOMContentLoaded", function () {
                                 //   var loadingOverlay = document.getElementById("loading-overlay");
                                 //   loadingOverlay.style.display = "none"; // 网页加载完成后隐藏 loading 效果
@@ -98,7 +103,7 @@
     <div id="nav" class=""  >
       <navbar id="navbar">
   <nav id="title-nav">
-    <a href="/">
+    <a href="/%20/">
       <div id="vivia-logo">
         <div class="dot"></div>
         <div class="dot"></div>
@@ -110,16 +115,26 @@
   </nav>
   <nav id="main-nav">
     
-      <a class="main-nav-link" href="/">Home</a>
-    
-      <a class="main-nav-link" href="/archives">Archives</a>
-    
-      <a class="main-nav-link" href="/gallery">Gallery</a>
-    
-      <a class="main-nav-link" href="/lab">Lab</a>
-    
-      <a class="main-nav-link" href="/about">About</a>
-    
+      <a class="main-nav-link" href="/">
+        Home
+      </a>
+      
+      <a class="main-nav-link" href="/archives">
+        Archives
+      </a>
+      
+      <a class="main-nav-link" href="/gallery">
+        Gallery
+      </a>
+      
+      <a class="main-nav-link" href="/lab">
+        Lab
+      </a>
+      
+      <a class="main-nav-link" href="/about">
+        About
+      </a>
+      
   </nav>
   <nav id="sub-nav">
     <a id="theme-btn" class="nav-icon">
@@ -130,34 +145,49 @@
       <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
       </a>
-    
-    <div id="nav-menu-btn" class="nav-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
-    </div>
+      
+
+        <div id="nav-bot-btn" class="nav-icon" onclick="botpress.open()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="18"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 0 0 416 208 208 0 1 0 0-416zM512 256A256 256 0 1 1 0 256a256 256 0 1 1 512 0zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+        </div>
+        <div id="nav-menu-btn" class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+        </div>
+
   </nav>
 </navbar>
 <div id="nav-dropdown" class="hidden">
   <div id="dropdown-link-list">
     
-      <a class="nav-dropdown-link" href="/">Home</a>
-    
-      <a class="nav-dropdown-link" href="/archives">Archives</a>
-    
-      <a class="nav-dropdown-link" href="/gallery">Gallery</a>
-    
-      <a class="nav-dropdown-link" href="/lab">Lab</a>
-    
-      <a class="nav-dropdown-link" href="/about">About</a>
-    
-    
-      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
-     
-    </div>
+      <a class="nav-dropdown-link" href="/">
+        Home
+      </a>
+      
+      <a class="nav-dropdown-link" href="/archives">
+        Archives
+      </a>
+      
+      <a class="nav-dropdown-link" href="/gallery">
+        Gallery
+      </a>
+      
+      <a class="nav-dropdown-link" href="/lab">
+        Lab
+      </a>
+      
+      <a class="nav-dropdown-link" href="/about">
+        About
+      </a>
+      
+        
+          <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+          
+  </div>
 </div>
 <script>
   let dropdownBtn = document.getElementById("nav-menu-btn");
   let dropdownEle = document.getElementById("nav-dropdown");
-  dropdownBtn.onclick = function() {
+  dropdownBtn.onclick = function () {
     dropdownEle.classList.toggle("hidden");
   }
 </script>
@@ -191,7 +221,7 @@
 
   <!-- 新增贡献图的容器 -->
   <div class="contribution-graph">
-    <h3 class="widget-title">Latest Works</h3>
+    <h3 class="widget-title">Latest Activities</h3>
     <div id="graph-container"></div> <!-- 图表容器 -->
   </div>
 </div>
@@ -638,10 +668,11 @@
         <i class="fa-solid fa-robot"></i>
     </button>
 </div>
-<script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
-<script src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/v2.1/config.js"></script>
+<!-- <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/v2.1/config.js"></script> -->
 
 <script>
+
     function topFunction() {
         window.scroll({ top: 0, behavior: 'smooth' });
     }
@@ -661,6 +692,7 @@
     window.onscroll = function () {
         scrollFunction();
     }
+
 </script>
   </div>
   <script src="/js/light-dark-switch.js"></script>
