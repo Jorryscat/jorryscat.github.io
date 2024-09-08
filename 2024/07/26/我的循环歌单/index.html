@@ -234,7 +234,7 @@
   </div>
 </div>
 
-<!-- <script>
+<script>
   document.addEventListener("DOMContentLoaded", function() {
     const username = 'Jorryscat'; // 替换为你的 GitHub 用户名
     const apiUrl = `https://api.github.com/users/${username}/events`;
@@ -271,112 +271,10 @@
       })
       .catch(error => console.error('Error fetching data:', error));
   });
-</script> -->
-<!-- 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 -->
-
-<script type="module">
-  const username = 'jorryscat';
-  const ACCESS_TOKEN = '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'; // 模板引擎渲染变量
-  // console.log("打印令牌")
-  // console.log(ACCESS_TOKEN)
-  const BASE_URL = `https://api.github.com/users/${username}/events`;
-
-  async function fetchWithRateLimit(url) {
-    let response;
-
-    try {
-      response = await fetch(url, {
-        headers: {
-          'Authorization': `token ${ACCESS_TOKEN}`
-        }
-      });
-
-      const rateLimit = response.headers.get('X-RateLimit-Remaining');
-      const resetTime = response.headers.get('X-RateLimit-Reset');
-
-      if (rateLimit < 1) {
-        const waitTime = (resetTime * 1000) - Date.now(); // 计算等待时间（毫秒）
-        console.log(`Rate limit exceeded. Waiting for ${waitTime / 1000} seconds...`);
-        await new Promise(resolve => setTimeout(resolve, waitTime)); // 等待直到重置时间
-        return await fetchWithRateLimit(url); // 重试请求
-      }
-
-      return response;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
-  async function fetchUserEvents(username) {
-    const now = new Date();
-    const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
-    const since = ninetyDaysAgo.toISOString();
-    let page = 1;
-    const events = [];
-
-    while (true) {
-      const response = await fetchWithRateLimit(`${BASE_URL}?per_page=100&page=${page}`);
-      if (!response.ok) {
-        console.error('Error fetching events:', response.statusText);
-        break;
-      }
-
-      const data = await response.json();
-      if (data.length === 0) break; // 无更多事件时停止循环
-
-      events.push(...data);
-      page++;
-    }
-
-    return events.filter(event => new Date(event.created_at) >= ninetyDaysAgo);
-  }
-
-  async function renderContributionGraph() {
-    const events = await fetchUserEvents(username);
-    const contributionCounts = {};
-
-    // 统计提交次数
-    events.forEach(event => {
-      if (event.type === 'PushEvent') { // 过滤出 Push 事件
-        const date = event.created_at.split('T')[0]; // 只取日期部分
-        contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
-      }
-    });
-    console.log("贡献", contributionCounts)
-    const graphContainer = document.getElementById('graph-container');
-
-    // 生成最近 90 天的热力图
-    for (let i = 0; i < 90; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const formattedDate = date.toISOString().split('T')[0];
-      const count = contributionCounts[formattedDate] || 0;
-
-      // 创建格子
-      const box = document.createElement('div');
-      box.className = 'graph-box';
-      box.setAttribute('title', `${count} commits on ${formattedDate}`);
-      if (count === 0) {
-        box.classList.add('no-contribute');
-      } else if (count >= 1 && count < 4) {
-        box.classList.add('low-contribute');
-      } else if (count >= 4 && count < 6) {
-        box.classList.add('medium-contribute');
-      } else if (count >= 6 && count < 10) {
-        box.classList.add('high-contribute');
-      } else if (count >= 10) {
-        box.classList.add('very-high-contribute');
-      }
-
-      graphContainer.appendChild(box);
-    }
-  }
-
-  // 执行函数渲染热力图
-  renderContributionGraph().catch(error => console.error('Error:', error));
-
-
 </script>
+
+
+
   
     
   <div class="widget-wrap">
@@ -485,7 +383,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm0tm37qj00035kfz6g2ldirb">
+      <a class="article-gallery-img" rel="gallery_cm0tn3abv0001k8fz60wo8wut">
         <img src="/covers/7-26.png" itemprop="image">
       </a>
     
@@ -544,10 +442,10 @@
 <p>微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。</p>
 </blockquote>
 
-    <div id="aplayer-ucEJNZCC" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1488254757" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#809e7e"></div>
+    <div id="aplayer-jdFmHwle" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1488254757" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#809e7e"></div>
 <br>
 
-    <div id="aplayer-jNBztBCB" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1388999487" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#c95862"></div>
+    <div id="aplayer-VXDEuQVA" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1388999487" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#c95862"></div>
 <br>
 <p>实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最终其实都一直是个体化的过程，这个过程能够让自己变得温柔且有力量是一件需要去探索和享受的事情。</p>
 <p>吴青峰是很有灵性的创作人，不止于一个歌手，有时候讲起吴青峰的歌，感觉已经超过了一些人所认识的《小情歌》，他的歌总有一种灵魂漫游的感觉。</p>
@@ -556,23 +454,23 @@
 <hr>
 <br>
 
-    <div id="aplayer-hnBSPjWs" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209163" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-AGjdPJzq" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209163" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 
-    <div id="aplayer-lmQUquYn" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209170" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-yYdEVzqa" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209170" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 
-    <div id="aplayer-azTBRERy" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209078" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-tqqRGfyj" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209078" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 <p>再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾经历的美好。</p>
 <p>“如果有一个怀抱勇敢不计代价，别让我飞，将我温柔豢养。”</p>
 <hr>
 <br>
 
-    <div id="aplayer-IntUJxMS" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1957782399" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#8162c9"></div>
+    <div id="aplayer-lsWhIvjC" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1957782399" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#8162c9"></div>
 <br>
 
-    <div id="aplayer-ogeMijNi" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="255644" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-eUikDZSq" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="255644" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 <p>lala的歌和sandy的歌，都喜欢……随机分别挑出来一首，都是芭乐的神✌。</p>
 <hr>
