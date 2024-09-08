@@ -227,9 +227,8 @@
     <div id="graph-container"></div> <!-- 图表容器 -->
   </div>
 </div>
-
-<!-- <script>
-  document.addEventListener("DOMContentLoaded", function() {
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
     const username = 'Jorryscat'; // 替换为你的 GitHub 用户名
     const apiUrl = `https://api.github.com/users/${username}/events`;
 
@@ -238,7 +237,7 @@
       .then(data => {
         console.log(data)
         const contributionCounts = {};
-        
+
         // 统计提交次数
         data.forEach(event => {
           if (event.type === "PushEvent") {
@@ -249,7 +248,7 @@
 
         // 渲染贡献图
         const graphContainer = document.getElementById('graph-container');
-        
+
         for (let i = 0; i < 90; i++) { // 假设显示过去90天
           const date = new Date();
           date.setDate(date.getDate() - i);
@@ -265,10 +264,10 @@
       })
       .catch(error => console.error('Error fetching data:', error));
   });
-</script> -->
+</script>
 <!-- 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 -->
 
-<script type="module">
+<!-- <script type="module">
   const username = 'jorryscat';
   const ACCESS_TOKEN = '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'; // 模板引擎渲染变量
   console.log("打印令牌")
@@ -370,7 +369,7 @@
   renderContributionGraph().catch(error => console.error('Error:', error));
 
 
-</script>
+</script> -->
   
     
   <div class="widget-wrap">
@@ -410,16 +409,6 @@
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
-                技术和方向
-                <div class="category-count">1</div>
-            </a>
-        <div class="children"><div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
-                前端
-                <div class="category-count">1</div>
-            </a>
-        </div></div>
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
                 生活碎片
                 <div class="category-count">1</div>
@@ -427,6 +416,16 @@
         <div class="children"><div class="category-box">
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
                 音乐
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
+                技术和方向
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
+                前端
                 <div class="category-count">1</div>
             </a>
         </div></div></div>
