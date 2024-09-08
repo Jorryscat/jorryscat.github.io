@@ -10,7 +10,5 @@ function loadSettings() {
     } else {
         document.documentElement.setAttribute('showBanner', false)
     }
-
-    
 };
 loadSettings();
