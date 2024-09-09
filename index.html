@@ -13,6 +13,17 @@
 <head>
   <meta charset="utf-8">
   
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYT64L4Y1E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FYT64L4Y1E');
+</script>
+<!-- End Google Analytics -->
+
   
   
 
@@ -157,6 +168,9 @@
   <div class="widget" style="margin-top: 16px;">
     <h3 class="widget-title">Latest Activities</h3>
     <div class="loadingData">加载中...</div>
+    <div id="show-today">
+
+    </div>
     <div id="graph-container"></div>
   </div>
 </div>
@@ -198,11 +212,14 @@
     });
 
     const graphContainer = document.getElementById('graph-container');
+    const showToday = document.getElementById('show-today');
     const loadingIndicator = document.querySelector('.loadingData');
     loadingIndicator.style.display = 'none'; // 隐藏加载指示符
 
     // 生成最近 90 天的热力图
     const now = new Date();
+    const today = now.toISOString().split('T')[0]; // 取得日期字符串（YYYY-MM-DD）
+
     for (let i = 0; i < 90; i++) {
       const date = new Date(now);
       date.setDate(now.getDate() - i);
@@ -230,6 +247,31 @@
 
       graphContainer.appendChild(box);
     }
+
+    // 获取今天的贡献数量
+    const todayCount = contributionCounts[today] || 0;
+    // 创建一个展示当天贡献记录的元素
+    const boxToday = document.createElement('div');
+    boxToday.className = 'today-box'; // 使用今天的盒子类
+    const todayContribution = document.createElement('p');
+    todayContribution.innerHTML = `${todayCount} commits today`;
+    // 根据贡献数量设置类
+    if (todayCount === 0) {
+      // box.classList.add('no-contribute'); // 不再使用这个类
+    } else if (todayCount < 4) {
+      boxToday.classList.add('low-contribute');
+    } else if (todayCount < 6) {
+      boxToday.classList.add('medium-contribute');
+    } else if (todayCount < 10) {
+      boxToday.classList.add('high-contribute');
+    } else {
+      boxToday.classList.add('very-high-contribute');
+    }
+
+
+    showToday.appendChild(boxToday);
+    showToday.appendChild(todayContribution);
+
   }
 
   // 执行函数渲染热力图
@@ -543,7 +585,7 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            546 words 
+            556 words 
           </div>
         </div>
         
@@ -554,7 +596,8 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
         
           <div class="truncate-text">
             
-              
+              ( 封面图片来自网络)
+
 微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。
 
 
@@ -578,7 +621,7 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 
     
 
-再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾经...
+再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种...
             
           </div>
         
@@ -603,41 +646,51 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
     <div id="footer-wrapper">
       <footer id="footer">
   
-        <div id="footer-info" class="inner">
-          
-                &copy; 2024
-                  Jorry
-                    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a
-                        target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
-                      <div id="site-uptime"></div>
-        </div>
-</footer>
-<script>
-  // 网站创建时间（请替换为你的实际创建时间）
-  const startDate = new Date('2024-07-05T00:00:00Z'); // ISO 格式
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Jorry
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+    
+    <div id="moreDetail">
+      <div id="site-uptime"></div>
+      <div id="visit-counts">
+        <p> | 总访问量：<span class="busuanzi_value_page_pv"></span></p>
+        <p> | 访客数：<span class="busuanzi_value_site_uv"></span></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Busuanzi脚本 -->
+  <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+  <script>
+    // 网站创建时间（请替换为你的实际创建时间）
+    const startDate = new Date('2024-07-05T00:00:00Z'); // ISO 格式
 
-  function updateUptime() {
-    const now = new Date();
-    const diffTime = Math.abs(now - startDate);
+    function updateUptime() {
+      const now = new Date();
+      const diffTime = Math.abs(now - startDate);
 
-    const diffSeconds = Math.floor(diffTime / 1000); // 总秒数
-    const diffMinutes = Math.floor(diffSeconds / 60);
-    const diffHours = Math.floor(diffMinutes / 60);
-    const diffDays = Math.floor(diffHours / 24);
-    const diffYears = Math.floor(diffDays / 365);
+      const diffSeconds = Math.floor(diffTime / 1000); // 总秒数
+      const diffMinutes = Math.floor(diffSeconds / 60);
+      const diffHours = Math.floor(diffMinutes / 60);
+      const diffDays = Math.floor(diffHours / 24);
+      const diffYears = Math.floor(diffDays / 365);
 
-    const uptimeElement = document.getElementById('site-uptime');
-    if (uptimeElement) {
-      uptimeElement.textContent = `网站已运行 ${diffYears} 年 ${diffDays % 365} 天 ${diffHours % 24} 小时 ${diffMinutes % 60} 分钟 ${diffSeconds % 60} 秒`;
+      const uptimeElement = document.getElementById('site-uptime');
+      if (uptimeElement) {
+        uptimeElement.textContent = `网站已运行 ${diffYears} 年 ${diffDays % 365} 天 ${diffHours % 24} 小时 ${diffMinutes % 60} 分钟 ${diffSeconds % 60} 秒`;
+      }
     }
-  }
 
-  // 初始更新时间
-  updateUptime();
+    // 初始更新时间
+    updateUptime();
 
-  // 设置每秒更新一次
-  setInterval(updateUptime, 1000);
-</script>
+    // 设置每秒更新一次
+    setInterval(updateUptime, 1000);
+  </script>
+</footer>
+
     </div>
     <div class="back-to-top-wrapper">
     <button id="back-to-top-btn" class="side-btn hide" onclick="topFunction()">

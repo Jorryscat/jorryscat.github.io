@@ -13,6 +13,17 @@
 <head>
   <meta charset="utf-8">
   
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYT64L4Y1E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FYT64L4Y1E');
+</script>
+<!-- End Google Analytics -->
+
   
   
 
@@ -23,16 +34,16 @@
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。                实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最">
+  <meta name="description" content="( 封面图片来自网络)  微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。                实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的循环歌单">
 <meta property="og:url" content="https://www.jorryscat.cn/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/index.html">
 <meta property="og:site_name" content="Jorry&#39;s Blog">
-<meta property="og:description" content="微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。                实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最">
+<meta property="og:description" content="( 封面图片来自网络)  微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。                实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.jorryscat.cn/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/covers/7-26.png">
 <meta property="article:published_time" content="2024-07-26T11:13:47.000Z">
-<meta property="article:modified_time" content="2024-09-09T03:29:21.119Z">
+<meta property="article:modified_time" content="2024-09-09T13:23:39.511Z">
 <meta property="article:author" content="Jorry">
 <meta property="article:tag" content="吴青峰">
 <meta name="twitter:card" content="summary">
@@ -167,6 +178,9 @@
   <div class="widget" style="margin-top: 16px;">
     <h3 class="widget-title">Latest Activities</h3>
     <div class="loadingData">加载中...</div>
+    <div id="show-today">
+
+    </div>
     <div id="graph-container"></div>
   </div>
 </div>
@@ -208,11 +222,14 @@
     });
 
     const graphContainer = document.getElementById('graph-container');
+    const showToday = document.getElementById('show-today');
     const loadingIndicator = document.querySelector('.loadingData');
     loadingIndicator.style.display = 'none'; // 隐藏加载指示符
 
     // 生成最近 90 天的热力图
     const now = new Date();
+    const today = now.toISOString().split('T')[0]; // 取得日期字符串（YYYY-MM-DD）
+
     for (let i = 0; i < 90; i++) {
       const date = new Date(now);
       date.setDate(now.getDate() - i);
@@ -240,6 +257,31 @@
 
       graphContainer.appendChild(box);
     }
+
+    // 获取今天的贡献数量
+    const todayCount = contributionCounts[today] || 0;
+    // 创建一个展示当天贡献记录的元素
+    const boxToday = document.createElement('div');
+    boxToday.className = 'today-box'; // 使用今天的盒子类
+    const todayContribution = document.createElement('p');
+    todayContribution.innerHTML = `${todayCount} commits today`;
+    // 根据贡献数量设置类
+    if (todayCount === 0) {
+      // box.classList.add('no-contribute'); // 不再使用这个类
+    } else if (todayCount < 4) {
+      boxToday.classList.add('low-contribute');
+    } else if (todayCount < 6) {
+      boxToday.classList.add('medium-contribute');
+    } else if (todayCount < 10) {
+      boxToday.classList.add('high-contribute');
+    } else {
+      boxToday.classList.add('very-high-contribute');
+    }
+
+
+    showToday.appendChild(boxToday);
+    showToday.appendChild(todayContribution);
+
   }
 
   // 执行函数渲染热力图
@@ -396,7 +438,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            546 words 
+            556 words 
           </div>
         </div>
         
@@ -405,14 +447,15 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <blockquote>
+          <p><em>( 封面图片来自网络)</em></p>
+<blockquote>
 <p>微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。</p>
 </blockquote>
 
-    <div id="aplayer-NOJJTGnH" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1488254757" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#809e7e"></div>
+    <div id="aplayer-FICTttHF" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1488254757" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#809e7e"></div>
 <br>
 
-    <div id="aplayer-jNhQNiPT" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1388999487" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#c95862"></div>
+    <div id="aplayer-lnUZAANc" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1388999487" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#c95862"></div>
 <br>
 <p>实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最终其实都一直是个体化的过程，这个过程能够让自己变得温柔且有力量是一件需要去探索和享受的事情。</p>
 <p>吴青峰是很有灵性的创作人，不止于一个歌手，有时候讲起吴青峰的歌，感觉已经超过了一些人所认识的《小情歌》，他的歌总有一种灵魂漫游的感觉。</p>
@@ -421,23 +464,23 @@
 <hr>
 <br>
 
-    <div id="aplayer-FMyNVvhe" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209163" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-tIUYIgcz" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209163" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 
-    <div id="aplayer-qxyzYkoW" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209170" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-CnqshyRn" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209170" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 
-    <div id="aplayer-iTUzgoSX" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209078" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-GjGfufOL" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209078" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 <p>再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾经历的美好。</p>
 <p>“如果有一个怀抱勇敢不计代价，别让我飞，将我温柔豢养。”</p>
 <hr>
 <br>
 
-    <div id="aplayer-mqjMPWCn" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1957782399" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#8162c9"></div>
+    <div id="aplayer-OfcUIojl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1957782399" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#8162c9"></div>
 <br>
 
-    <div id="aplayer-oiYxEQQt" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="255644" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
+    <div id="aplayer-dPcHWYFe" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="255644" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
 <br>
 <p>lala的歌和sandy的歌，都喜欢……随机分别挑出来一首，都是芭乐的神✌。</p>
 <hr>
@@ -501,41 +544,51 @@
     <div id="footer-wrapper">
       <footer id="footer">
   
-        <div id="footer-info" class="inner">
-          
-                &copy; 2024
-                  Jorry
-                    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a
-                        target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
-                      <div id="site-uptime"></div>
-        </div>
-</footer>
-<script>
-  // 网站创建时间（请替换为你的实际创建时间）
-  const startDate = new Date('2024-07-05T00:00:00Z'); // ISO 格式
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Jorry
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+    
+    <div id="moreDetail">
+      <div id="site-uptime"></div>
+      <div id="visit-counts">
+        <p> | 总访问量：<span class="busuanzi_value_page_pv"></span></p>
+        <p> | 访客数：<span class="busuanzi_value_site_uv"></span></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Busuanzi脚本 -->
+  <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+  <script>
+    // 网站创建时间（请替换为你的实际创建时间）
+    const startDate = new Date('2024-07-05T00:00:00Z'); // ISO 格式
 
-  function updateUptime() {
-    const now = new Date();
-    const diffTime = Math.abs(now - startDate);
+    function updateUptime() {
+      const now = new Date();
+      const diffTime = Math.abs(now - startDate);
 
-    const diffSeconds = Math.floor(diffTime / 1000); // 总秒数
-    const diffMinutes = Math.floor(diffSeconds / 60);
-    const diffHours = Math.floor(diffMinutes / 60);
-    const diffDays = Math.floor(diffHours / 24);
-    const diffYears = Math.floor(diffDays / 365);
+      const diffSeconds = Math.floor(diffTime / 1000); // 总秒数
+      const diffMinutes = Math.floor(diffSeconds / 60);
+      const diffHours = Math.floor(diffMinutes / 60);
+      const diffDays = Math.floor(diffHours / 24);
+      const diffYears = Math.floor(diffDays / 365);
 
-    const uptimeElement = document.getElementById('site-uptime');
-    if (uptimeElement) {
-      uptimeElement.textContent = `网站已运行 ${diffYears} 年 ${diffDays % 365} 天 ${diffHours % 24} 小时 ${diffMinutes % 60} 分钟 ${diffSeconds % 60} 秒`;
+      const uptimeElement = document.getElementById('site-uptime');
+      if (uptimeElement) {
+        uptimeElement.textContent = `网站已运行 ${diffYears} 年 ${diffDays % 365} 天 ${diffHours % 24} 小时 ${diffMinutes % 60} 分钟 ${diffSeconds % 60} 秒`;
+      }
     }
-  }
 
-  // 初始更新时间
-  updateUptime();
+    // 初始更新时间
+    updateUptime();
 
-  // 设置每秒更新一次
-  setInterval(updateUptime, 1000);
-</script>
+    // 设置每秒更新一次
+    setInterval(updateUptime, 1000);
+  </script>
+</footer>
+
     </div>
     <div class="back-to-top-wrapper">
     <button id="back-to-top-btn" class="side-btn hide" onclick="topFunction()">
