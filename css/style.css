@@ -5,6 +5,7 @@
   --neut-L30: rgba(255,255,255,0.3);
   --neut-L10: rgba(255,255,255,0.1);
   --banner-dim: rgba(0,0,0,0.2);
+  --contribute-default: #3e4958;
   --primary-hue: 265;
   --main-title: rgba(255,255,255,0.9);
   --btn-content: var(--neut-L75);
@@ -108,6 +109,7 @@
 }
 :root[theme='light'] {
   --card-background: #fff;
+  --contribute-default: #f0f0f0;
   --banner-dim: none;
   --neut-L90: rgba(0,0,0,0.9);
   --neut-L75: rgba(0,0,0,0.75);
@@ -473,11 +475,44 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 8px solid oklch(0.55 0.12 265);
+  border: 7px solid oklch(0.55 0.12 265);
   -webkit-animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
   -moz-animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
   -ms-animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
   animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
+}
+#graph-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18px, 1fr));
+  gap: 4px;
+  width: 100%;
+}
+.graph-box {
+  height: 18px;
+  width: 18px;
+  border-radius: 3px;
+  background-color: var(--contribute-default); /* 无贡献的日期颜色 */
+}
+.graph-box:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.graph-box.no-contribute {
+  background-color: var(--contribute-default); /* 无贡献的日期颜色 */
+}
+.graph-box.low-contribute {
+  background-color: #caeaff; /* 轻微贡献的颜色 */
+}
+.graph-box.medium-contribute {
+  background-color: #79cbfa; /* 中等贡献的颜色 */
+}
+.graph-box.high-contribute {
+  background-color: #4b9ae4; /* 较高贡献的颜色 */
+}
+.graph-box.very-high-contribute {
+  background-color: #154d97; /* 高贡献的颜色 */
 }
 .article-date,
 .article-category-link,
@@ -2964,6 +2999,11 @@ input[type="range"] {
   width: 40px;
   height: 40px;
   font-size: 24px;
+}
+#contribution-card {
+  margin-top: 16px;
+  padding: 0 0 20px;
+  height: 300px;
 }
 .widget {
   line-height: 1.6em;

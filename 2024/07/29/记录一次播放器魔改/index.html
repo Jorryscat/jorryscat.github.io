@@ -145,8 +145,8 @@
     <div class="avatar">
       
         <image src=/images/ava.gif></image>
-      
-      <div class="img-dim"></div>
+        
+          <div class="img-dim"></div>
     </div>
     <div class="info">
       <div class="username">Jorry </div>
@@ -155,16 +155,99 @@
       <div class="link-list">
         
           <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/599513180?spm_id_from=333.1007.0.0" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a>
-        
+          
           <a class="link-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCThZx43VikzXeqwR9EQYuiw" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
-        
+          
           <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Jorryscat?tab=repositories" title="GitHub"><i class="fa-brands fa-github"></i></a>
-         
-      </div>  
+          
+      </div>
     </div>
+  </div>
+  <div class="widget" style="margin-top: 16px;">
+    <h3 class="widget-title">Latest Activities</h3>
+    <div class="loadingData">加载中...</div>
+    <div id="graph-container"></div>
   </div>
 </div>
 
+<script>
+  const username = 'jorryscat';
+  const BASE_URL = `https://api.github.com/users/${username}/events`;
+
+  async function fetchUserEvents() {
+    let page = 1;
+    const events = [];
+
+    while (true) {
+      const response = await fetch(`${BASE_URL}?per_page=100&page=${page}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.length === 0) break; // 无更多事件时停止循环
+
+      events.push(...data);
+      page++;
+    }
+
+    return events;
+  }
+
+  async function renderContributionGraph() {
+    const events = await fetchUserEvents();
+    const contributionCounts = {};
+
+    // 统计提交次数
+    events.forEach(event => {
+      if (event.type === 'PushEvent') { // 过滤出 Push 事件
+        const date = event.created_at.split('T')[0]; // 只取日期部分
+        contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+      }
+    });
+
+    const graphContainer = document.getElementById('graph-container');
+    const loadingIndicator = document.querySelector('.loadingData');
+    loadingIndicator.style.display = 'none'; // 隐藏加载指示符
+
+    // 生成最近 90 天的热力图
+    const now = new Date();
+    for (let i = 0; i < 90; i++) {
+      const date = new Date(now);
+      date.setDate(now.getDate() - i);
+      const formattedDate = date.toISOString().split('T')[0];
+      const count = contributionCounts[formattedDate] || 0;
+
+      // 创建格子
+      const box = document.createElement('div');
+      box.className = 'graph-box';
+      box.setAttribute('data-count', count);
+      box.setAttribute('title', `${count} commits on ${formattedDate}`);
+
+      // 根据贡献数量设置类
+      if (count === 0) {
+        // box.classList.add('no-contribute'); // 不再使用这个类
+      } else if (count < 4) {
+        box.classList.add('low-contribute');
+      } else if (count < 6) {
+        box.classList.add('medium-contribute');
+      } else if (count < 10) {
+        box.classList.add('high-contribute');
+      } else {
+        box.classList.add('very-high-contribute');
+      }
+
+      graphContainer.appendChild(box);
+    }
+  }
+
+  // 执行函数渲染热力图
+  renderContributionGraph()
+    .catch(error => {
+      console.error('Error:', error);
+      document.querySelector('.loading').innerText = '加载失败，请稍后再试。'
+    });
+</script>
   
     
   <div class="widget-wrap">
@@ -274,7 +357,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm0uj4a06000blwfz6nq6hd2b">
+      <a class="article-gallery-img" rel="gallery_cm0umr3w2000bicfzhvpge0al">
         <img src="/covers/7-29.png" itemprop="image">
       </a>
     
