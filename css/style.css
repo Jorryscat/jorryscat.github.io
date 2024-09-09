@@ -346,10 +346,12 @@ body {
   transition: height 0.15s ease-out;
 }
 #main-grid #sidebar-wrapper {
+  margin-top: 6px;
   grid-row: 2;
   grid-column: 1;
 }
 #main-grid #content-body {
+  margin-top: 6px;
   grid-column: 2;
   grid-row: 2;
   overflow: auto;
@@ -1124,11 +1126,10 @@ navbar {
 }
 .article {
   margin-bottom: 16px;
-  margin-bottom: 20px;
 }
 @media screen and (min-width: 1024px) {
   .article {
-    margin-left: 10px;
+    margin-left: 6px;
   }
 }
 .article-inner {
