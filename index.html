@@ -603,13 +603,41 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
     <div id="footer-wrapper">
       <footer id="footer">
   
-  <div id="footer-info" class="inner">
-    
-    &copy; 2024 Jorry<br>
-    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
-  </div>
+        <div id="footer-info" class="inner">
+          
+                &copy; 2024
+                  Jorry
+                    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a
+                        target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+                      <div id="site-uptime"></div>
+        </div>
 </footer>
+<script>
+  // 网站创建时间（请替换为你的实际创建时间）
+  const startDate = new Date('2024-07-05T00:00:00Z'); // ISO 格式
 
+  function updateUptime() {
+    const now = new Date();
+    const diffTime = Math.abs(now - startDate);
+
+    const diffSeconds = Math.floor(diffTime / 1000); // 总秒数
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    const diffYears = Math.floor(diffDays / 365);
+
+    const uptimeElement = document.getElementById('site-uptime');
+    if (uptimeElement) {
+      uptimeElement.textContent = `网站已运行 ${diffYears} 年 ${diffDays % 365} 天 ${diffHours % 24} 小时 ${diffMinutes % 60} 分钟 ${diffSeconds % 60} 秒`;
+    }
+  }
+
+  // 初始更新时间
+  updateUptime();
+
+  // 设置每秒更新一次
+  setInterval(updateUptime, 1000);
+</script>
     </div>
     <div class="back-to-top-wrapper">
     <button id="back-to-top-btn" class="side-btn hide" onclick="topFunction()">
