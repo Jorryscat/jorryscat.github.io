@@ -97,7 +97,7 @@
     </a>
 
     <div id="nav-bot-btn" class="nav-icon" onclick="botpress.open()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="18"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 0 0 416 208 208 0 1 0 0-416zM512 256A256 256 0 1 1 0 256a256 256 0 1 1 512 0zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="16"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 0 0 416 208 208 0 1 0 0-416zM512 256A256 256 0 1 1 0 256a256 256 0 1 1 512 0zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
     </div>
     
     
@@ -257,7 +257,7 @@
     todayContribution.innerHTML = `${todayCount} commits today`;
     // 根据贡献数量设置类
     if (todayCount === 0) {
-      // box.classList.add('no-contribute'); // 不再使用这个类
+      boxToday.classList.add('no-contribute'); 
     } else if (todayCount < 4) {
       boxToday.classList.add('low-contribute');
     } else if (todayCount < 6) {
@@ -654,14 +654,14 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
     <div id="moreDetail">
       <div id="site-uptime"></div>
       <div id="visit-counts">
-        <p> | 总访问量：<span class="busuanzi_value_page_pv"></span></p>
-        <p> | 访客数：<span class="busuanzi_value_site_uv"></span></p>
+        <p> | 总访问量：<span id="busuanzi_value_site_pv"></span></p>
+        <p style="margin-left: 5px;"> | 访客数：<span id="busuanzi_value_site_uv"></span></p>
       </div>
     </div>
   </div>
   
   <!-- Busuanzi脚本 -->
-  <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   
   <script>
     // 网站创建时间（请替换为你的实际创建时间）
