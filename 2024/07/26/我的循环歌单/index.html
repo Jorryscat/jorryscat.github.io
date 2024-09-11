@@ -35,16 +35,16 @@
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="( 封面图片来自网络)  微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。                实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的">
+  <meta name="description" content="( 封面图片来自网络)  微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。  实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最终其">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的循环歌单">
 <meta property="og:url" content="https://www.jorryscat.cn/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/index.html">
 <meta property="og:site_name" content="Jorry&#39;s Blog">
-<meta property="og:description" content="( 封面图片来自网络)  微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。                实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的">
+<meta property="og:description" content="( 封面图片来自网络)  微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。  实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最终其">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.jorryscat.cn/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/covers/7-26.png">
 <meta property="article:published_time" content="2024-07-26T11:13:47.000Z">
-<meta property="article:modified_time" content="2024-09-09T13:23:39.511Z">
+<meta property="article:modified_time" content="2024-09-11T18:34:07.746Z">
 <meta property="article:author" content="Jorry">
 <meta property="article:tag" content="吴青峰">
 <meta name="twitter:card" content="summary">
@@ -58,10 +58,7 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
   <div id="loading" class="loading">
@@ -266,7 +263,7 @@
     const boxToday = document.createElement('div');
     boxToday.className = 'today-box'; // 使用今天的盒子类
     const todayContribution = document.createElement('p');
-    todayContribution.innerHTML = `${todayCount} commits today`;
+    todayContribution.innerHTML = `${todayCount} commits yesterday`;
     // 根据贡献数量设置类
     if (todayCount === 0) {
       boxToday.classList.add('no-contribute'); 
@@ -382,10 +379,41 @@
     </div>
     <div id="content-body">
       
-      
+     <div id="top-wrapper">
+      <div id="log-wrapper"> 
+    <div style="display: flex;justify-content: space-between;align-items: start;">
+        <p class="widget-title">Logs Today</p>
+        <i class="fa-solid fa-bars-staggered" id="log-history"></i>
+    </div>
+    
+        <div id="log-container" class="log-container">
+            <div id="log-activity" class="log-activity">19:09  测试</div>
+        </div>
 
+        <script>
+            // 转换活动数据为 JSON 数组
+            const activities = ["19:09  测试","19:09  听陈绮贞的歌"];
+            let currentIndex = 0;
 
-       
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+                const logActivity = document.getElementById('log-activity');
+                logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+                // 等待滚动结束后再更新内容
+                setTimeout(() => {
+                    logActivity.textContent = activities[currentIndex]; // 更新活动内容
+                    logActivity.style.transform = 'translateY(0)'; // 归位
+                }, 500); // 滚动效果的持续时间应与 CSS 中的时间一致
+            }, 3000); // 每3秒切换一次
+        </script>
+        </div>
+      <div id="top-right-wrapper">
+        <meting-js server="netease" type="playlist" id="8561457005" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
+    </div>
+
+      <div id="body-page"> 
 
 
 <article id="post-我的循环歌单" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
@@ -445,37 +473,13 @@
 <blockquote>
 <p>微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。</p>
 </blockquote>
-
-    <div id="aplayer-RQgApNTS" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1488254757" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#809e7e"></div>
-<br>
-
-    <div id="aplayer-rXirHaTZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1388999487" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#c95862"></div>
-<br>
 <p>实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最终其实都一直是个体化的过程，这个过程能够让自己变得温柔且有力量是一件需要去探索和享受的事情。</p>
 <p>吴青峰是很有灵性的创作人，不止于一个歌手，有时候讲起吴青峰的歌，感觉已经超过了一些人所认识的《小情歌》，他的歌总有一种灵魂漫游的感觉。</p>
 <p>最喜欢的是 <strong>【册叶一：一与一】</strong> 这张，收录了很多吴青峰作为词曲创作者的歌曲，并由他自己翻唱，集结成册，像是一本回忆之书，那些散落、飞扬他处的漂浮之叶，一一拾回，歌之以欢悲。</p>
 <p>专辑是VIP，可以到网易云音乐或者酷狗音乐收听。</p>
 <hr>
-<br>
-
-    <div id="aplayer-IgDenajt" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209163" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
-<br>
-
-    <div id="aplayer-PhEEryXP" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209170" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
-<br>
-
-    <div id="aplayer-thPpJbtm" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="209078" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
-<br>
 <p>再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾经历的美好。</p>
 <p>“如果有一个怀抱勇敢不计代价，别让我飞，将我温柔豢养。”</p>
-<hr>
-<br>
-
-    <div id="aplayer-EGvqZXjA" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1957782399" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#8162c9"></div>
-<br>
-
-    <div id="aplayer-QpAPIHMK" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="255644" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="1000px" data-preload="auto" data-theme="#4d5c67"></div>
-<br>
 <p>lala的歌和sandy的歌，都喜欢……随机分别挑出来一首，都是芭乐的神✌。</p>
 <hr>
 <p>anyway，如果你有喜欢的歌安利，欢迎留下评论 ~</p>
@@ -533,7 +537,8 @@
 
 
 
-
+</div>
+      
     </div>
     <div id="footer-wrapper">
       <footer id="footer">
@@ -619,7 +624,11 @@
  
   <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+  <script>
+    $(document).pjax('a[target!=_blank]', '#body-page', {fragment: '#body-page', timeout:8000})
+  </script>
 
   <script src="/js/light-dark-switch.js"></script>
   

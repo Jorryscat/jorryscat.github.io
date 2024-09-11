@@ -256,7 +256,7 @@
     const boxToday = document.createElement('div');
     boxToday.className = 'today-box'; // 使用今天的盒子类
     const todayContribution = document.createElement('p');
-    todayContribution.innerHTML = `${todayCount} commits today`;
+    todayContribution.innerHTML = `${todayCount} commits yesterday`;
     // 根据贡献数量设置类
     if (todayCount === 0) {
       boxToday.classList.add('no-contribute'); 
@@ -372,7 +372,6 @@
     </div>
     <div id="content-body">
       
-      
      <div id="top-wrapper">
       <div id="log-wrapper"> 
     <div style="display: flex;justify-content: space-between;align-items: start;">
@@ -406,10 +405,8 @@
       <div id="top-right-wrapper">
         <meting-js server="netease" type="playlist" id="8561457005" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
     </div>
-  
 
-
-      
+      <div id="body-page">
    
 
 
@@ -556,28 +553,13 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 
 微社恐的INFJ平常出门都是耳机不离身的，久而久之音乐变成了自我探索的一种重要的载体。在这里向大家介绍一些一直活跃在歌单里的歌，是它们建起了独此一份的乌托邦。
 
-
-    
-
-
-    
-
 实话说吴青峰的歌质量都很高，（可能有点偏心，但是把青峰鸽鸽单独从绿团中拎出来，他的很多歌都很莫名地契合我的胃口）。有时候听他的歌，会失神游走，“生命的本质是孤独的，爱却能创造无比深刻的羁绊。” 生命从最初到最终其实都一直是个体化的过程，这个过程能够让自己变得温柔且有力量是一件需要去探索和享受的事情。
 吴青峰是很有灵性的创作人，不止于一个歌手，有时候讲起吴青峰的歌，感觉已经超过了一些人所认识的《小情歌》，他的歌总有一种灵魂漫游的感觉。
 最喜欢的是 【册叶一：一与一】 这张，收录了很多吴青峰作为词曲创作者的歌曲，并由他自己翻唱，集结成册，像是一本回忆之书，那些散落、飞扬他处的漂浮之叶，一一拾回，歌之以欢悲。
 专辑是VIP，可以到网易云音乐或者酷狗音乐收听。
 
-
-
-    
-
-
-    
-
-
-    
-
-再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种...
+再者是陈老师的歌，认识恨晚的感觉。陈绮贞的歌给我补充了青春时期错过的种种悸动、遗憾、以及未曾经历的美好。
+“如果有一个怀抱勇敢不计代价，别让我...
             
           </div>
         
@@ -597,7 +579,8 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 
 
 
-
+</div>
+      
     </div>
     <div id="footer-wrapper">
       <footer id="footer">
@@ -683,7 +666,11 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
  
   <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+  <script>
+    $(document).pjax('a[target!=_blank]', '#body-page', {fragment: '#body-page', timeout:8000})
+  </script>
 
   <script src="/js/light-dark-switch.js"></script>
   

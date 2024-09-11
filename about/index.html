@@ -260,7 +260,7 @@
     const boxToday = document.createElement('div');
     boxToday.className = 'today-box'; // 使用今天的盒子类
     const todayContribution = document.createElement('p');
-    todayContribution.innerHTML = `${todayCount} commits today`;
+    todayContribution.innerHTML = `${todayCount} commits yesterday`;
     // 根据贡献数量设置类
     if (todayCount === 0) {
       boxToday.classList.add('no-contribute'); 
@@ -376,10 +376,41 @@
     </div>
     <div id="content-body">
       
-      
+     <div id="top-wrapper">
+      <div id="log-wrapper"> 
+    <div style="display: flex;justify-content: space-between;align-items: start;">
+        <p class="widget-title">Logs Today</p>
+        <i class="fa-solid fa-bars-staggered" id="log-history"></i>
+    </div>
+    
+        <div id="log-container" class="log-container">
+            <div id="log-activity" class="log-activity">19:09  测试</div>
+        </div>
 
+        <script>
+            // 转换活动数据为 JSON 数组
+            const activities = ["19:09  测试","19:09  听陈绮贞的歌"];
+            let currentIndex = 0;
 
-       
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+                const logActivity = document.getElementById('log-activity');
+                logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+                // 等待滚动结束后再更新内容
+                setTimeout(() => {
+                    logActivity.textContent = activities[currentIndex]; // 更新活动内容
+                    logActivity.style.transform = 'translateY(0)'; // 归位
+                }, 500); // 滚动效果的持续时间应与 CSS 中的时间一致
+            }, 3000); // 每3秒切换一次
+        </script>
+        </div>
+      <div id="top-right-wrapper">
+        <meting-js server="netease" type="playlist" id="8561457005" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
+    </div>
+
+      <div id="body-page"> 
 
 
 <article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
@@ -474,7 +505,8 @@
 
 
 
-
+</div>
+      
     </div>
     <div id="footer-wrapper">
       <footer id="footer">
@@ -560,7 +592,11 @@
  
   <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+  <script>
+    $(document).pjax('a[target!=_blank]', '#body-page', {fragment: '#body-page', timeout:8000})
+  </script>
 
   <script src="/js/light-dark-switch.js"></script>
   
