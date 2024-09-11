@@ -5,6 +5,7 @@
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
 <script src="/js/color.global.min.js" ></script>
 <script src="/js/load-settings.js" ></script>
 
@@ -64,6 +65,7 @@
   
    
   <div id="main-grid" class="  ">
+    
     <div id="nav" class=" is_home "  >
       <navbar id="navbar">
   <nav id="title-nav">
@@ -288,12 +290,6 @@
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
         
-          <a class="recent-link" href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/" title="测试文章1" >
-            <div class="recent-link-text">
-              测试文章1
-            </div>
-          </a>
-        
           <a class="recent-link" href="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/" title="记录一次播放器魔改" >
             <div class="recent-link-text">
               记录一次播放器魔改
@@ -361,11 +357,6 @@
       <h3 class="widget-title">Archives</h3>
       
       
-        <a class="archive-link" href="/archives/2024/09 ">
-          September 2024 
-          <div class="archive-count">1 </div>
-        </a>
-      
         <a class="archive-link" href="/archives/2024/07 ">
           July 2024 
           <div class="archive-count">2 </div>
@@ -380,80 +371,45 @@
 </sidebar>
     </div>
     <div id="content-body">
-
       
-   
-
-
-<article id="post-测试文章1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-     
-      <a class="right-panel  non-pic  "
-        
-        href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/" 
-      >
-         
-        <i class="fa-solid fa-angle-right non-pic"></i>
-         
-      </a>
-       
-
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2024/09/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A01/">测试文章1</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-09-07T10:15:24.000Z" itemprop="datePublished">2024-09-07</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            0 words 
-          </div>
-        </div>
-        
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              
-            
-          </div>
-        
-      </div>
-
-         
+      
+     <div id="top-wrapper">
+      <div id="log-wrapper"> 
+    <div style="display: flex;justify-content: space-between;align-items: start;">
+        <p class="widget-title">Logs Today</p>
+        <i class="fa-solid fa-bars-staggered" id="log-history"></i>
     </div>
     
-   
-  </div>
+        <div id="log-container" class="log-container">
+            <div id="log-activity" class="log-activity">19:09  测试</div>
+        </div>
+
+        <script>
+            // 转换活动数据为 JSON 数组
+            const activities = ["19:09  测试","19:09  听陈绮贞的歌"];
+            let currentIndex = 0;
+
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+                const logActivity = document.getElementById('log-activity');
+                logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+                // 等待滚动结束后再更新内容
+                setTimeout(() => {
+                    logActivity.textContent = activities[currentIndex]; // 更新活动内容
+                    logActivity.style.transform = 'translateY(0)'; // 归位
+                }, 500); // 滚动效果的持续时间应与 CSS 中的时间一致
+            }, 3000); // 每3秒切换一次
+        </script>
+        </div>
+      <div id="top-right-wrapper">
+        <meting-js server="netease" type="playlist" id="8561457005" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
+    </div>
   
-</article>
 
 
-
-
-
-
+      
    
 
 
@@ -721,7 +677,16 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
         scrollFunction();
     }
 </script>
+
   </div>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+
+
   <script src="/js/light-dark-switch.js"></script>
+  
 </body>
+
 </html>
