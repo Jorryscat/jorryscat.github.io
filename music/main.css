@@ -97,9 +97,9 @@ body #music_bg {
   margin: auto;
   border-radius: 16px;
   /* background-color: #4583ff00; */
-  margin-top: -50px;
+  /* margin-top: -50px; */
   position: relative;
-  left: 25%;
+  /* left: 25%; */
   padding-top: 30px;
   box-sizing: border-box;
 }
@@ -131,7 +131,7 @@ body #nav-music {
   width: 50vw;
   height: 75vh;
   overflow: hidden;
-  padding-top: 20px;
+  /* padding-top: 20px; */
 }
 
 
@@ -302,8 +302,9 @@ body #nav-music {
 }
 
 #heoMusic-page .aplayer-info .aplayer-time .aplayer-time-inner {
-  margin-right: 18px;
+  margin-left: 18px;
   margin-top: 10px;
+  display: none;
 }
 
 #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-back {
@@ -567,7 +568,7 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     right: 0;
     top: 0px;
     padding-top: 20px;
-    height: calc(var(--vh) - 164px);
+    height: calc(var(--vh));
   }
 
 

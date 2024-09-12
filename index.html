@@ -256,7 +256,7 @@
     const boxToday = document.createElement('div');
     boxToday.className = 'today-box'; // 使用今天的盒子类
     const todayContribution = document.createElement('p');
-    todayContribution.innerHTML = `${todayCount} commits yesterday`;
+    todayContribution.innerHTML = `${todayCount} commits today`;
     // 根据贡献数量设置类
     if (todayCount === 0) {
       boxToday.classList.add('no-contribute'); 
@@ -385,7 +385,7 @@
 
         <script>
             // 转换活动数据为 JSON 数组
-            const activities = ["13:15  无所事事"];
+            const activities = ["13:15  无所事事","13:50  完成对music","13:50  肚子有点疼，没睡午觉"];
             let currentIndex = 0;
 
             setInterval(() => {
@@ -403,7 +403,7 @@
         </script>
         </div>
       <div id="top-right-wrapper">
-        <meting-js server="netease" type="playlist" id="8561457005" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
+        <meting-js server="netease" type="playlist" id="12364890712" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
     </div>
 
       <div id="body-page">
