@@ -65,9 +65,25 @@
         <div id="spinner"></div>
   </div>
   <script>
+
         window.onload = function() {
             document.getElementById('loading').style.display = 'none';
         };
+        document.addEventListener('DOMContentLoaded', () => {
+        const loadingMessage = document.getElementById('loading-message');
+
+        // 使用 MutationObserver 监测 meting-js 的变化
+        const observer = new MutationObserver(() => {
+            // 通过检查 meting-js 下是否生成了子元素来判断加载完成
+            const metingJsElement = document.querySelector('meting-js');
+            if (metingJsElement && metingJsElement.children.length > 0) {
+                loadingMessage.style.display = 'none'; // 隐藏加载信息
+                observer.disconnect(); // 停止观察
+            }
+        });
+
+        observer.observe(document.querySelector('meting-js'), { childList: true, subtree: true }); // 观察 meting-js 内部的变动
+    });
     </script>
   
    
@@ -410,7 +426,18 @@
         </script>
         </div>
       <div id="top-right-wrapper">
-        <meting-js server="netease" type="playlist" id="12364890712" list-folded="true" lrc-type="0" theme="#79cbfa" order="random"></meting-js></div>
+        <div id="loading-message">播放器准备中...</div>
+    <meting-js 
+      server="netease" 
+      type="playlist" 
+      id="12364890712" 
+      list-folded="true" 
+      lrc-type="0" 
+      theme="#79cbfa" 
+      order="random" 
+      on-ready="onMetingReady">
+    </meting-js>
+        </div>
     </div>
 
       <div id="body-page"> 
@@ -422,7 +449,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm0yvl923000288fz0qk9aq1q">
+      <a class="article-gallery-img" rel="gallery_cm0z7dpi00002rcfz7g3dc3x4">
         <img src="/covers/7-26.png" itemprop="image">
       </a>
     
@@ -621,7 +648,8 @@
 
   </div>
 
- 
+  
+
   <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>

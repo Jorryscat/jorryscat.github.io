@@ -677,6 +677,10 @@ body {
 #log-history:hover {
   color: var(--neut-L75);
 }
+#loading-message {
+  font-size: 14px;
+  color: var(--neut-L50);
+}
 #top-right-wrapper,
 .aplayer .aplayer-body {
   display: -webkit-box;
