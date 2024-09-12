@@ -58,11 +58,13 @@
         <div id="spinner"></div>
   </div>
   <script>
+    
 
-        window.onload = function() {
-            document.getElementById('loading').style.display = 'none';
-        };
-        document.addEventListener('DOMContentLoaded', () => {
+    window.onload = function() {
+        document.getElementById('loading').style.display = 'none';
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
         const loadingMessage = document.getElementById('loading-message');
 
         // 使用 MutationObserver 监测 meting-js 的变化
@@ -75,9 +77,65 @@
             }
         });
 
-        observer.observe(document.querySelector('meting-js'), { childList: true, subtree: true }); // 观察 meting-js 内部的变动
+        const metingJsElement = document.querySelector('meting-js');
+        if (metingJsElement) {
+            observer.observe(metingJsElement, { childList: true, subtree: true }); // 观察 meting-js 内部的变动
+        }
+
+        // 音乐状态逻辑
+        let ap = null;
+        let isRecover = false;
+        let musicIndex, musicTime;
+
+        // 监听 meting-js 组件的 aplayer 属性设置
+        Object.defineProperty(metingJsElement, "aplayer", {
+            set: function(aplayer) {
+                ap = aplayer;
+                ready();
+            }
+        });
+
+        // 准备就绪时的逻辑
+        function ready() {
+            ap.on('canplay', function() {
+                if (!isRecover) {
+                    // 从 localStorage 中获取音乐索引和时间
+                    const savedIndex = localStorage.getItem("musicIndex");
+                    const savedTime = localStorage.getItem("musicTime");
+
+                    if (savedIndex !== null) {
+                        musicIndex = savedIndex;
+                        musicTime = savedTime;
+
+                        // 切换到保存的音乐索引
+                        if (ap.list.index != musicIndex) {
+                            ap.list.switch(musicIndex);
+                        } else {
+                            // 恢复播放时间
+                            ap.seek(musicTime);
+                            ap.play();
+                            localStorage.removeItem("musicIndex");
+                            localStorage.removeItem("musicTime") // 清除 localStorage
+                            isRecover = true; // 标记为已恢复
+                        }
+                    } else {
+                        isRecover = true; // 没有保存记录，直接标记为已恢复
+                    }
+                }
+            });
+        }
+
+        // 在页面卸载前保存音乐状态
+        window.onbeforeunload = function(event) {
+            if (!ap.audio.paused) {
+                musicIndex = ap.list.index; // 记录当前音乐索引
+                musicTime = ap.audio.currentTime; // 记录当前播放时间
+                localStorage.setItem("musicIndex", musicIndex); // 保存索引到 localStorage
+                localStorage.setItem("musicTime", musicTime); // 保存时间到 localStorage
+            }
+        };
     });
-    </script>
+</script>
   
    
   <div id="main-grid" class="  ">
@@ -697,7 +755,7 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
   <script>
-    $(document).pjax('a[target!=_blank]', '#body-page', {fragment: '#body-page', timeout:8000})
+   
   </script>
 
   <script src="/js/light-dark-switch.js"></script>

@@ -1634,12 +1634,12 @@ navbar {
 }
 @media screen and (max-width: 767px) {
   .right-panel.with-pic {
-    height: 250px;
+    height: 220px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .right-panel.with-pic {
-    height: 250px;
+    height: 220px;
   }
 }
 .right-panel.with-pic .overlay {
