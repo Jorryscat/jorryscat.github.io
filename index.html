@@ -6,6 +6,9 @@
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
 <script src="/js/color.global.min.js" ></script>
 <script src="/js/load-settings.js" ></script>
 
@@ -81,59 +84,6 @@
         if (metingJsElement) {
             observer.observe(metingJsElement, { childList: true, subtree: true }); // 观察 meting-js 内部的变动
         }
-
-        // 音乐状态逻辑
-        let ap = null;
-        let isRecover = false;
-        let musicIndex, musicTime;
-
-        // 监听 meting-js 组件的 aplayer 属性设置
-        Object.defineProperty(metingJsElement, "aplayer", {
-            set: function(aplayer) {
-                ap = aplayer;
-                ready();
-            }
-        });
-
-        // 准备就绪时的逻辑
-        function ready() {
-            ap.on('canplay', function() {
-                if (!isRecover) {
-                    // 从 localStorage 中获取音乐索引和时间
-                    const savedIndex = localStorage.getItem("musicIndex");
-                    const savedTime = localStorage.getItem("musicTime");
-
-                    if (savedIndex !== null) {
-                        musicIndex = savedIndex;
-                        musicTime = savedTime;
-
-                        // 切换到保存的音乐索引
-                        if (ap.list.index != musicIndex) {
-                            ap.list.switch(musicIndex);
-                        } else {
-                            // 恢复播放时间
-                            ap.seek(musicTime);
-                            ap.play();
-                            localStorage.removeItem("musicIndex");
-                            localStorage.removeItem("musicTime") // 清除 localStorage
-                            isRecover = true; // 标记为已恢复
-                        }
-                    } else {
-                        isRecover = true; // 没有保存记录，直接标记为已恢复
-                    }
-                }
-            });
-        }
-
-        // 在页面卸载前保存音乐状态
-        window.onbeforeunload = function(event) {
-            if (!ap.audio.paused) {
-                musicIndex = ap.list.index; // 记录当前音乐索引
-                musicTime = ap.audio.currentTime; // 记录当前播放时间
-                localStorage.setItem("musicIndex", musicIndex); // 保存索引到 localStorage
-                localStorage.setItem("musicTime", musicTime); // 保存时间到 localStorage
-            }
-        };
     });
 </script>
   
@@ -390,16 +340,6 @@
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
-                生活碎片
-                <div class="category-count">1</div>
-            </a>
-        <div class="children"><div class="category-box">
-            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
-                音乐
-                <div class="category-count">1</div>
-            </a>
-        </div></div>
             <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
                 技术和方向
                 <div class="category-count">1</div>
@@ -407,6 +347,16 @@
         <div class="children"><div class="category-box">
             <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
                 前端
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
+                生活碎片
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
+                音乐
                 <div class="category-count">1</div>
             </a>
         </div></div></div>
@@ -453,29 +403,8 @@
         <i class="fa-solid fa-bars-staggered" id="log-history"></i>
     </div>
     
-        <div id="log-container" class="log-container">
-            <div id="log-activity" class="log-activity">13:15  无所事事</div>
-        </div>
-
-        <script>
-            // 转换活动数据为 JSON 数组
-            const activities = ["13:15  无所事事","13:50  完成对musicPlayer的修改","13:50  肚子有点疼，没睡午觉"];
-            let currentIndex = 0;
-
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % activities.length; // 循环索引
-
-                const logActivity = document.getElementById('log-activity');
-                logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
-
-                // 等待滚动结束后再更新内容
-                setTimeout(() => {
-                    logActivity.textContent = activities[currentIndex]; // 更新活动内容
-                    logActivity.style.transform = 'translateY(0)'; // 归位
-                }, 500); // 滚动效果的持续时间应与 CSS 中的时间一致
-            }, 3000); // 每3秒切换一次
-        </script>
-        </div>
+            <p class="log-tip">今天还没有记录活动。</p>
+            </div>
       <div id="top-right-wrapper">
         <div id="loading-message">播放器准备中...</div>
     <meting-js 
@@ -572,9 +501,9 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
   
 </article>
 
+<!-- 
 
-
-
+ -->
 
 
    
@@ -658,9 +587,9 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
   
 </article>
 
+<!-- 
 
-
-
+ -->
 
 
 
@@ -755,9 +684,9 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
   <script>
-   
+        $(document).pjax('a[target!=_blank]', '#body-page', {fragment: '#body-page', timeout:8000})
   </script>
-
+  
   <script src="/js/light-dark-switch.js"></script>
   
 </body>
