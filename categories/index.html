@@ -342,16 +342,6 @@
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
-                技术和方向
-                <div class="category-count">1</div>
-            </a>
-        <div class="children"><div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
-                前端
-                <div class="category-count">1</div>
-            </a>
-        </div></div>
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
                 生活碎片
                 <div class="category-count">1</div>
@@ -359,6 +349,16 @@
         <div class="children"><div class="category-box">
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
                 音乐
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
+                技术和方向
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
+                前端
                 <div class="category-count">1</div>
             </a>
         </div></div></div>
@@ -405,8 +405,29 @@
         <i class="fa-solid fa-bars-staggered" id="log-history"></i>
     </div>
     
-            <p class="log-tip">今天还没有记录活动。</p>
-            </div>
+        <div id="log-container" class="log-container">
+            <div id="log-activity" class="log-activity">23:40  播放器与评论系统冲突，不想改了我超</div>
+        </div>
+
+        <script>
+            // 转换活动数据为 JSON 数组
+            const activities = ["23:40  播放器与评论系统冲突，不想改了我超","23:42  生气...😾"];
+            let currentIndex = 0;
+
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+                const logActivity = document.getElementById('log-activity');
+                logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+                // 等待滚动结束后再更新内容
+                setTimeout(() => {
+                    logActivity.textContent = activities[currentIndex]; // 更新活动内容
+                    logActivity.style.transform = 'translateY(0)'; // 归位
+                }, 500); // 滚动效果的持续时间应与 CSS 中的时间一致
+            }, 3000); // 每3秒切换一次
+        </script>
+        </div>
       <div id="top-right-wrapper">
         <div id="loading-message">播放器准备中...</div>
     <meting-js 
