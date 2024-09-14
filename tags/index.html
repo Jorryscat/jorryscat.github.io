@@ -70,16 +70,6 @@
     window.onload =  () => {
       document.getElementById('loading').style.display = 'none';
         const loadingMessage = document.getElementById('loading-message');
-
-        // 使用 MutationObserver 监测 meting-js 的变化
-        const observer = new MutationObserver(() => {
-            // 通过检查 meting-js 下是否生成了子元素来判断加载完成
-            const metingJsElement = document.querySelector('meting-js');
-            if (metingJsElement && metingJsElement.children.length > 0) {
-                loadingMessage.style.display = 'none'; // 隐藏加载信息
-                observer.disconnect(); // 停止观察
-            }
-        });
       
         
         const metingJsElement = document.querySelector('meting-js');
@@ -479,7 +469,6 @@ window.onbeforeunload = function() {
         </script>
         </div>
       <div id="top-right-wrapper">
-        <div id="loading-message">播放器准备中...</div>
     <meting-js 
       server="netease" 
       type="playlist" 
