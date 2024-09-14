@@ -62,12 +62,11 @@
   </div>
   <script>
     
-
-    window.onload = function() {
-        document.getElementById('loading').style.display = 'none';
-    };
-
+   
+    ap = null;
+    isRecover = false;
     document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('loading').style.display = 'none';
         const loadingMessage = document.getElementById('loading-message');
 
         // 使用 MutationObserver 监测 meting-js 的变化
@@ -79,12 +78,62 @@
                 observer.disconnect(); // 停止观察
             }
         });
-
+      
+        
         const metingJsElement = document.querySelector('meting-js');
+       
         if (metingJsElement) {
             observer.observe(metingJsElement, { childList: true, subtree: true }); // 观察 meting-js 内部的变动
+            Object.defineProperty(metingJsElement, "aplayer", {
+            set: function(aplayer) {
+                ap = aplayer;
+                ready();
+            }
+        });
+    
         }
+
+
+
+        
+function ready() {
+  console.log("haimeihuifu")
+    if (ap) {
+        ap.on('canplay', function () {
+          if(!isRecover){
+                if(localStorage.getItem("musicIndex") != null){
+                    musicIndex = localStorage.getItem("musicIndex");
+                    musicTime = localStorage.getItem("musicTime");
+                    if(ap.list.index != musicIndex){
+                        ap.list.switch(musicIndex);
+                    }else{
+                        ap.seek(musicTime);
+                        localStorage.removeItem("musicIndex")
+                        localStorage.removeItem("musicTime")
+                        isRecover = true;
+                    }
+                }else{
+                    isRecover = true;
+                }
+            }
+        });
+    }
+}
     });
+
+
+window.onbeforeunload = function() {
+    if (ap && !ap.audio.paused) {
+        const musicIndex = ap.list.index;
+        const musicTime = ap.audio.currentTime;
+        localStorage.setItem("musicIndex", musicIndex);
+        localStorage.setItem("musicTime", musicTime);
+    }
+};
+
+
+
+
 </script>
   
    
@@ -404,12 +453,12 @@
     </div>
     
         <div id="log-container" class="log-container">
-            <div id="log-activity" class="log-activity">23:40  播放器与评论系统冲突，不想改了我超</div>
+            <div id="log-activity" class="log-activity">11:53  兜兜转转又用回了原来的方法</div>
         </div>
 
         <script>
             // 转换活动数据为 JSON 数组
-            const activities = ["23:40  播放器与评论系统冲突，不想改了我超","23:42  生气...😾","00:00  今天除了博客什么都没做...💢"];
+            const activities = ["11:53  兜兜转转又用回了原来的方法","11:53  用了pjax没什么很好的效果💢"];
             let currentIndex = 0;
 
             setInterval(() => {
@@ -587,11 +636,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
-  <script>
-        $(document).pjax('a[target!=_blank]', '#body-page', {fragment: '#body-page', timeout:8000})
-  </script>
   
   <script src="/js/light-dark-switch.js"></script>
   
