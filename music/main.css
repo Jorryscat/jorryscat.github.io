@@ -209,7 +209,7 @@ body #nav-music {
   border-radius: 50%;
   overflow: hidden;
   margin: auto;
-  z-index: 999;
+  z-index: 9;
   margin-top: -100px;
   margin-bottom: 160px;
   /* animation: rotate 10s infinite linear; */
@@ -715,19 +715,19 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
     /* left: 0; */
     position: fixed;
     right: 0%;
-    z-index: 999999;
-    top: 70px;
+    z-index: 9999999999;
+    top: 0px;
     width: 24px;
     height: 24px;
     opacity: 1;
-    margin-top: -0px;
-    background-color: #000000da;
+    /* margin-top: -0px; */
+    background-color: #000000;
     padding: 12px;
-    border-radius: 50% 0 0 50%;
+    border-radius: 0 0 0 50%;
   }
 
   #heoMusic-page .aplayer-info .aplayer-time .aplayer-icon-menu:hover {
-    background-color: #000000e0;
+    background-color: #000000;
     padding: 14px;
 
   }
