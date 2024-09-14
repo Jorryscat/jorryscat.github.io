@@ -47,7 +47,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/covers/7-29.png">
 <meta property="article:published_time" content="2024-07-29T08:55:46.000Z">
-<meta property="article:modified_time" content="2024-09-09T03:29:21.131Z">
+<meta property="article:modified_time" content="2024-09-14T13:52:40.527Z">
 <meta property="article:author" content="Jorry">
 <meta property="article:tag" content="MetingJS">
 <meta property="article:tag" content="魔改">
@@ -74,7 +74,7 @@
    
     ap = null;
     isRecover = false;
-    document.addEventListener('DOMContentLoaded', () => {
+    window.onload =  () => {
       document.getElementById('loading').style.display = 'none';
         const loadingMessage = document.getElementById('loading-message');
 
@@ -106,7 +106,7 @@
 
         
 function ready() {
-  console.log("haimeihuifu")
+  // console.log("haimeihuifu")
     if (ap) {
         ap.on('canplay', function () {
           if(!isRecover){
@@ -117,6 +117,7 @@ function ready() {
                         ap.list.switch(musicIndex);
                     }else{
                         ap.seek(musicTime);
+                        ap.play()
                         localStorage.removeItem("musicIndex")
                         localStorage.removeItem("musicTime")
                         isRecover = true;
@@ -128,7 +129,7 @@ function ready() {
         });
     }
 }
-    });
+    };
 
 
 window.onbeforeunload = function() {
@@ -467,7 +468,7 @@ window.onbeforeunload = function() {
 
         <script>
             // 转换活动数据为 JSON 数组
-            const activities = ["11:53  兜兜转转又用回了原来的方法","11:53  用了pjax没什么很好的效果💢"];
+            const activities = ["11:53  兜兜转转又用回了原来的方法","11:53  用了pjax没什么很好的效果💢","21:54  修改了网页的播放器暂停功能"];
             let currentIndex = 0;
 
             setInterval(() => {
@@ -508,7 +509,7 @@ window.onbeforeunload = function() {
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm11m7kco0004d8fzhf2ugjmp">
+      <a class="article-gallery-img" rel="gallery_cm127y48m0004j8fz1p9phwy6">
         <img src="/covers/7-29.png" itemprop="image">
       </a>
     
@@ -582,6 +583,9 @@ window.onbeforeunload = function() {
 <p>先这样😪，我又该睡觉了。</p>
 <p>感谢各位大佬开源项目的无私贡献 ~</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/anzhiyu-c">@anzhiyu</a> , <a target="_blank" rel="noopener" href="https://github.com/zhheo">@张洪Heo</a> , <a target="_blank" rel="noopener" href="https://github.com/Glowed">@Glowed</a></p>
+<hr>
+<p>更新，已解决。</p>
+<p>访问地址： <a href="/music/">魔改播放器</a></p>
 
         
       </div>

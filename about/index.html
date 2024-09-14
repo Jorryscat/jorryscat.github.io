@@ -69,7 +69,7 @@
    
     ap = null;
     isRecover = false;
-    document.addEventListener('DOMContentLoaded', () => {
+    window.onload =  () => {
       document.getElementById('loading').style.display = 'none';
         const loadingMessage = document.getElementById('loading-message');
 
@@ -101,7 +101,7 @@
 
         
 function ready() {
-  console.log("haimeihuifu")
+  // console.log("haimeihuifu")
     if (ap) {
         ap.on('canplay', function () {
           if(!isRecover){
@@ -112,6 +112,7 @@ function ready() {
                         ap.list.switch(musicIndex);
                     }else{
                         ap.seek(musicTime);
+                        ap.play()
                         localStorage.removeItem("musicIndex")
                         localStorage.removeItem("musicTime")
                         isRecover = true;
@@ -123,7 +124,7 @@ function ready() {
         });
     }
 }
-    });
+    };
 
 
 window.onbeforeunload = function() {
@@ -462,7 +463,7 @@ window.onbeforeunload = function() {
 
         <script>
             // 转换活动数据为 JSON 数组
-            const activities = ["11:53  兜兜转转又用回了原来的方法","11:53  用了pjax没什么很好的效果💢"];
+            const activities = ["11:53  兜兜转转又用回了原来的方法","11:53  用了pjax没什么很好的效果💢","21:54  修改了网页的播放器暂停功能"];
             let currentIndex = 0;
 
             setInterval(() => {

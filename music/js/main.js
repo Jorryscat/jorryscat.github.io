@@ -4,11 +4,11 @@ var volume = 0.8;
 // 获取地址栏参数
 // 创建URLSearchParams对象并传入URL中的查询字符串
 const params = new URLSearchParams(window.location.search);
-
 var heo = {
   // 音乐节目切换背景
   changeMusicBg: function (isChangeBg = true) {
     const heoMusicBg = document.getElementById("music_bg")
+    
 
     if (isChangeBg) {
       // player loadeddata 会进入此处
@@ -35,10 +35,48 @@ var heo = {
     }
   },
   addEventListenerChangeMusicBg: function () {
+    var currentAngle = 0; // 当前旋转角度
     const heoMusicPage = document.getElementById("heoMusic-page");
+    const musicCover = heoMusicPage.querySelector("#heoMusic-page .aplayer-pic");
+    
     heoMusicPage.querySelector("meting-js").aplayer.on('loadeddata', function () {
       heo.changeMusicBg();
-      // console.info('player loadeddata');
+    });
+  
+    heoMusicPage.querySelector("meting-js").aplayer.on('play', function () {
+      console.log("kaishi",currentAngle)
+      musicCover.classList.add('rotating'); // 开始旋转
+      musicCover.classList.remove('slow-stop'); // 移除慢停动画
+  
+      // 更新当前角度
+      setInterval(() => {
+        if(musicCover.classList.contains('rotating')) {
+          const computedStyle = getComputedStyle(musicCover);
+          const matrix = new WebKitCSSMatrix(computedStyle.transform);
+          currentAngle = Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI));
+          musicCover.style.setProperty('--current-angle', `${currentAngle}deg`);
+        }
+      }, 100); // 每100毫秒更新一次
+    });
+  
+    heoMusicPage.querySelector("meting-js").aplayer.on('pause', function () {
+      
+      musicCover.classList.remove('rotating'); // 移除旋转类
+      // const computedStyle = getComputedStyle(musicCover);
+      // const matrix = new WebKitCSSMatrix(computedStyle.transform);
+      // currentAngle = Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI)); 
+      console.log("angle",currentAngle)
+      // 设置 CSS 变量
+      musicCover.style.setProperty('--current-angle', `${currentAngle}deg`);
+      musicCover.style.setProperty('--stop-angle', `${currentAngle + 60}deg`); // 可以保持当前角度
+      musicCover.classList.add('slow-stop'); // 添加减速停止类
+
+      musicCover.addEventListener('animationend', function() {
+        musicCover.style.transform = `rotate(${currentAngle}deg)`; // 保持当前角度
+        // currentAngle = currentAngle
+        // musicCover.classList.remove('slow-stop');
+        // 也可以根据需求重置currentAngle，便于下次使用
+      });
     });
   },
   getCustomPlayList: function () {
