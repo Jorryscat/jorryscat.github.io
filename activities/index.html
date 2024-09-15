@@ -77,6 +77,8 @@
         const metingJsElement = document.querySelector('meting-js');
        
         if (metingJsElement) {
+          document.getElementById("loading-message").style.display = "none"
+
             Object.defineProperty(metingJsElement, "aplayer", {
             set: function(aplayer) {
                 ap = aplayer;
@@ -93,8 +95,7 @@ function ready() {
   // console.log("haimeihuifu")
   
     if (ap) {
-      document.getElementById("loading-message").style.display = "none"
-
+      
         ap.on('canplay', function () {
           if(!isRecover){
                 if(localStorage.getItem("musicIndex") != null){

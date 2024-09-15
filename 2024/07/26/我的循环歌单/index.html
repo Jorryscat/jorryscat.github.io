@@ -80,6 +80,8 @@
         const metingJsElement = document.querySelector('meting-js');
        
         if (metingJsElement) {
+          document.getElementById("loading-message").style.display = "none"
+
             Object.defineProperty(metingJsElement, "aplayer", {
             set: function(aplayer) {
                 ap = aplayer;
@@ -96,8 +98,7 @@ function ready() {
   // console.log("haimeihuifu")
   
     if (ap) {
-      document.getElementById("loading-message").style.display = "none"
-
+      
         ap.on('canplay', function () {
           if(!isRecover){
                 if(localStorage.getItem("musicIndex") != null){
@@ -456,7 +457,29 @@ window.onbeforeunload = function() {
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
 </div>
 
-    <p class="log-tip">今天还没有记录活动。</p>
+    <div id="log-container" class="log-container">
+        <div id="log-activity" class="log-activity">17:23  学学计网</div>
+    </div>
+
+    <script>
+        // 转换活动数据为 JSON 数组
+        const activities = ["17:23  学学计网","17:43  完成日志模块的代码🆗","22:15  睡了好久的觉","22:27  测试","22:47  再测了一次日志模块"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+            const logActivity = document.getElementById('log-activity');
+            logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+            // 等待滚动结束后再更新内容
+            setTimeout(() => {
+                logActivity.textContent = activities[currentIndex]; // 更新内容
+                logActivity.style.transform = 'translateY(0)'; // 归位
+            }, 500); // 滚动效果持续时间
+        }, 3000); // 每3秒切换一次
+    </script>
+
 
 
 <script>
@@ -492,7 +515,7 @@ window.onbeforeunload = function() {
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm13oxpyv00016wfz04bd94bd">
+      <a class="article-gallery-img" rel="gallery_cm13pqyi70002oofz9iet0h83">
         <img src="/covers/7-26.png" itemprop="image">
       </a>
     
