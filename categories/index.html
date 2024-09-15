@@ -445,21 +445,21 @@ window.onbeforeunload = function() {
       
        <div id="log-wrapper">
         
-    <div style="display: flex;justify-content: space-between;align-items: start;">
-        <p class="widget-title">Logs Today</p>
-        <i class="fa-solid fa-bars-staggered" id="log-history"></i>
-    </div>
-    
-            <p class="log-tip">今天还没有记录活动。</p>
-            
+<div style="display: flex;justify-content: space-between;align-items: start;">
+    <p class="widget-title">Logs Today</p>
+    <i class="fa-solid fa-bars-staggered" id="log-history"></i>
+</div>
 
-                <script>
-                    let logHistory = document.getElementById("log-history");
-                    logHistory.addEventListener("click", function () {
-                        // 点击后跳转到指定的 URL
-                        window.location.href = "/activities"; // 替换为您的目标网址
-                    })
-                </script>
+    <p class="log-tip">今天还没有记录活动。</p>
+
+
+<script>
+    let logHistory = document.getElementById("log-history");
+    logHistory.addEventListener("click", function () {
+        window.location.href = "/activities"; // 替换为目标网址
+    })
+</script>
+
        </div>
       
       <div id="top-right-wrapper">
