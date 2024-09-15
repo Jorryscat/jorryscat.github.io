@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+
+<script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/627d6d67-9bfb-40d9-935c-b911287e3219/webchat/v2.1/config.js"></script>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYT64L4Y1E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FYT64L4Y1E');
+</script>
+<!-- End Google Analytics -->
+
+  
+  
+
+  
+  <title>记录一次播放器魔改 | Jorry&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="部署完博客后在思考整体的框架，以及如何添加一些合理的功能。Vivia这个主题深得我心，就是相比butterfly或者anzhiyu主题，可供选择的功能相对较少，不过确实给了我一些发挥的空间，比如一款可以在我的博客访问的音乐列表。  刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 Aplayer 以及 MetingJS 的二次开发。Aplayer 是一款效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录一次播放器魔改">
+<meta property="og:url" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/index.html">
+<meta property="og:site_name" content="Jorry&#39;s Blog">
+<meta property="og:description" content="部署完博客后在思考整体的框架，以及如何添加一些合理的功能。Vivia这个主题深得我心，就是相比butterfly或者anzhiyu主题，可供选择的功能相对较少，不过确实给了我一些发挥的空间，比如一款可以在我的博客访问的音乐列表。  刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 Aplayer 以及 MetingJS 的二次开发。Aplayer 是一款效果">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/covers/7-29.png">
+<meta property="article:published_time" content="2024-07-29T08:55:46.000Z">
+<meta property="article:modified_time" content="2024-09-14T13:52:40.527Z">
+<meta property="article:author" content="Jorry">
+<meta property="article:tag" content="MetingJS">
+<meta property="article:tag" content="魔改">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.jorryscat.cn/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/covers/7-29.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Jorry's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.svg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="loading" class="loading">
+        <div id="spinner"></div>
+  </div>
+  <script>
+    
+   
+    ap = null;
+    isRecover = false;
+    window.onload =  () => {
+      document.getElementById('loading').style.display = 'none';
+        const loadingMessage = document.getElementById('loading-message');
+      
+        
+        const metingJsElement = document.querySelector('meting-js');
+       
+        if (metingJsElement) {
+            Object.defineProperty(metingJsElement, "aplayer", {
+            set: function(aplayer) {
+                ap = aplayer;
+                ready();
+            }
+        });
+    
+        }
+
+
+
+        
+function ready() {
+  // console.log("haimeihuifu")
+  
+    if (ap) {
+      document.getElementById("loading-message").style.display = "none"
+
+        ap.on('canplay', function () {
+          if(!isRecover){
+                if(localStorage.getItem("musicIndex") != null){
+                    musicIndex = localStorage.getItem("musicIndex");
+                    musicTime = localStorage.getItem("musicTime");
+                    if(ap.list.index != musicIndex){
+                        ap.list.switch(musicIndex);
+                    }else{
+                        ap.seek(musicTime);
+                        ap.play()
+                        localStorage.removeItem("musicIndex")
+                        localStorage.removeItem("musicTime")
+                        isRecover = true;
+                    }
+                }else{
+                    isRecover = true;
+                }
+            }
+        });
+    }
+}
+    };
+
+
+window.onbeforeunload = function() {
+    if (ap && !ap.audio.paused) {
+        const musicIndex = ap.list.index;
+        const musicTime = ap.audio.currentTime;
+        localStorage.setItem("musicIndex", musicIndex);
+        localStorage.setItem("musicTime", musicTime);
+    }
+};
+
+
+
+
+</script>
+  
+   
+  <div id="main-grid" class="  ">
+    
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <!-- <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div> -->
+      <div>Jorry's Blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/gallery">Gallery</a>
+    
+      <a class="main-nav-link" href="/lab">Lab</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+
+    <div id="nav-bot-btn" class="nav-icon" onclick="botpress.open()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="16"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 0 0 416 208 208 0 1 0 0-416zM512 256A256 256 0 1 1 0 256a256 256 0 1 1 512 0zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+    </div>
+    
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+
+    
+
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/gallery">Gallery</a>
+    
+      <a class="nav-dropdown-link" href="/lab">Lab</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/images/ava.gif></image>
+        
+          <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Jorry </div>
+      <div class="dot"></div>
+      <div class="subtitle">Deep focus, steady growth. </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/599513180?spm_id_from=333.1007.0.0" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a>
+          
+          <a class="link-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCThZx43VikzXeqwR9EQYuiw" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
+          
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Jorryscat?tab=repositories" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          
+      </div>
+    </div>
+  </div>
+  <div class="widget" style="margin-top: 16px;">
+    <h3 class="widget-title">Latest Activities</h3>
+    <div class="loadingData">加载中...</div>
+    <div id="show-today">
+
+    </div>
+    <div id="graph-container"></div>
+  </div>
+</div>
+
+<script>
+  const username = 'jorryscat';
+  const BASE_URL = `https://api.github.com/users/${username}/events`;
+
+  async function fetchUserEvents() {
+    let page = 1;
+    const events = [];
+
+    while (true) {
+      const response = await fetch(`${BASE_URL}?per_page=100&page=${page}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.length === 0) break; // 无更多事件时停止循环
+
+      events.push(...data);
+      page++;
+    }
+
+    return events;
+  }
+
+  async function renderContributionGraph() {
+    const events = await fetchUserEvents();
+    const contributionCounts = {};
+
+    // 统计提交次数
+    events.forEach(event => {
+        if (event.type === 'PushEvent') { // 过滤出 Push 事件
+            const utcDate = new Date(event.created_at); // 创建一个 UTC 时间对象
+            const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000); // 转换为本地时间
+            const date = localDate.toISOString().split('T')[0]; // 只取日期部分
+            contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+        }
+    });
+
+    const graphContainer = document.getElementById('graph-container');
+    const showToday = document.getElementById('show-today');
+    const loadingIndicator = document.querySelector('.loadingData');
+    loadingIndicator.style.display = 'none'; // 隐藏加载指示符
+
+    // 生成最近 90 天的热力图
+    const now = new Date();
+    const today = now.toISOString().split('T')[0]; // 取得日期字符串（YYYY-MM-DD）
+
+    for (let i = 0; i < 90; i++) {
+        const date = new Date(now);
+        date.setDate(now.getDate() - i);
+        const formattedDate = date.toISOString().split('T')[0]; // 获取最近 90 天的日期
+        const count = contributionCounts[formattedDate] || 0;
+
+        // 创建格子
+        const box = document.createElement('div');
+        box.className = 'graph-box';
+        box.setAttribute('data-count', count);
+        box.setAttribute('title', `${count} commits on ${formattedDate}`);
+
+        // 根据贡献数量设置类
+        if (count === 0) {
+            // box.classList.add('no-contribute'); // 不再使用这个类
+        } else if (count < 4) {
+            box.classList.add('low-contribute');
+        } else if (count < 6) {
+            box.classList.add('medium-contribute');
+        } else if (count < 10) {
+            box.classList.add('high-contribute');
+        } else {
+            box.classList.add('very-high-contribute');
+        }
+
+        graphContainer.appendChild(box);
+    }
+
+    // 获取今天的贡献数量
+    const todayCount = contributionCounts[today] || 0;
+    // 创建一个展示当天贡献记录的元素
+    const boxToday = document.createElement('div');
+    boxToday.className = 'today-box'; // 使用今天的盒子类
+    const todayContribution = document.createElement('p');
+    todayContribution.innerHTML = `${todayCount} commits today`;
+    // 根据贡献数量设置类
+    if (todayCount === 0) {
+        boxToday.classList.add('no-contribute'); 
+    } else if (todayCount < 4) {
+        boxToday.classList.add('low-contribute');
+    } else if (todayCount < 6) {
+        boxToday.classList.add('medium-contribute');
+    } else if (todayCount < 10) {
+        boxToday.classList.add('high-contribute');
+    } else {
+        boxToday.classList.add('very-high-contribute');
+    }
+
+    showToday.appendChild(boxToday);
+    showToday.appendChild(todayContribution);
+}
+
+
+  // 执行函数渲染热力图
+  renderContributionGraph()
+    .catch(error => {
+      console.error('Error:', error);
+      document.querySelector('.loadingData').innerText = '加载失败，请稍后再试。'
+    });
+</script>
+  
+    
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Recent Posts</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/" title="记录一次播放器魔改" >
+            <div class="recent-link-text">
+              记录一次播放器魔改
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/" title="我的循环歌单" >
+            <div class="recent-link-text">
+              我的循环歌单
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
+                生活碎片
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
+                音乐
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
+                技术和方向
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
+                前端
+                <div class="category-count">1</div>
+            </a>
+        </div></div></div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/MetingJS/" rel="tag">MetingJS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%90%B4%E9%9D%92%E5%B3%B0/" rel="tag">吴青峰</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%AD%94%E6%94%B9/" rel="tag">魔改</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Archives</h3>
+      
+      
+        <a class="archive-link" href="/archives/2024/07 ">
+          July 2024 
+          <div class="archive-count">2 </div>
+        </a>
+      
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+      
+     <div id="top-wrapper">
+      
+       <div id="log-wrapper">
+        
+    <div style="display: flex;justify-content: space-between;align-items: start;">
+        <p class="widget-title">Logs Today</p>
+        <i class="fa-solid fa-bars-staggered" id="log-history"></i>
+    </div>
+    
+            <p class="log-tip">今天还没有记录活动。</p>
+            
+
+                <script>
+                    let logHistory = document.getElementById("log-history");
+                    logHistory.addEventListener("click", function () {
+                        // 点击后跳转到指定的 URL
+                        window.location.href = "/activities"; // 替换为您的目标网址
+                    })
+                </script>
+       </div>
+      
+      <div id="top-right-wrapper">
+        <div id="loading-message">播放器加载中...</div>
+    <meting-js 
+      server="netease" 
+      type="playlist" 
+      id="12364890712" 
+      list-folded="true" 
+      lrc-type="0" 
+      theme="#79cbfa" 
+      order="random" 
+      on-ready="onMetingReady">
+    </meting-js>
+        </div>
+    </div>
+
+      <div id="body-page"> 
+
+
+<article id="post-记录一次播放器魔改" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img" rel="gallery_cm13o479a0004l0fz1kz5hoiv">
+        <img src="/covers/7-29.png" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
+   
+  <div class="article-inner">
+     
+
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        记录一次播放器魔改
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-07-29T08:55:46.000Z" itemprop="datePublished">2024-07-29</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">技术和方向</a>><a class="meta-cate-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">前端</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.6k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MetingJS/" rel="tag">MetingJS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AD%94%E6%94%B9/" rel="tag">魔改</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <blockquote>
+<p>部署完博客后在思考整体的框架，以及如何添加一些合理的功能。<strong>Vivia</strong>这个主题深得我心，就是相比butterfly或者anzhiyu主题，可供选择的功能相对较少，不过确实给了我一些发挥的空间，比如一款可以在我的博客访问的音乐列表。</p>
+</blockquote>
+<p>刚好在安知鱼的博客上看到了比较满意的播放器效果，顺藤摸瓜找到了一些类似的项目，都是基于 <strong>Aplayer</strong> 以及 <strong>MetingJS</strong> 的二次开发。Aplayer 是一款效果不错的播放器插件，感兴趣的话可以到文档查阅。目前在文章中插入使用的是对hexo框架更为友好的 <strong>hexo-tag-aplayer</strong> ，非常好上手，链接：<a target="_blank" rel="noopener" href="https://easyhexo.com/3-Plugins-use-and-config/3-1-hexo-tag-aplayer/">hexo-tag-aplayer | Easy Hexo 👨‍💻</a></p>
+<hr>
+<p>对于网页播放器，我是在这位 <a target="_blank" rel="noopener" href="https://blog.zhheo.com/">张洪Heo - 分享设计与科技生活 (zhheo.com)</a> 大佬的项目上小改的。</p>
+<p>GitHub：<a target="_blank" rel="noopener" href="https://github.com/zhheo/HeoMusic/">zhheo/HeoMusic: 一个基于Aplayer和MetingJS的静态音乐播放器 (github.com)</a>。</p>
+<p>修改后的版本长这样：</p>
+<img src="/2024/07/29/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%92%AD%E6%94%BE%E5%99%A8%E9%AD%94%E6%94%B9/result.png" alt="修改后的效果">
+<p>vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可行的，可以在hexo中新增一个自定义网页，以满足开发需求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> page <span class="string">&quot;music&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这样在 <code>/source</code> 下会生成 <code>/music</code>文件夹，默认状态下该文件夹下有一个 index.html 以及一个用于存放静态资源的文件夹。</p>
+<p>同时为了避免hexo对新建的文件进行渲染，还需要在博客根目录的 <code>_config.yml</code> 文件中修改一下项目配置，找到 <code>skip_render</code> 选项并设置需要跳过渲染的文件或文件夹。方便起见，我设置了music文件夹下的所有文件都跳过渲染。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">skip_render:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">./music/**</span></span><br></pre></td></tr></table></figure>
+<p>这样，就能通过博客根站点 + 相对source的路径访问到你的新网页了，比如 <code>https://jorryscat.cn/music</code> 。如果你想把该网页添加到导航栏的话，还需要在对应主题下的配置文件中进行配置。对于vivia主题，我的配置为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># Links in the navigation bar</span></span><br><span class="line">  <span class="attr">Home:</span> <span class="string">/</span></span><br><span class="line">  <span class="attr">Archives:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="attr">Music:</span> <span class="string">/music</span></span><br><span class="line">  <span class="attr">About:</span> <span class="string">/about</span></span><br><span class="line"><span class="attr">rss:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
+<p>建好之后，就可以开心魔改你的 player 了🤌​。</p>
+<p>首先拉取一下大佬贡献的初始代码，并且把它们整到我的music文件夹中，观察之后发现魔改可以从两个方面入手，一个是给出的样本网页 <code>index.html</code> ，一个是大大提供的 <code>main.css</code> ，粗略阅读一下代码后基本可以确定代码的结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 处理播放器背景</span><br><span class="line">- 处理歌单列表</span><br><span class="line">- 处理播放器</span><br><span class="line">- 处理控制器</span><br></pre></td></tr></table></figure>
+<p>按照需要进行修改就可以了，项目本身做得很好看，无奈我是小号字体爱好者，所以改的部分主要是歌词展示以及播放器效果，同时为了适配我的网站，增加了一个顶部导航栏并且做了同样的样式。因为这个index刚开始就是从生成的 <code>/public/music/index.html</code> 中拿过来用的，所以发生了一些比较 <s>抓马</s> 的事情，生成的网页在本地访问一切正常，但是上传并通过vercel部署的时候所有样式都丢了。后面解决方法是把原来对 aplayer 的相关引用都改到 source 的相对路径下，部署后能成功访问。（ 后面我思考可能是我一开始拿 index 的时候里面本身引入了 vivia的样式和逻辑😐）</p>
+<p>修改的时候可以开一下本地访问，在博客根目录右键 <code>git bash here</code> 分别输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>本地服务器查看修改的效果，运行 <code>hexo g</code> 以及<code>hexo d</code> 上传到 github并且部署就🆗了。</p>
+<p>播放器改完后还是有一些bug，比如自转动画的问题（主要出在对 aplayer 的监听，可能是当时搞的时候急着睡觉所以抓耳挠腮有点浮躁，先放着吧，到时候再来解决）。</p>
+<p>先这样😪，我又该睡觉了。</p>
+<p>感谢各位大佬开源项目的无私贡献 ~</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/anzhiyu-c">@anzhiyu</a> , <a target="_blank" rel="noopener" href="https://github.com/zhheo">@张洪Heo</a> , <a target="_blank" rel="noopener" href="https://github.com/Glowed">@Glowed</a></p>
+<hr>
+<p>更新，已解决。</p>
+<p>访问地址： <a href="/music/">魔改播放器</a></p>
+
+        
+      </div>
+
+         
+    </div>
+    
+   
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/07/26/%E6%88%91%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%AD%8C%E5%8D%95/"
+      title="我的循环歌单"
+     >
+
+    <p class="title-text">
+      
+        我的循环歌单
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+  
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <div id="comment-card" class="comment-card">
+    <div class="main-title-bar">
+      <div class="main-title-dot"></div>
+      <div class="main-title">Comments </div>
+    </div>
+    <div id="vcomments"></div>
+  </div>
+  <script>
+      new Valine({"enable":true,"appId":"FoSAsQiYfBwIN1JlLaEThsRK-gzGzoHsz","appKey":"WuNKOkzfuKL98UtT2KoLdCXc","placeholder":"Just write something","pageSize":10,"highlight":true,"serverURLs":null,"requiredFields":["nick","mail"],"emojiCDN":"https://valine-emoji.bili33.top/","emojiMaps":{"bilibilitv2":"bilibilitv/[tv_doge].png","bilibilitv3":"bilibilitv/[tv_亲亲].png","bilibilitv4":"bilibilitv/[tv_偷笑].png","bilibilitv5":"bilibilitv/[tv_再见].png","bilibilitv6":"bilibilitv/[tv_冷漠].png","bilibilitv7":"bilibilitv/[tv_发怒].png","bilibilitv8":"bilibilitv/[tv_发财].png","bilibilitv9":"bilibilitv/[tv_可爱].png","bilibilitv10":"bilibilitv/[tv_吐血].png","bilibilitv11":"bilibilitv/[tv_呆].png","bilibilitv12":"bilibilitv/[tv_呕吐].png","bilibilitv13":"bilibilitv/[tv_困].png","bilibilitv14":"bilibilitv/[tv_坏笑].png","bilibilitv15":"bilibilitv/[tv_大佬].png","bilibilitv16":"bilibilitv/[tv_大哭].png","bilibilitv17":"bilibilitv/[tv_委屈].png","bilibilitv18":"bilibilitv/[tv_害羞].png","bilibilitv19":"bilibilitv/[tv_尴尬].png","bilibilitv20":"bilibilitv/[tv_微笑].png","bilibilitv21":"bilibilitv/[tv_思考].png","bilibilitv22":"bilibilitv/[tv_惊吓].png","bilibilitv23":"bilibilitv/[tv_打脸].png","bilibilitv24":"bilibilitv/[tv_抓狂].png","bilibilitv25":"bilibilitv/[tv_抠鼻].png","bilibilitv26":"bilibilitv/[tv_斜眼笑].png","bilibilitv27":"bilibilitv/[tv_无奈].png","bilibilitv28":"bilibilitv/[tv_晕].png","bilibilitv29":"bilibilitv/[tv_流汗].png","bilibilitv30":"bilibilitv/[tv_流泪].png","bilibilitv31":"bilibilitv/[tv_流鼻血].png","bilibilitv32":"bilibilitv/[tv_点赞].png","bilibilitv33":"bilibilitv/[tv_生气].png","bilibilitv34":"bilibilitv/[tv_生病].png","bilibilitv35":"bilibilitv/[tv_疑问].png","bilibilitv36":"bilibilitv/[tv_白眼].png","bilibilitv37":"bilibilitv/[tv_皱眉].png","bilibilitv38":"bilibilitv/[tv_目瞪口呆].png","bilibilitv39":"bilibilitv/[tv_睡着].png","bilibilitv40":"bilibilitv/[tv_笑哭].png","bilibilitv41":"bilibilitv/[tv_腼腆].png","bilibilitv42":"bilibilitv/[tv_色].png","bilibilitv43":"bilibilitv/[tv_调侃].png","bilibilitv44":"bilibilitv/[tv_调皮].png","bilibilitv45":"bilibilitv/[tv_鄙视].png","bilibilitv46":"bilibilitv/[tv_闭嘴].png","bilibilitv47":"bilibilitv/[tv_难过].png","bilibilitv48":"bilibilitv/[tv_馋].png","bilibilitv49":"bilibilitv/[tv_鬼脸].png","bilibilitv50":"bilibilitv/[tv_黑人问号].png","bilibilitv51":"bilibilitv/[tv_鼓掌].png"},"el":"#vcomments"});
+  </script>
+
+
+
+</div>
+      
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Jorry
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+    
+    <div id="moreDetail">
+      <div id="site-uptime"></div>
+      <div id="visit-counts">
+        <p><i class="fa-solid fa-magnifying-glass"></i> 总访问量：<span id="busuanzi_value_site_pv"></span></p>
+        <p style="margin-left: 5px;"> | <i class="fa-solid fa-eye"></i> 访客数：<span id="busuanzi_value_site_uv"></span></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Busuanzi脚本 -->
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+  <script>
+    // 网站创建时间（请替换为你的实际创建时间）
+    const startDate = new Date('2024-07-05T00:00:00Z'); // ISO 格式
+
+    function updateUptime() {
+      const now = new Date();
+      const diffTime = Math.abs(now - startDate);
+
+      const diffSeconds = Math.floor(diffTime / 1000); // 总秒数
+      const diffMinutes = Math.floor(diffSeconds / 60);
+      const diffHours = Math.floor(diffMinutes / 60);
+      const diffDays = Math.floor(diffHours / 24);
+      const diffYears = Math.floor(diffDays / 365);
+
+      const uptimeElement = document.getElementById('site-uptime');
+      if (uptimeElement) {
+        uptimeElement.textContent = `网站已运行 ${diffYears} 年 ${diffDays % 365} 天 ${diffHours % 24} 小时 ${diffMinutes % 60} 分钟 ${diffSeconds % 60} 秒`;
+      }
+    }
+
+    // 初始更新时间
+    updateUptime();
+
+    // 设置每秒更新一次
+    setInterval(updateUptime, 1000);
+  </script>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="side-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+
+    <button id="call-bot-btn" class="side-btn hide" onclick="botpress.open()">
+        <i class="fa-regular fa-comment-dots"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btnTop = document.getElementById('back-to-top-btn');
+    let btnBot = document.getElementById('call-bot-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btnTop.classList.remove('hide')
+            btnBot.classList.remove('hide')
+        } else {
+            btnTop.classList.add('hide')
+            btnBot.classList.add('hide')
+        }
+    }
+    window.onscroll = function () {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+  
+  <script src="/js/light-dark-switch.js"></script>
+  
+</body>
+
+</html>
