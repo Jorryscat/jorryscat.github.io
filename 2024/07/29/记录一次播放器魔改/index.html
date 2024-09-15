@@ -96,7 +96,10 @@
         
 function ready() {
   // console.log("haimeihuifu")
+  
     if (ap) {
+      document.getElementById("loading-message").style.display = "none"
+
         ap.on('canplay', function () {
           if(!isRecover){
                 if(localStorage.getItem("musicIndex") != null){
@@ -279,10 +282,12 @@ window.onbeforeunload = function() {
 
     // 统计提交次数
     events.forEach(event => {
-      if (event.type === 'PushEvent') { // 过滤出 Push 事件
-        const date = event.created_at.split('T')[0]; // 只取日期部分
-        contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
-      }
+        if (event.type === 'PushEvent') { // 过滤出 Push 事件
+            const utcDate = new Date(event.created_at); // 创建一个 UTC 时间对象
+            const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000); // 转换为本地时间
+            const date = localDate.toISOString().split('T')[0]; // 只取日期部分
+            contributionCounts[date] = (contributionCounts[date] || 0) + 1; // 统计每个日期的提交次数
+        }
     });
 
     const graphContainer = document.getElementById('graph-container');
@@ -295,31 +300,31 @@ window.onbeforeunload = function() {
     const today = now.toISOString().split('T')[0]; // 取得日期字符串（YYYY-MM-DD）
 
     for (let i = 0; i < 90; i++) {
-      const date = new Date(now);
-      date.setDate(now.getDate() - i);
-      const formattedDate = date.toISOString().split('T')[0];
-      const count = contributionCounts[formattedDate] || 0;
+        const date = new Date(now);
+        date.setDate(now.getDate() - i);
+        const formattedDate = date.toISOString().split('T')[0]; // 获取最近 90 天的日期
+        const count = contributionCounts[formattedDate] || 0;
 
-      // 创建格子
-      const box = document.createElement('div');
-      box.className = 'graph-box';
-      box.setAttribute('data-count', count);
-      box.setAttribute('title', `${count} commits on ${formattedDate}`);
+        // 创建格子
+        const box = document.createElement('div');
+        box.className = 'graph-box';
+        box.setAttribute('data-count', count);
+        box.setAttribute('title', `${count} commits on ${formattedDate}`);
 
-      // 根据贡献数量设置类
-      if (count === 0) {
-        // box.classList.add('no-contribute'); // 不再使用这个类
-      } else if (count < 4) {
-        box.classList.add('low-contribute');
-      } else if (count < 6) {
-        box.classList.add('medium-contribute');
-      } else if (count < 10) {
-        box.classList.add('high-contribute');
-      } else {
-        box.classList.add('very-high-contribute');
-      }
+        // 根据贡献数量设置类
+        if (count === 0) {
+            // box.classList.add('no-contribute'); // 不再使用这个类
+        } else if (count < 4) {
+            box.classList.add('low-contribute');
+        } else if (count < 6) {
+            box.classList.add('medium-contribute');
+        } else if (count < 10) {
+            box.classList.add('high-contribute');
+        } else {
+            box.classList.add('very-high-contribute');
+        }
 
-      graphContainer.appendChild(box);
+        graphContainer.appendChild(box);
     }
 
     // 获取今天的贡献数量
@@ -331,22 +336,21 @@ window.onbeforeunload = function() {
     todayContribution.innerHTML = `${todayCount} commits today`;
     // 根据贡献数量设置类
     if (todayCount === 0) {
-      boxToday.classList.add('no-contribute'); 
+        boxToday.classList.add('no-contribute'); 
     } else if (todayCount < 4) {
-      boxToday.classList.add('low-contribute');
+        boxToday.classList.add('low-contribute');
     } else if (todayCount < 6) {
-      boxToday.classList.add('medium-contribute');
+        boxToday.classList.add('medium-contribute');
     } else if (todayCount < 10) {
-      boxToday.classList.add('high-contribute');
+        boxToday.classList.add('high-contribute');
     } else {
-      boxToday.classList.add('very-high-contribute');
+        boxToday.classList.add('very-high-contribute');
     }
-
 
     showToday.appendChild(boxToday);
     showToday.appendChild(todayContribution);
+}
 
-  }
 
   // 执行函数渲染热力图
   renderContributionGraph()
@@ -388,16 +392,6 @@ window.onbeforeunload = function() {
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
-                技术和方向
-                <div class="category-count">1</div>
-            </a>
-        <div class="children"><div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
-                前端
-                <div class="category-count">1</div>
-            </a>
-        </div></div>
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
                 生活碎片
                 <div class="category-count">1</div>
@@ -405,6 +399,16 @@ window.onbeforeunload = function() {
         <div class="children"><div class="category-box">
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
                 音乐
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
+                技术和方向
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
+                前端
                 <div class="category-count">1</div>
             </a>
         </div></div></div>
@@ -445,36 +449,21 @@ window.onbeforeunload = function() {
     <div id="content-body">
       
      <div id="top-wrapper">
-      <div id="log-wrapper"> 
+      
+       <div id="log-wrapper">
+        
     <div style="display: flex;justify-content: space-between;align-items: start;">
         <p class="widget-title">Logs Today</p>
         <i class="fa-solid fa-bars-staggered" id="log-history"></i>
     </div>
     
-        <div id="log-container" class="log-container">
-            <div id="log-activity" class="log-activity">11:53  兜兜转转又用回了原来的方法</div>
-        </div>
+            <p class="log-tip">今天还没有记录活动。</p>
+            
 
-        <script>
-            // 转换活动数据为 JSON 数组
-            const activities = ["11:53  兜兜转转又用回了原来的方法","11:53  用了pjax没什么很好的效果💢","21:54  修改了网页的播放器暂停功能"];
-            let currentIndex = 0;
-
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % activities.length; // 循环索引
-
-                const logActivity = document.getElementById('log-activity');
-                logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
-
-                // 等待滚动结束后再更新内容
-                setTimeout(() => {
-                    logActivity.textContent = activities[currentIndex]; // 更新活动内容
-                    logActivity.style.transform = 'translateY(0)'; // 归位
-                }, 500); // 滚动效果的持续时间应与 CSS 中的时间一致
-            }, 3000); // 每3秒切换一次
-        </script>
-        </div>
+       </div>
+      
       <div id="top-right-wrapper">
+        <div id="loading-message">播放器加载中...</div>
     <meting-js 
       server="netease" 
       type="playlist" 
@@ -497,7 +486,7 @@ window.onbeforeunload = function() {
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm128x0he00017cfz0xzp0zpe">
+      <a class="article-gallery-img" rel="gallery_cm13fjmvm0005s0fzcbr478ov">
         <img src="/covers/7-29.png" itemprop="image">
       </a>
     

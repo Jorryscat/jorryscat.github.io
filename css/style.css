@@ -549,12 +549,16 @@ body {
 }
 #top-wrapper {
   margin-bottom: 24px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
+  background-color: transparent;
 }
 @media screen and (min-width: 1024px) {
   #top-wrapper {
