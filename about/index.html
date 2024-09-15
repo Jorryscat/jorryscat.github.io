@@ -388,16 +388,6 @@ window.onbeforeunload = function() {
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
-                生活碎片
-                <div class="category-count">1</div>
-            </a>
-        <div class="children"><div class="category-box">
-            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
-                音乐
-                <div class="category-count">1</div>
-            </a>
-        </div></div>
             <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/">
                 技术和方向
                 <div class="category-count">1</div>
@@ -405,6 +395,16 @@ window.onbeforeunload = function() {
         <div class="children"><div class="category-box">
             <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
                 前端
+                <div class="category-count">1</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
+                生活碎片
+                <div class="category-count">1</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/%E9%9F%B3%E4%B9%90/">
+                音乐
                 <div class="category-count">1</div>
             </a>
         </div></div></div>
@@ -448,7 +448,6 @@ window.onbeforeunload = function() {
       
        <div id="log-wrapper">
         
-
 <div style="display: flex;justify-content: space-between;align-items: start;">
     <p class="widget-title">Logs Today</p>
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
@@ -460,7 +459,7 @@ window.onbeforeunload = function() {
 
     <script>
         // 转换活动数据为 JSON 数组
-        const activities = ["17:23  学学计网","17:43  完成日志模块的代码🆗","22:15  睡了好久的觉","22:27  测试","22:47  再测了一次日志模块"];
+        const activities = ["17:23  学学计网","17:43  完成日志模块的代码🆗","22:15  睡了好久的觉","22:27  测试","22:47  再测了一次日志模块","23:12  终于找到bug了","23:13  ...","23:16  刷学习通"];
         let currentIndex = 0;
 
         setInterval(() => {
