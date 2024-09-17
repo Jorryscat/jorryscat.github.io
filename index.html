@@ -6,8 +6,15 @@
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> -->
+<script src="/js/jquery-3.4.1.min.js" ></script>
+<script src="/js/APlayer.min.js" ></script>
+<script src="/js/Meting2.min.js" ></script>
+
+
+<!-- <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
 
 <script src="/js/color.global.min.js" ></script>
 <script src="/js/load-settings.js" ></script>
@@ -449,29 +456,7 @@ window.onbeforeunload = function() {
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
 </div>
 
-    <div id="log-container" class="log-container">
-        <div id="log-activity" class="log-activity">17:23  学学计网</div>
-    </div>
-
-    <script>
-        // 转换活动数据为 JSON 数组
-        const activities = ["17:23  学学计网","17:43  完成日志模块的代码🆗","22:15  睡了好久的觉","22:27  测试","22:47  再测了一次日志模块","23:12  终于找到bug了","23:13  ...","23:16  刷学习通"];
-        let currentIndex = 0;
-
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % activities.length; // 循环索引
-
-            const logActivity = document.getElementById('log-activity');
-            logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
-
-            // 等待滚动结束后再更新内容
-            setTimeout(() => {
-                logActivity.textContent = activities[currentIndex]; // 更新内容
-                logActivity.style.transform = 'translateY(0)'; // 归位
-            }, 500); // 滚动效果持续时间
-        }, 3000); // 每3秒切换一次
-    </script>
-
+    <p class="log-tip">今天还没有记录活动。</p>
 
 
 <script>
@@ -757,8 +742,8 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
 
   
 
-  <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+
+ 
   
   <script src="/js/light-dark-switch.js"></script>
   
