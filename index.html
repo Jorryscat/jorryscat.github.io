@@ -6,15 +6,12 @@
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> -->
 <script src="/js/jquery-3.4.1.min.js" ></script>
-<script src="/js/APlayer.min.js" ></script>
 <script src="/js/Meting2.min.js" ></script>
 
-
-<!-- <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
 
 <script src="/js/color.global.min.js" ></script>
 <script src="/js/load-settings.js" ></script>
@@ -67,25 +64,25 @@
   <div id="loading" class="loading">
         <div id="spinner"></div>
   </div>
+
   <script>
     
-   
     ap = null;
     isRecover = false;
-    window.onload =  () => {
+    window.onload = () => {
       document.getElementById('loading').style.display = 'none';
-        const loadingMessage = document.getElementById('loading-message');
+        // const loadingMessage = document.getElementById('loading-message');
       
         
         const metingJsElement = document.querySelector('meting-js');
+
        
         if (metingJsElement) {
-          document.getElementById("loading-message").style.display = "none"
-
+            document.getElementById("loading-message").style.display = "none"
             Object.defineProperty(metingJsElement, "aplayer", {
             set: function(aplayer) {
                 ap = aplayer;
-                ready();
+                // ready();
             }
         });
     
@@ -93,12 +90,10 @@
 
 
 
-        
 function ready() {
-  // console.log("haimeihuifu")
-  
+  console.log("输出准备")
+  console.log(ap)
     if (ap) {
-      
         ap.on('canplay', function () {
           if(!isRecover){
                 if(localStorage.getItem("musicIndex") != null){
@@ -120,6 +115,7 @@ function ready() {
         });
     }
 }
+
     };
 
 
@@ -133,9 +129,15 @@ window.onbeforeunload = function() {
 };
 
 
+        
+
+
 
 
 </script>
+
+
+  
   
    
   <div id="main-grid" class="  ">
@@ -456,13 +458,37 @@ window.onbeforeunload = function() {
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
 </div>
 
-    <p class="log-tip">今天还没有记录活动。</p>
+    <div id="log-container" class="log-container">
+        <div id="log-activity" class="log-activity">20:54  取消了一部分日志功能</div>
+    </div>
+
+    <script>
+        // 转换活动数据为 JSON 数组
+        const activities = ["20:54  取消了一部分日志功能","20:55  今天没好好吃饭"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+            const logActivity = document.getElementById('log-activity');
+            logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+            // 等待滚动结束后再更新内容
+            setTimeout(() => {
+                logActivity.textContent = activities[currentIndex]; // 更新内容
+                logActivity.style.transform = 'translateY(0)'; // 归位
+            }, 500); // 滚动效果持续时间
+        }, 3000); // 每3秒切换一次
+    </script>
+
 
 
 <script>
     let logHistory = document.getElementById("log-history");
+    
     logHistory.addEventListener("click", function () {
-        window.location.href = "/activities"; // 替换为目标网址
+        // window.location.href = "/activities"; // 替换为目标网址
+
     })
 </script>
 
@@ -746,7 +772,10 @@ vivia 是通过md文档渲染的网页，所以在md文件中操作是不太可�
  
   
   <script src="/js/light-dark-switch.js"></script>
-  
+
+ 
 </body>
+
+
 
 </html>
