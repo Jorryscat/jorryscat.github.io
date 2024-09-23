@@ -72,76 +72,134 @@
         <div id="spinner"></div>
   </div>
 
-  <script>
-    
-    ap = null;
-    isRecover = false;
-    window.onload = () => {
-      document.getElementById('loading').style.display = 'none';
-        // const loadingMessage = document.getElementById('loading-message');
-      
-        
-        const metingJsElement = document.querySelector('meting-js');
+<script>
+window.onload = () => {
+  // document.getElementById('loading').style.display = 'none';
+};
+</script>
 
-       
-        if (metingJsElement) {
-            document.getElementById("loading-message").style.display = "none"
-            Object.defineProperty(metingJsElement, "aplayer", {
-            set: function(aplayer) {
-                ap = aplayer;
-                // ready();
-            }
-        });
-    
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  loadImage();
+  
+  // Your JavaScript code here
+  let ap = null;
+  let isRecover = false;
+
+const metingElement = document.querySelector('meting-js');
+
+if (metingElement) {
+    Object.defineProperty(metingElement, "aplayer", {
+        set: function(aplayer) {
+            ap = aplayer;
+            ready();
         }
-
-
+    });
+} else {
+    console.error("Element 'meting-js' not found.");
+}
 
 function ready() {
-  console.log("输出准备")
-  console.log(ap)
-    if (ap) {
-        ap.on('canplay', function () {
-          if(!isRecover){
-                if(localStorage.getItem("musicIndex") != null){
-                    musicIndex = localStorage.getItem("musicIndex");
-                    musicTime = localStorage.getItem("musicTime");
-                    if(ap.list.index != musicIndex){
-                        ap.list.switch(musicIndex);
-                    }else{
-                        ap.seek(musicTime);
-                        ap.play()
-                        localStorage.removeItem("musicIndex")
-                        localStorage.removeItem("musicTime")
-                        isRecover = true;
-                    }
-                }else{
-                    isRecover = true;
-                }
+  document.getElementById("loading-message").style.display = "none";
+  ap.on('canplay', handleCanPlay);
+}
+
+function handleCanPlay() {
+    if (!isRecover) {
+        const musicIndex = localStorage.getItem("musicIndex");
+        const musicTime = localStorage.getItem("musicTime");
+
+        if (musicIndex !== null) {
+            if (ap.list.index != musicIndex) {
+                ap.list.switch(musicIndex);
+            } else {
+                ap.seek(musicTime);
+                ap.play();
+                clearLocalStorage();
+                isRecover = true;
             }
-        });
+        } else {
+            isRecover = true;
+        }
     }
 }
 
-    };
+function clearLocalStorage() {
+    localStorage.removeItem("musicIndex");
+    localStorage.removeItem("musicTime");
+}
 
+window.onbeforeunload = function(event) {
+    if (!ap.audio.paused) {
+        saveCurrentMusicState();
+    }
+};
 
-window.onbeforeunload = function() {
-    if (ap && !ap.audio.paused) {
+function saveCurrentMusicState() {
+    try {
         const musicIndex = ap.list.index;
         const musicTime = ap.audio.currentTime;
         localStorage.setItem("musicIndex", musicIndex);
         localStorage.setItem("musicTime", musicTime);
+    } catch (error) {
+        console.error("Error saving to localStorage:", error);
     }
-};
+}
 
 
+// 加载完图片之后隐藏loading
+function loadImage(){
+  document.getElementById('loading').style.display="none"
+  return;
+   // 获取所有具有类 right-panel 和 with-pic 的 a 标签
+    const rightPanelLinks = document.querySelectorAll('.right-panel.with-pic');
+    if(rightPanelLinks){
+      const totalImages = rightPanelLinks.length;
+      let loadedImagesCount = 0;
+
+    // 遍历所有 a 标签
+    rightPanelLinks.forEach((link) => {
+        // 获取背景图片的 URL
+        const backgroundImageUrl = getComputedStyle(link).backgroundImage.slice(4, -1).replace(/"/g, "");
         
+        // 创建新的 Image 对象进行预加载
+        const img = new Image();
+        img.src = backgroundImageUrl;
 
+        // 图片加载完成后计数
+        img.onload = function() {
+            loadedImagesCount++;
+            checkAllImagesLoaded();
+        };
+
+        img.onerror = function() {
+            console.error('Failed to load background image:', backgroundImageUrl);
+            loadedImagesCount++;
+            checkAllImagesLoaded();
+        };
+    });
+
+    // 检查所有图片是否都已加载
+    function checkAllImagesLoaded() {
+        if (loadedImagesCount === totalImages) {
+            document.getElementById('loading').style.display="none"
+        }
+    }
+
+    }else console.log("不存在这个")
+   
+}
+
+
+});
 
 
 
 </script>
+
+
 
 
   
@@ -466,12 +524,12 @@ window.onbeforeunload = function() {
 </div>
 
     <div id="log-container" class="log-container">
-        <div id="log-activity" class="log-activity">20:54  取消了一部分日志功能</div>
+        <div id="log-activity" class="log-activity">23:49  修复了一些跳转问题</div>
     </div>
 
     <script>
         // 转换活动数据为 JSON 数组
-        const activities = ["20:54  取消了一部分日志功能","20:55  今天没好好吃饭"];
+        const activities = ["23:49  修复了一些跳转问题","23:49  刷学习通","23:49  请珍惜时间，多看八股"];
         let currentIndex = 0;
 
         setInterval(() => {
@@ -525,7 +583,7 @@ window.onbeforeunload = function() {
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm19awqke0001rgfz9ut56t45">
+      <a class="article-gallery-img" rel="gallery_cm1f6o7l80003pofz39u77nzt">
         <img src="/covers/7-26.png" itemprop="image">
       </a>
     

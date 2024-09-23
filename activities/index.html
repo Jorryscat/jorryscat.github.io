@@ -49,8 +49,8 @@
 <meta property="og:site_name" content="Jorry&#39;s Blog">
 <meta property="og:description" content="2024-09-14 21:54: 修改了网页的播放器暂停功能 11:53: 用了pjax没什么很好的效果💢 11:53: 兜兜转转又用回了原来的方法 2024-09-15 23:16: 刷学习通 23:13: … 23:12: 终于找到bug了 22:47: 再测了一次日志模块 22:27: 测试 22:15: 睡了好久的觉 17:43: 完成日志模块的代码🆗 17:23: 学学计网 202">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-09-19T12:55:20.930Z">
-<meta property="article:modified_time" content="2024-09-19T12:55:20.930Z">
+<meta property="article:published_time" content="2024-09-23T15:49:37.592Z">
+<meta property="article:modified_time" content="2024-09-23T15:49:37.592Z">
 <meta property="article:author" content="Jorry">
 <meta name="twitter:card" content="summary">
   
@@ -69,76 +69,134 @@
         <div id="spinner"></div>
   </div>
 
-  <script>
-    
-    ap = null;
-    isRecover = false;
-    window.onload = () => {
-      document.getElementById('loading').style.display = 'none';
-        // const loadingMessage = document.getElementById('loading-message');
-      
-        
-        const metingJsElement = document.querySelector('meting-js');
+<script>
+window.onload = () => {
+  // document.getElementById('loading').style.display = 'none';
+};
+</script>
 
-       
-        if (metingJsElement) {
-            document.getElementById("loading-message").style.display = "none"
-            Object.defineProperty(metingJsElement, "aplayer", {
-            set: function(aplayer) {
-                ap = aplayer;
-                // ready();
-            }
-        });
-    
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  loadImage();
+  
+  // Your JavaScript code here
+  let ap = null;
+  let isRecover = false;
+
+const metingElement = document.querySelector('meting-js');
+
+if (metingElement) {
+    Object.defineProperty(metingElement, "aplayer", {
+        set: function(aplayer) {
+            ap = aplayer;
+            ready();
         }
-
-
+    });
+} else {
+    console.error("Element 'meting-js' not found.");
+}
 
 function ready() {
-  console.log("输出准备")
-  console.log(ap)
-    if (ap) {
-        ap.on('canplay', function () {
-          if(!isRecover){
-                if(localStorage.getItem("musicIndex") != null){
-                    musicIndex = localStorage.getItem("musicIndex");
-                    musicTime = localStorage.getItem("musicTime");
-                    if(ap.list.index != musicIndex){
-                        ap.list.switch(musicIndex);
-                    }else{
-                        ap.seek(musicTime);
-                        ap.play()
-                        localStorage.removeItem("musicIndex")
-                        localStorage.removeItem("musicTime")
-                        isRecover = true;
-                    }
-                }else{
-                    isRecover = true;
-                }
+  document.getElementById("loading-message").style.display = "none";
+  ap.on('canplay', handleCanPlay);
+}
+
+function handleCanPlay() {
+    if (!isRecover) {
+        const musicIndex = localStorage.getItem("musicIndex");
+        const musicTime = localStorage.getItem("musicTime");
+
+        if (musicIndex !== null) {
+            if (ap.list.index != musicIndex) {
+                ap.list.switch(musicIndex);
+            } else {
+                ap.seek(musicTime);
+                ap.play();
+                clearLocalStorage();
+                isRecover = true;
             }
-        });
+        } else {
+            isRecover = true;
+        }
     }
 }
 
-    };
+function clearLocalStorage() {
+    localStorage.removeItem("musicIndex");
+    localStorage.removeItem("musicTime");
+}
 
+window.onbeforeunload = function(event) {
+    if (!ap.audio.paused) {
+        saveCurrentMusicState();
+    }
+};
 
-window.onbeforeunload = function() {
-    if (ap && !ap.audio.paused) {
+function saveCurrentMusicState() {
+    try {
         const musicIndex = ap.list.index;
         const musicTime = ap.audio.currentTime;
         localStorage.setItem("musicIndex", musicIndex);
         localStorage.setItem("musicTime", musicTime);
+    } catch (error) {
+        console.error("Error saving to localStorage:", error);
     }
-};
+}
 
 
+// 加载完图片之后隐藏loading
+function loadImage(){
+  document.getElementById('loading').style.display="none"
+  return;
+   // 获取所有具有类 right-panel 和 with-pic 的 a 标签
+    const rightPanelLinks = document.querySelectorAll('.right-panel.with-pic');
+    if(rightPanelLinks){
+      const totalImages = rightPanelLinks.length;
+      let loadedImagesCount = 0;
+
+    // 遍历所有 a 标签
+    rightPanelLinks.forEach((link) => {
+        // 获取背景图片的 URL
+        const backgroundImageUrl = getComputedStyle(link).backgroundImage.slice(4, -1).replace(/"/g, "");
         
+        // 创建新的 Image 对象进行预加载
+        const img = new Image();
+        img.src = backgroundImageUrl;
 
+        // 图片加载完成后计数
+        img.onload = function() {
+            loadedImagesCount++;
+            checkAllImagesLoaded();
+        };
+
+        img.onerror = function() {
+            console.error('Failed to load background image:', backgroundImageUrl);
+            loadedImagesCount++;
+            checkAllImagesLoaded();
+        };
+    });
+
+    // 检查所有图片是否都已加载
+    function checkAllImagesLoaded() {
+        if (loadedImagesCount === totalImages) {
+            document.getElementById('loading').style.display="none"
+        }
+    }
+
+    }else console.log("不存在这个")
+   
+}
+
+
+});
 
 
 
 </script>
+
+
 
 
   
@@ -494,7 +552,7 @@ window.onbeforeunload = function() {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-09-19T12:55:20.930Z" itemprop="datePublished">2024-09-19</time>
+  <time class="dt-published" datetime="2024-09-23T15:49:37.592Z" itemprop="datePublished">2024-09-23</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -505,7 +563,7 @@ window.onbeforeunload = function() {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            212 words 
+            263 words 
           </div>
         </div>
         
@@ -528,6 +586,10 @@ window.onbeforeunload = function() {
 <h3 id="2024-09-19">2024-09-19</h3>
 <p><span style="font-weight:bold;">20:55</span>: <span>今天没好好吃饭</span></p>
 <p><span style="font-weight:bold;">20:54</span>: <span>取消了一部分日志功能</span></p>
+<h3 id="2024-09-23">2024-09-23</h3>
+<p><span style="font-weight:bold;">23:49</span>: <span>请珍惜时间，多看八股</span></p>
+<p><span style="font-weight:bold;">23:49</span>: <span>刷学习通</span></p>
+<p><span style="font-weight:bold;">23:49</span>: <span>修复了一些跳转问题</span></p>
 
         
       </div>
