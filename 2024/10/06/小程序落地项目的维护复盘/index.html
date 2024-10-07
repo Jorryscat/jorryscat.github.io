@@ -49,13 +49,13 @@
 <meta property="og:site_name" content="Jorry&#39;s Blog">
 <meta property="og:description" content="上学期末给甲方外包做了一个餐饮类小程序，本着锻炼实际开发能力的想法 ，完成了本次开发工作，直到上线以后，出现了一些或大或小的问题，现在就前端部分做简单复盘，防止以后重新踩坑。题外话，今天在git bash的时候发现hexo命令一直提醒not found，思考一会原来是node版本没有切回来，释然地笑了，还好没重装。  本次记录的需要维护和优化的地方主要是两个，一个是优化加载卡顿问题（ios比较明">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic.imgdb.cn/item/6702d87fd29ded1a8c945c76.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6703a0dcd29ded1a8c42b0f9.png">
 <meta property="article:published_time" content="2024-10-06T15:07:09.000Z">
-<meta property="article:modified_time" content="2024-10-06T18:59:07.256Z">
+<meta property="article:modified_time" content="2024-10-07T08:51:40.514Z">
 <meta property="article:author" content="Jorry">
 <meta property="article:tag" content="uniapp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/6702d87fd29ded1a8c945c76.png">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6703a0dcd29ded1a8c42b0f9.png">
   
     <link rel="alternate" href="/atom.xml" title="Jorry's Blog" type="application/atom+xml">
   
@@ -572,8 +572,8 @@ function loadImage(){
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm1xy6ex80001gkfzf81henfs">
-        <img src="https://pic.imgdb.cn/item/6702d87fd29ded1a8c945c76.png" itemprop="image">
+      <a class="article-gallery-img" rel="gallery_cm1yrx1nh00010gfzf9rj03is">
+        <img src="https://pic.imgdb.cn/item/6703a0dcd29ded1a8c42b0f9.png" itemprop="image">
       </a>
     
   </div>
@@ -631,16 +631,15 @@ function loadImage(){
 </blockquote>
 <p><strong>代码逻辑和实际使用不是一回事，浏览器预览和真机调试不是一回事，样机和多型号设备不是一回事</strong>。非常pleasant (pressed) 的开发体验。</p>
 <p>好的，于时着手分析卡的地方，第一个把图片尺寸太大这事拿出来解决，小程序货架一共接近70件商品，把尺寸大得天理不容的图片尽可能压缩了一遍，速度果然提上来了。毕竟是小户型，不如饿了么美团这些大号豪庭户型，智能程度不是特别可观，自然不存在在小程序自动压缩的功能（<s>毕竟那么点启动资金不是</s>）[bitter smile]</p>
-<p>第二个比较明显的是scoll-view组件存在的卡顿问题，取消了<code>scroll-with-animation</code>属性，开发者调试觉得美滋滋的动画这个时候也不能用了，用了就一个字：卡。</p>
+<p>第二个比较明显的是scroll-view组件存在的卡顿问题，取消了<code>scroll-with-animation</code>属性，开发者调试觉得美滋滋的动画这个时候也不能用了，用了就一个字：卡。</p>
 <p>第二个是为ios增加了非常友好的一行css</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-<span class="attribute">overflow</span>-scrolling: touch;</span><br></pre></td></tr></table></figure>
 <p>与此同时在pages.json中取消下拉刷新</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enablePullDownRefresh<span class="string">&quot;:&quot;</span><span class="literal"><span class="keyword">true</span></span><span class="string">&quot;,</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;enablePullDownRefresh&quot;</span><span class="punctuation">:</span><span class="string">&quot;true&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
 <p>解决的第三个方法是增加占位符，我是用的是骨架屏，自己定义了一个合适的骨架屏，在加载的时候显示，避免出现两秒的空白。</p>
 <p>经过优化，小程序整个初始化流程下来速度提升了至少4倍。</p>
-<p>我觉得罪魁祸首就是图片质量太高了，在保持图片可视和内存占用之间</p>
-<p>只能折合选择合适的压缩程度，但是为了运行顺畅，建议单张图片占用内存不超过100k。</p>
-<p>关于scrollview的性能问题，感觉吐槽的人也不少了，建议下次了解一下虚拟滚动列表（vue-virtual-scroller）。</p>
+<p>我觉得罪魁祸首就是图片质量太高了，在保持图片可视和内存占用之间只能折合选择合适的压缩程度，但是为了运行顺畅，建议单张图片占用内存不超过100k。</p>
+<p>关于scroll-view的性能问题，感觉吐槽的人也不少了，建议下次了解一下虚拟滚动列表（vue-virtual-scroller）。</p>
 <p>二来是首次加载异常问题，这个在真机调试过程中都没发现，只是在上架后客户反映存在这样的 问题，但在测试的过程中很难捕捉到。考虑是网络不稳定导致的请求中断，此时正确的逻辑执行不了，就会导致加载失败，骨架屏无法正确隐藏。</p>
 <p>思索再三，在找不到更好的解决方法之前，只能允许重复请求并设置请求次数检查。具体思路如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">onload</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">init</span>();  <span class="comment">//初始化函数</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">startPolling</span>();  <span class="comment">//检查函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
