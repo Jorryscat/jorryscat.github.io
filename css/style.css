@@ -548,7 +548,6 @@ body {
   background-color: #154d97; /* 高贡献的颜色 */
 }
 #top-wrapper {
-  margin-bottom: 24px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -563,17 +562,27 @@ body {
 @media screen and (min-width: 1024px) {
   #top-wrapper {
     margin-left: 6px;
+    margin-bottom: 24px;
   }
 }
 @media screen and (max-width: 767px) {
   #top-wrapper {
-    -webkit-box-direction: reverse;
-    -moz-box-direction: reverse;
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    -webkit-flex-direction: column-reverse;
-    -ms-flex-direction: column-reverse;
-    flex-direction: column-reverse;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    margin-bottom: 18px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #top-wrapper {
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    margin-bottom: 18px;
   }
 }
 #top-right-wrapper {
@@ -590,12 +599,25 @@ body {
 }
 @media screen and (max-width: 767px) {
   #top-right-wrapper {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
+    width: 74px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: box;
+    display: flex;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    max-width: 66px;
+    height: 66px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -627,13 +649,14 @@ body {
 }
 @media screen and (max-width: 767px) {
   #log-wrapper {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    margin-top: 16px;
+    -webkit-box-flex: 4;
+    -moz-box-flex: 4;
+    box-flex: 4;
+    -webkit-flex: 4;
+    -ms-flex: 4;
+    flex: 4;
+    margin-right: 16px;
+    height: 66px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -645,7 +668,6 @@ body {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    margin-top: 16px;
   }
 }
 .log-date {
@@ -686,7 +708,6 @@ body {
 #loading-message {
   font-size: 14px;
   color: var(--neut-L50);
-  height: 50px;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -703,6 +724,11 @@ body {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+}
+@media screen and (max-width: 767px) {
+  #loading-message {
+    font-size: 13px;
+  }
 }
 #top-right-wrapper,
 .aplayer .aplayer-body {
@@ -792,7 +818,6 @@ body {
   -webkit-align-items: end;
   align-items: end;
 }
-.aplayer.aplayer-withlrc .aplayer-pic,
 .aplayer.aplayer-withlrc .aplayer-lrc,
 .aplayer-list,
 .aplayer-notice,
@@ -813,14 +838,31 @@ body {
   color: var(--main-title);
   font-weight: 600;
 }
+@media screen and (max-width: 767px) {
+  .aplayer .aplayer-info .aplayer-music .aplayer-title {
+    display: none;
+  }
+}
 .aplayer .aplayer-info .aplayer-music .aplayer-author {
   color: var(--neut-L50);
   margin-left: 6px;
+}
+@media screen and (max-width: 767px) {
+  .aplayer .aplayer-info .aplayer-music .aplayer-author {
+    display: none;
+  }
 }
 .aplayer-icon.aplayer-icon-play,
 .aplayer-icon.aplayer-icon-back,
 .aplayer-icon.aplayer-icon-forward {
   display: block;
+}
+@media screen and (max-width: 767px) {
+  .aplayer-icon.aplayer-icon-play,
+  .aplayer-icon.aplayer-icon-back,
+  .aplayer-icon.aplayer-icon-forward {
+    display: none;
+  }
 }
 .aplayer-icon.aplayer-icon-forward {
   margin-left: 12px;
@@ -831,15 +873,34 @@ body {
 .aplayer.aplayer-withlist .aplayer-info {
   border: none;
 }
+@media screen and (max-width: 767px) {
+  .aplayer.aplayer-withlist .aplayer-info {
+    display: none;
+  }
+}
 .aplayer-info,
 .aplayer {
   -webkit-box-shadow: none;
   box-shadow: none;
   background: rgba(255,255,255,0);
 }
-.aplayer.aplayer-withlrc .aplayer-pic {
-  height: 0;
-  width: 0;
+@media screen and (max-width: 767px) {
+  .aplayer.aplayer-withlrc .aplayer-pic {
+    display: block;
+    height: 70px;
+    width: 70px;
+    border-radius: 10px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .aplayer.aplayer-withlrc .aplayer-pic {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .aplayer.aplayer-withlrc .aplayer-pic {
+    display: none;
+  }
 }
 .aplayer.aplayer-withlrc .aplayer-info {
   margin: 0;
@@ -849,6 +910,11 @@ body {
 .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar {
   height: 2px;
   background: var(--contribute-default);
+}
+@media screen and (max-width: 767px) {
+  .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar {
+    display: none;
+  }
 }
 .article-date,
 .article-category-link,

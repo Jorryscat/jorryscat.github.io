@@ -49,8 +49,8 @@
 <meta property="og:site_name" content="Jorry&#39;s Blog">
 <meta property="og:description" content="2024-09-14 21:54: 修改了网页的播放器暂停功能 11:53: 用了pjax没什么很好的效果💢 11:53: 兜兜转转又用回了原来的方法 2024-09-15 23:16: 刷学习通 23:13: … 23:12: 终于找到bug了 22:47: 再测了一次日志模块 22:27: 测试 22:15: 睡了好久的觉 17:43: 完成日志模块的代码🆗 17:23: 学学计网 202">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-09-24T13:35:38.034Z">
-<meta property="article:modified_time" content="2024-09-24T13:35:38.034Z">
+<meta property="article:published_time" content="2024-10-07T12:29:26.729Z">
+<meta property="article:modified_time" content="2024-10-07T12:29:26.729Z">
 <meta property="article:author" content="Jorry">
 <meta name="twitter:card" content="summary">
   
@@ -91,6 +91,7 @@ if (metingElement) {
     Object.defineProperty(metingElement, "aplayer", {
         set: function(aplayer) {
             ap = aplayer;
+            document.getElementById("loading-message").style.display = "none";
             ready();
         }
     });
@@ -99,7 +100,6 @@ if (metingElement) {
 }
 
 function ready() {
-  document.getElementById("loading-message").style.display = "none";
   ap.on('canplay', handleCanPlay);
 }
 
@@ -563,7 +563,7 @@ function loadImage(){
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-09-24T13:35:38.034Z" itemprop="datePublished">2024-09-24</time>
+  <time class="dt-published" datetime="2024-10-07T12:29:26.729Z" itemprop="datePublished">2024-10-07</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -574,7 +574,7 @@ function loadImage(){
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            334 words 
+            360 words 
           </div>
         </div>
         
@@ -605,6 +605,8 @@ function loadImage(){
 <p><span style="font-weight:bold;">21:35</span>: <span>最近觉得penton的布局很好看</span></p>
 <p><span style="font-weight:bold;">21:34</span>: <span>在考虑是否给博客换一套UI</span></p>
 <p><span style="font-weight:bold;">21:34</span>: <span>修改了播放器移动端的样式 😃</span></p>
+<h3 id="2024-10-07">2024-10-07</h3>
+<p><span style="font-weight:bold;">20:29</span>: <span>修改手机端播放器样式</span></p>
 
         
       </div>

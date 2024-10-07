@@ -91,6 +91,7 @@ if (metingElement) {
     Object.defineProperty(metingElement, "aplayer", {
         set: function(aplayer) {
             ap = aplayer;
+            document.getElementById("loading-message").style.display = "none";
             ready();
         }
     });
@@ -99,7 +100,6 @@ if (metingElement) {
 }
 
 function ready() {
-  document.getElementById("loading-message").style.display = "none";
   ap.on('canplay', handleCanPlay);
 }
 
@@ -531,7 +531,29 @@ function loadImage(){
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
 </div>
 
-    <p class="log-tip">今天还没有记录活动。</p>
+    <div id="log-container" class="log-container">
+        <div id="log-activity" class="log-activity">20:29  修改手机端播放器样式</div>
+    </div>
+
+    <script>
+        // 转换活动数据为 JSON 数组
+        const activities = ["20:29  修改手机端播放器样式"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+            const logActivity = document.getElementById('log-activity');
+            logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+            // 等待滚动结束后再更新内容
+            setTimeout(() => {
+                logActivity.textContent = activities[currentIndex]; // 更新内容
+                logActivity.style.transform = 'translateY(0)'; // 归位
+            }, 500); // 滚动效果持续时间
+        }, 3000); // 每3秒切换一次
+    </script>
+
 
 
 <script>
