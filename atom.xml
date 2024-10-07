@@ -6,7 +6,7 @@
   <link href="https://www.jorryscat.cn/atom.xml" rel="self"/>
   
   <link href="https://www.jorryscat.cn/"/>
-  <updated>2024-10-07T11:50:51.098Z</updated>
+  <updated>2024-10-07T16:54:17.030Z</updated>
   <id>https://www.jorryscat.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>blender体验</title>
+    <link href="https://www.jorryscat.cn/2024/10/08/blender%E4%BD%93%E9%AA%8C/"/>
+    <id>https://www.jorryscat.cn/2024/10/08/blender%E4%BD%93%E9%AA%8C/</id>
+    <published>2024-10-07T16:17:44.000Z</published>
+    <updated>2024-10-07T16:54:17.030Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>有时间再来记，要sleep了。</p><p>是的，长筒袜配拖鞋。</p><p>之前玩过一阵子blender，国庆这几天又拿出来捏一捏，复习了一遍基本操作，修改器，权重控制，骨骼绑定…骨骼绑定的话使用 Auto-Rig pro非常之方便，好用，值得推荐。</p><p><img src="https://pic.imgdb.cn/item/67040d48d29ded1a8cc3177f.png" alt></p><p><img src="https://pic.imgdb.cn/item/67040ce1d29ded1a8cc2b7b9.png" alt></p><p>拖鞋太极男孩</p><p><img src="https://pic.imgdb.cn/item/67041204d29ded1a8cc72185.png" alt></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="阶段学习" scheme="https://www.jorryscat.cn/categories/%E9%98%B6%E6%AE%B5%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="建模工具" scheme="https://www.jorryscat.cn/categories/%E9%98%B6%E6%AE%B5%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E6%A8%A1%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="blender" scheme="https://www.jorryscat.cn/tags/blender/"/>
+    
+  </entry>
   
   <entry>
     <title>小程序落地项目的维护复盘</title>
