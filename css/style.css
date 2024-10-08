@@ -1528,7 +1528,7 @@ navbar {
   gap: 4px;
 }
 .article {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 @media screen and (min-width: 1024px) {
   .article {
