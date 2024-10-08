@@ -84,10 +84,10 @@ document.addEventListener("DOMContentLoaded", function() {
 const metingElement = document.querySelector('meting-js');
 
 if (metingElement) {
+    document.getElementById("loading-message").style.display = "none";
     Object.defineProperty(metingElement, "aplayer", {
         set: function(aplayer) {
             ap = aplayer;
-            document.getElementById("loading-message").style.display = "none";
             ready();
         }
     });

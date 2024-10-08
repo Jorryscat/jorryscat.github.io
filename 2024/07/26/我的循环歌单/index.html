@@ -91,10 +91,10 @@ document.addEventListener("DOMContentLoaded", function() {
 const metingElement = document.querySelector('meting-js');
 
 if (metingElement) {
+    document.getElementById("loading-message").style.display = "none";
     Object.defineProperty(metingElement, "aplayer", {
         set: function(aplayer) {
             ap = aplayer;
-            document.getElementById("loading-message").style.display = "none";
             ready();
         }
     });
@@ -610,7 +610,7 @@ function loadImage(){
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm1zz0cr2000cm4fzhv5j37v3">
+      <a class="article-gallery-img" rel="gallery_cm1zz434f0009c8fz1hlibq29">
         <img src="/covers/7-26.png" itemprop="image">
       </a>
     
