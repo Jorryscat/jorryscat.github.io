@@ -916,6 +916,9 @@ body {
     display: none;
   }
 }
+.aplayer {
+  display: none;
+}
 .article-date,
 .article-category-link,
 .archive-year {

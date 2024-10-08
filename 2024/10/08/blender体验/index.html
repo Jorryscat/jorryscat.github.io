@@ -82,7 +82,8 @@ window.onload = () => {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  loadImage();
+  document.getElementById('loading').style.display = 'none';
+  // loadImage();
   
   // Your JavaScript code here
   let ap = null;
@@ -91,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
 const metingElement = document.querySelector('meting-js');
 
 if (metingElement) {
-    document.getElementById("loading-message").style.display = "none";
     Object.defineProperty(metingElement, "aplayer", {
         set: function(aplayer) {
             ap = aplayer;
@@ -124,6 +124,8 @@ function handleCanPlay() {
             isRecover = true;
         }
     }
+    document.getElementById('loading-message').style.display = 'none';
+    document.querySelector('.aplayer').style.display = 'block';
 }
 
 function clearLocalStorage() {
@@ -146,50 +148,6 @@ function saveCurrentMusicState() {
     } catch (error) {
         console.error("Error saving to localStorage:", error);
     }
-}
-
-
-// 加载完图片之后隐藏loading
-function loadImage(){
-  document.getElementById('loading').style.display="none"
-  return;
-   // 获取所有具有类 right-panel 和 with-pic 的 a 标签
-    const rightPanelLinks = document.querySelectorAll('.right-panel.with-pic');
-    if(rightPanelLinks){
-      const totalImages = rightPanelLinks.length;
-      let loadedImagesCount = 0;
-
-    // 遍历所有 a 标签
-    rightPanelLinks.forEach((link) => {
-        // 获取背景图片的 URL
-        const backgroundImageUrl = getComputedStyle(link).backgroundImage.slice(4, -1).replace(/"/g, "");
-        
-        // 创建新的 Image 对象进行预加载
-        const img = new Image();
-        img.src = backgroundImageUrl;
-
-        // 图片加载完成后计数
-        img.onload = function() {
-            loadedImagesCount++;
-            checkAllImagesLoaded();
-        };
-
-        img.onerror = function() {
-            console.error('Failed to load background image:', backgroundImageUrl);
-            loadedImagesCount++;
-            checkAllImagesLoaded();
-        };
-    });
-
-    // 检查所有图片是否都已加载
-    function checkAllImagesLoaded() {
-        if (loadedImagesCount === totalImages) {
-            document.getElementById('loading').style.display="none"
-        }
-    }
-
-    }else console.log("不存在这个")
-   
 }
 
 
@@ -610,7 +568,7 @@ function loadImage(){
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm1zz43450001c8fz3dhxfro9">
+      <a class="article-gallery-img" rel="gallery_cm204cgne0001z4fz7i6o43jb">
         <img src="https://pic.imgdb.cn/item/67040e11d29ded1a8cc3e17d.png" itemprop="image">
       </a>
     
