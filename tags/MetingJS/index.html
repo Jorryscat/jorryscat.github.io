@@ -436,9 +436,14 @@ function saveCurrentMusicState() {
                 <div class="category-count">2</div>
             </a>
         <div class="children"><div class="category-box">
-            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF/">
-                前端
-                <div class="category-count">2</div>
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/uniapp/">
+                uniapp
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%92%8C%E6%96%B9%E5%90%91/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">
+                前端基础
+                <div class="category-count">1</div>
             </a>
         </div></div>
             <a class="category-link" href="/categories/%E7%94%9F%E6%B4%BB%E7%A2%8E%E7%89%87/">
@@ -506,29 +511,7 @@ function saveCurrentMusicState() {
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
 </div>
 
-    <div id="log-container" class="log-container">
-        <div id="log-activity" class="log-activity">12:57  无所事事</div>
-    </div>
-
-    <script>
-        // 转换活动数据为 JSON 数组
-        const activities = ["12:57  无所事事","12:58  好困好困"];
-        let currentIndex = 0;
-
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % activities.length; // 循环索引
-
-            const logActivity = document.getElementById('log-activity');
-            logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
-
-            // 等待滚动结束后再更新内容
-            setTimeout(() => {
-                logActivity.textContent = activities[currentIndex]; // 更新内容
-                logActivity.style.transform = 'translateY(0)'; // 归位
-            }, 500); // 滚动效果持续时间
-        }, 3000); // 每3秒切换一次
-    </script>
-
+    <p class="log-tip">今天还没有记录活动。</p>
 
 
 <script>
