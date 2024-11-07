@@ -390,6 +390,12 @@ function saveCurrentMusicState() {
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
         
+          <a class="recent-link" href="/2024/11/07/jorry%E8%AF%B7%E5%A4%9A%E7%9C%8B%E7%9C%8Bgit%E5%91%BD%E4%BB%A4/" title="jorry请多看看git命令" >
+            <div class="recent-link-text">
+              jorry请多看看git命令
+            </div>
+          </a>
+        
           <a class="recent-link" href="/2024/10/08/blender%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/" title="blender使用体验" >
             <div class="recent-link-text">
               blender使用体验
@@ -472,7 +478,7 @@ function saveCurrentMusicState() {
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">Tags</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/MetingJS/" rel="tag">MetingJS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/blender/" rel="tag">blender</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%90%B4%E9%9D%92%E5%B3%B0/" rel="tag">吴青峰</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%AD%94%E6%94%B9/" rel="tag">魔改</a></li></ul>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/MetingJS/" rel="tag">MetingJS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/blender/" rel="tag">blender</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%90%B4%E9%9D%92%E5%B3%B0/" rel="tag">吴青峰</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%AD%94%E6%94%B9/" rel="tag">魔改</a></li></ul>
     </div>
   </div>
 
@@ -483,6 +489,11 @@ function saveCurrentMusicState() {
     <div class="widget">
       <h3 class="widget-title">Archives</h3>
       
+      
+        <a class="archive-link" href="/archives/2024/11 ">
+          November 2024 
+          <div class="archive-count">1 </div>
+        </a>
       
         <a class="archive-link" href="/archives/2024/10 ">
           October 2024 
@@ -518,7 +529,29 @@ function saveCurrentMusicState() {
     <i class="fa-solid fa-bars-staggered" id="log-history"></i>
 </div>
 
-    <p class="log-tip">今天还没有记录活动。</p>
+    <div id="log-container" class="log-container">
+        <div id="log-activity" class="log-activity">22:03  继续努力！</div>
+    </div>
+
+    <script>
+        // 转换活动数据为 JSON 数组
+        const activities = ["22:03  继续努力！","22:03  搞搞简历吧"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % activities.length; // 循环索引
+
+            const logActivity = document.getElementById('log-activity');
+            logActivity.style.transform = 'translateY(-100%)'; // 向上滚动
+
+            // 等待滚动结束后再更新内容
+            setTimeout(() => {
+                logActivity.textContent = activities[currentIndex]; // 更新内容
+                logActivity.style.transform = 'translateY(0)'; // 归位
+            }, 500); // 滚动效果持续时间
+        }, 3000); // 每3秒切换一次
+    </script>
+
 
 
 <script>
@@ -537,7 +570,7 @@ function saveCurrentMusicState() {
     <meting-js 
       server="netease" 
       type="playlist" 
-      id="12364890712" 
+      id="12782946034" 
       list-folded="true" 
       lrc-type="0" 
       theme="#79cbfa" 
@@ -556,7 +589,7 @@ function saveCurrentMusicState() {
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cm22pupq70008csfz2mfs79v9">
+      <a class="article-gallery-img" rel="gallery_cm37dpq4a000ac0fzancfd5cs">
         <img src="https://pic.imgdb.cn/item/67055a5ad29ded1a8cdb829d.png" itemprop="image">
       </a>
     
